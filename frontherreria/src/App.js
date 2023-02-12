@@ -25,6 +25,7 @@ function App() {
       <div className="App">
         <Routes>
           {/* forms */}
+          <Route path='/' element={<Navigate to={'/home'} replace/>}/>
           <Route path='home' element={<Home />} />
           <Route path='register/admin' element={<AdminRegistro />} />
           <Route path='register/herrero' element={<HerreroRegistro />} />
@@ -41,6 +42,13 @@ function App() {
           {/* menues de los Herreros */}
           <Route path='herreros/tareas/pendientes' element={<HerreroTareasPendientes />} />
           <Route path='herreros/tareas/modificar' element={<HerreroModificarTareas />} />
+
+    <Route path='*' element={
+      <div>
+        <h2>404 page not Found</h2>
+      </div>
+    }/>
+
         </Routes>
       </div>
     </BrowserRouter>

@@ -25,6 +25,7 @@ function App() {
       <div className="App">
         <Routes>
           {/* forms */}
+          <div>Hola</div>
           <Route path='home' element={<Home />} />
           <Route path='register/admin' element={<AdminRegistro />} />
           <Route path='register/herrero' element={<HerreroRegistro />} />

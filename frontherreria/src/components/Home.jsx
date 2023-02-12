@@ -19,9 +19,6 @@ font-family: 'Rakkas', cursive;
 margin: 100px;
 color: white;
 text-shadow: 0 0 0.2em #fbdd1a, 0 0 0.2em #fbdd1a,0 0 0.2em #fbdd1a;
-@media (min-width: 800px) {
-    background-color: black,
-}
 `
 
 const LoginContainer = styled.div`

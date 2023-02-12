@@ -1,7 +1,11 @@
+import HerreroNavBar from "./HerreroNavBar";
+
 const HerreroModificarTareas = ()=> {
 
     return (
-        <div></div>
+        <div>
+            <HerreroNavBar />
+        </div>
     );
     
 }

@@ -1,7 +1,11 @@
+import AdminNavBar from "./AdminNavBar";
+
 const AdminRegistro = ()=> {
 
     return (
-        <div></div>
+        <div>
+            <AdminNavBar />
+        </div>
     );
     
 }

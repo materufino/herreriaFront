@@ -3,6 +3,7 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 
 import ListaArtefactos from './components/ListaArtefactos';
 import AdminRegistro from './components/admin/AdminRegistro';
+import AdminNavBar from './components/admin/AdminNavBar';
 import HerreroRegistro from './components/admin/HerreroRegistro';
 import NuevoPedido from './components/admin/NuevoPedido';
 import AdminMenu from './components/admin/AdminMenu';
@@ -15,14 +16,16 @@ import HerreroMenu from './components/herrero/HerreroMenu';
 import HerreroTareasPendientes from './components/herrero/HerreroTareasPendientes';
 import HerreroModificarTareas from './components/herrero/HerreroModificarTareas';
 import Home from './components/Home';
+import HerreroNavBar from './components/herrero/HerreroNavBar';
+
 
 function App() {
   return (
     <BrowserRouter>
       <div className="App">
         <Routes>
-          <Route path='home' element={<Home />} />
           {/* forms */}
+          <Route path='home' element={<Home />} />
           <Route path='register/admin' element={<AdminRegistro />} />
           <Route path='register/herrero' element={<HerreroRegistro />} />
           <Route path='pedidos/nuevo' element={<NuevoPedido />} />

@@ -1,7 +1,11 @@
+import HerreroNavBar from "./HerreroNavBar";
+
 const HerreroMenu = ()=> {
 
     return (
-        <div></div>
+        <div>
+            <HerreroNavBar />
+        </div>
     );
     
 }

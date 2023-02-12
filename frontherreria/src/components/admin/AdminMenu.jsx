@@ -1,7 +1,14 @@
+import AdminNavBar from "./AdminNavBar";
+
+
 const AdminMenu = ()=> {
 
     return (
-        <div></div>
+        
+        <div>
+            <AdminNavBar />
+        </div>
+
     );
     
 }

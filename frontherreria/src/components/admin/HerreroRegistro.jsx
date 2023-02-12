@@ -1,7 +1,11 @@
+import AdminNavBar from "./AdminNavBar";
+
 const HerreroRegistro = ()=> {
 
     return (
-        <div></div>
+        <div>
+            <AdminNavBar />
+        </div>
     );
     
 }

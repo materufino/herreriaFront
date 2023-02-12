@@ -1,7 +1,11 @@
+import AdminNavBar from "./AdminNavBar";
+
 const PedidoCreado = ()=> {
 
     return (
-        <div></div>
+        <div>
+            <AdminNavBar />
+        </div>
     );
     
 }

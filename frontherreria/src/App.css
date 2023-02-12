@@ -43,6 +43,10 @@ table {
 	border-spacing: 0;
 }
 
+a{
+  text-decoration: none;
+}
+
 /* RESET ENDS */
 
 
@@ -69,4 +73,56 @@ img {
     background-image: url('../src/Assets/main-background.jpg');
     background-size: cover;
     font-family: 'Alegreya Sans', sans-serif;
+  }
+
+  button{
+    position:relative;
+    overflow:hidden;
+
+    padding:10px 20px 10px 20px;
+    color: #3a1603;
+    font-weight:400;
+    font-size:18px;
+    border-radius:5px;
+    font-family: 'Alegreya Sans', sans-serif;
+    border: 1px solid black;
+    text-transform:uppercase;
+    box-shadow:-2px 2px 2px #ccc;
+    background-color:#ffd770;
+    cursor: pointer;
+  }
+  
+  /*        sheen effect      */
+  /*This is the base aniamtion*/
+  .sheen:after{
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    bottom: -50%;
+    left: -50%;
+    background: linear-gradient(to bottom, rgba(229, 172, 142, 0), rgba(255,255,255,0.5) 50%, rgba(229, 172, 142, 0));
+    transform: rotateZ(60deg) translate(-5em, 7.5em);
+  }
+  /*This activates the sheen once the button has been hovered*/
+  .sheen:hover::after, button:focus::after {
+    animation: sheen 1s forwards;
+  }
+  @keyframes sheen {
+    100% {
+      transform: rotateZ(60deg) translate(1em, -9em);
+    }
+  }
+  
+  button:active{
+    box-shadow:0px 0px 0px white;
+    -webkit-box-shadow: inset -2px 2px 2px #ccc;
+    -moz-box-shadow:    inset -2px 2px 2px #ccc;
+    box-shadow:         inset -2px 2px 2px #ccc;
+    transform:translate(0, 2px);
+    color:#FFC491;
+    background-color:#EDE358;
+  }
+  button:focus{
+    outline:0;
   }

@@ -1,7 +1,11 @@
+import AdminNavBar from "./AdminNavBar";
+
 const Clientes = ()=> {
 
     return (
-        <div></div>
+        <div>
+            <AdminNavBar />
+        </div>
     );
     
 }

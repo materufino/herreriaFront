@@ -7,6 +7,7 @@ const AdminMenu = ()=> {
         
         <div>
             <AdminNavBar />
+            
         </div>
 
     );

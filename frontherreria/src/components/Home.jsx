@@ -1,4 +1,4 @@
-
+import {Link} from 'react-router-dom'
 import styled from "styled-components";
 import HomeBackground from '../Assets/home-background.jpg'
 
@@ -19,6 +19,9 @@ font-family: 'Rakkas', cursive;
 margin: 100px;
 color: white;
 text-shadow: 0 0 0.2em #fbdd1a, 0 0 0.2em #fbdd1a,0 0 0.2em #fbdd1a;
+@media (min-width: 800px) {
+    background-color: black,
+}
 `
 
 const LoginContainer = styled.div`
@@ -41,7 +44,6 @@ flex-direction: column;
 align-items: center;
 h3 {
     font-family: 'Rakkas', cursive;
-    color: #0f0905;
     font-size: 24px;
     margin-bottom: 20px;
 };
@@ -59,7 +61,12 @@ input {
 `
 
 const LoginButton = styled.button`
-    margin-top:70px;
+    margin:50px 0px 20px 0px;
+    width: 100%;
+`
+
+const DivCreaCuenta = styled.div`
+    color: black;
 `
 
 const Home = ()=> {
@@ -79,6 +86,12 @@ const Home = ()=> {
                         <input type="password"/>
                     </LabelInputContainer>
                     <LoginButton className="sheen">INGRESAR</LoginButton>
+
+                    <Link to={'../register/herrero'}>
+                        <DivCreaCuenta>
+                            ¿Aún no tienes cuenta? Pulsa aquí.
+                        </DivCreaCuenta>
+                    </Link>
                 </User>
             </LoginContainer>
         </Container>

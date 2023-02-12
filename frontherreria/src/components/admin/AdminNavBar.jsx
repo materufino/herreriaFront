@@ -31,7 +31,7 @@ const AdminNavBar = ()=> {
     color: #f6ede6;
     :hover {
         background-color: white;
-        color: #6503a1;
+        color: #3a1603;
         border-radius: 5px;
         cursor: pointer;
     }

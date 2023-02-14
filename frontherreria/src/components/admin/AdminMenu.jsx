@@ -97,9 +97,6 @@ const AdminMenu = ()=> {
                 </OptionsContainer>
             </Container>
         </div>
-
-    );
-    
-}
-
-export default AdminMenu;
+        )
+    }
+    export default AdminMenu;

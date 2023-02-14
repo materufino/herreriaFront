@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import {Link} from 'react-router-dom'
-import { useState } from "react";
+import NavBarBackground from '../../Assets/navbar-background.jpeg'
+import NavBarOptionBackground from '../../Assets/navbar-option-background.jpg'
 
 const AdminNavBar = ()=> {
 
@@ -9,9 +10,9 @@ const AdminNavBar = ()=> {
     display: flex;
     flex-direction: row;
     justify-content: end;
-    background-color: #3a1603;
+    background-image: url(${NavBarBackground});
     font-size: 26px;
-    height: 60px;
+    height: 70px;
     align-items: center;
     padding-right: 20px;
     `
@@ -24,33 +25,42 @@ const AdminNavBar = ()=> {
 
     const LiMenu = styled.li`
     list-style: none;
-    margin-left: 20px;
-    margin-right: 20px;
-    padding: 5px 10px;
+    padding: 20px 15px;
     transition: 0.25s;
     color: #f6ede6;
     :hover {
-        background-color: white;
+        background-image: url(${NavBarOptionBackground});
+        background-repeat: no-repeat;
+        background-size: 100%;
+        background-position: center;
         color: #3a1603;
-        border-radius: 5px;
         cursor: pointer;
     }
     `
-    const [items, setItems] = useState([
-    /* { label: 'Clientes', path: '/'} */,
-    { label: 'Inicio', path: '/home'},
-    { label: 'Nuevo pedido', path: '/pedidos/nuevo'},
-    { label: 'Herreros', path: '/herreros/listado'},
-    { label: 'Cerrar sesión', path: '/home'}
-])
 
     return (
             <StyledNavBar>
-                {items.map((item,index) =>(
-                    <Link to={item.path}>
-                        <LiMenu>{item.label}</LiMenu>
-                    </Link>                  
-                ))}
+                <Link to={'/menu/admin'}>
+                    <LiMenu>Inicio</LiMenu>
+                </Link> 
+                <Link to={'/pedidos/nuevo'}>
+                    <LiMenu>Nuevo Pedido</LiMenu>
+                </Link> 
+                <Link to={'/pedidos/en_curso'}>
+                    <LiMenu>Pedidos en curso</LiMenu>
+                </Link>
+                <Link to={'/pedidos/terminados'}>
+                    <LiMenu>Pedidos terminados</LiMenu>
+                </Link>
+                <Link to={'/clientes'}>
+                    <LiMenu>Clientes</LiMenu>
+                </Link> 
+                <Link to={'/herreros/listado'}>
+                    <LiMenu>Herreros</LiMenu>
+                </Link> 
+                <Link to={'/home'}>
+                    <LiMenu>Cerrar sesión</LiMenu>
+                </Link> 
             </StyledNavBar>
     );
 

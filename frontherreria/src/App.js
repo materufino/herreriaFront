@@ -35,7 +35,7 @@ function App() {
           <Route path='menu/herrero' element={<HerreroMenu />} />
           {/* menues del Admin */}
           <Route path='pedidos/creado' element={<PedidoCreado />} />
-          <Route path='pedidos/en_curso' element={<PedidosEnCurso />} />
+          <Route path='pedido5s/en_curso' element={<PedidosEnCurso />} />
           <Route path='pedidos/terminados' element={<PedidosTerminados />} />
           <Route path='clientes' element={<Clientes />} />
           <Route path='herreros/listado' element={<ListadoHerreros />} />

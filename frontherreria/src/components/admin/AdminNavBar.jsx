@@ -1,7 +1,8 @@
 import styled from "styled-components";
-import {Link} from 'react-router-dom'
+import {Link, useMatch, useResolvedPath} from 'react-router-dom'
 import NavBarBackground from '../../Assets/navbar-background.jpeg'
 import NavBarOptionBackground from '../../Assets/navbar-option-background.jpg'
+
 
 const AdminNavBar = ()=> {
 
@@ -29,41 +30,49 @@ const AdminNavBar = ()=> {
     transition: 0.25s;
     color: #f6ede6;
     :hover {
-        background-image: url(${NavBarOptionBackground});
-        background-repeat: no-repeat;
-        background-size: 100%;
-        background-position: center;
-        color: #3a1603;
+        text-shadow: 0 0 0.2em #fbdd1a, 0 0 0.2em #fbdd1a,0 0 0.2em #fbdd1a;
         cursor: pointer;
     }
     `
 
     return (
             <StyledNavBar>
-                <Link to={'/menu/admin'}>
+                <CustomLink to={'/menu/admin'}>
                     <LiMenu>Inicio</LiMenu>
-                </Link> 
-                <Link to={'/pedidos/nuevo'}>
+                </CustomLink> 
+                <CustomLink to={'/pedidos/nuevo'}>
                     <LiMenu>Nuevo Pedido</LiMenu>
-                </Link> 
-                <Link to={'/pedidos/en_curso'}>
+                </CustomLink> 
+                <CustomLink to={'/pedidos/en_curso'}>
                     <LiMenu>Pedidos en curso</LiMenu>
-                </Link>
-                <Link to={'/pedidos/terminados'}>
+                </CustomLink>
+                <CustomLink to={'/pedidos/terminados'}>
                     <LiMenu>Pedidos terminados</LiMenu>
-                </Link>
-                <Link to={'/clientes'}>
+                </CustomLink>
+                <CustomLink to={'/clientes'}>
                     <LiMenu>Clientes</LiMenu>
-                </Link> 
-                <Link to={'/herreros/listado'}>
+                </CustomLink> 
+                <CustomLink to={'/herreros/listado'}>
                     <LiMenu>Herreros</LiMenu>
-                </Link> 
-                <Link to={'/home'}>
+                </CustomLink> 
+                <CustomLink to={'/home'}>
                     <LiMenu>Cerrar sesión</LiMenu>
-                </Link> 
+                </CustomLink> 
             </StyledNavBar>
     );
 
+}
+
+const CustomLink = ({to, children, ...props}) => {
+    const resolvedPath = useResolvedPath(to)
+    const isActive = useMatch({path: resolvedPath.pathname, end: true})
+    return (
+
+            <Link className={isActive ? "active" : ""} to={to} {...props} >
+            {children}
+            </Link>
+
+    );
 }
 
 export default AdminNavBar;

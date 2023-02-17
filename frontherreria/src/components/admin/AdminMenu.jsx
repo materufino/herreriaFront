@@ -28,7 +28,7 @@ gap: 10px;
 `
 const CardDiv = styled.div`
 width: 60%;
-margin-left: 15px;
+margin-left: 10px;
 `
 
 const CardImg = styled.img`
@@ -78,7 +78,7 @@ const AdminMenu = ()=> {
                         <OptionCard>
                         <CardImg style={{marginLeft: '10px'}} src={PedidosEnCursoImg}/>
                         <h3>Pedidos en curso</h3>
-                        <CardDiv>Muestra un listado de pedidos en curso y sus respectivos estados</CardDiv>
+                        <CardDiv style={{marginLeft: '30px'}}>Muestra un listado de pedidos en curso y sus respectivos estados</CardDiv>
                         </OptionCard>  
                     </Link>
 

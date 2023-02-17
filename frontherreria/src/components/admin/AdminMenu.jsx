@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
 import AdminNavBar from "./AdminNavBar";
 import MenuOptionBackground from "../../Assets/menu-option-background.png"
 import NuevoPedidoImg from '../../Assets/nuevo-pedido.png'
-
+import PedidosEnCursoImg from '../../Assets/pedidos-en-curso.png'
 
 const Container = styled.div`
 display: flex;
@@ -28,6 +28,7 @@ gap: 10px;
 `
 const CardDiv = styled.div`
 width: 60%;
+margin-left: 15px;
 `
 
 const CardImg = styled.img`
@@ -75,7 +76,7 @@ const AdminMenu = ()=> {
 
                     <Link to={'../pedidos/en_curso'}>
                         <OptionCard>
-                        <CardImg src=""/>
+                        <CardImg style={{marginLeft: '10px'}} src={PedidosEnCursoImg}/>
                         <h3>Pedidos en curso</h3>
                         <CardDiv>Muestra un listado de pedidos en curso y sus respectivos estados</CardDiv>
                         </OptionCard>  

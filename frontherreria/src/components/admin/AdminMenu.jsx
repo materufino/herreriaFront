@@ -2,6 +2,8 @@ import styled from "styled-components";
 import {Link} from 'react-router-dom'
 import AdminNavBar from "./AdminNavBar";
 import MenuOptionBackground from "../../Assets/menu-option-background.png"
+import NuevoPedidoImg from '../../Assets/nuevo-pedido.png'
+
 
 const Container = styled.div`
 display: flex;
@@ -65,7 +67,7 @@ const AdminMenu = ()=> {
                 <OptionsContainer>
                     <Link to={'../pedidos/nuevo'}>
                         <OptionCard>
-                            <CardImg src=""/>
+                            <CardImg style={{marginLeft: '20px'}} src={NuevoPedidoImg}/>
                             <h3>Crear un nuevo pedido</h3>
                             <CardDiv>Gestiona reparaciones y fabricaciones</CardDiv>
                         </OptionCard>  

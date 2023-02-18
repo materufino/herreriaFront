@@ -3,14 +3,74 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import AdminNavBar from "./AdminNavBar";
-import ListaArtefactos from "../ListaArtefactos";
+import CartBackgroundImg from "../../Assets/cart-background.png"
 
-const Container = styled.div`
+
+const TopBodyContainer = styled.div`
+display: flex;
+justify-content: end;
+align-items: flex-end;
+width: 100%;
+gap: 50px;
+`
+
+const CartContainer = styled.div`
+margin-right: 100px;
+margin-left: -200px;
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+width: 550px;
+height: 530px;
+background-image: url(${CartBackgroundImg});
+background-size: cover;
+border: 1px solid #0f0905;
+border-radius: 10px;
+gap: 20px;
+padding: 20px;
+position: relative;
+:last-child {
+    align-items: flex-end;
+}
+`
+
+const CartInfoContainer = styled.div`
+width: 70%;
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+margin-top: 50px;
+gap: 30px;
+
+`
+
+const SummaryContainer = styled.div`
+width: 100%;
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+font-weight: 700;
+font-size: 20px;
+gap: 30px;
+`
+
+const Button = styled.button`
+position: absolute;
+bottom: 3px;
+right: 30px;
+background-color: #00bd00df;
+height: 30px;
+text-align: center;
+padding: 5px;
+color: white;
+`
+
+const FormContainer = styled.div`
 display: flex;
 flex-direction: column;
 align-items: center;
 width: 100%;
-height: 100vh;
+/* height: 100vh; */
 `
 
 const Select = styled.select`
@@ -33,6 +93,9 @@ border: 1px solid #0f0905;
 border-radius: 10px;
 gap: 20px;
 padding: 20px;
+:last-child {
+    align-items: flex-end;
+}
 `
 
 const ArtefactoRenglon = styled.div`
@@ -58,7 +121,7 @@ height: 100px;
 const Encabezado = styled.h1`
 font-size: 50px;
 font-family: 'Rakkas', cursive;
-margin: 70px;
+margin: 20px;
 color: #3a1603;
 `
 
@@ -281,7 +344,7 @@ const listaArtefactos = [
     precio_artefacto_nuevo: 8,
     demora_artefacto_nuevo: 24
     }];
-    
+
 //para saber qué especialidades hay
 const todasLasEspecialidades = listaArtefactos.map(artefacto => artefacto.especialidad)
 //para remover especialidades duplicadas
@@ -293,6 +356,7 @@ const especialidades = todasLasEspecialidades.filter(onlyUnique).sort();
 const tiposDeObjetos = listaArtefactos.map(artefacto => artefacto.nombre).sort();
 
 const arrDeObjetosArmas = listaArtefactos.filter(artefacto => artefacto.especialidad === 'Armas');
+
 const armas = arrDeObjetosArmas.map(arma => arma.nombre).sort();
 
 const arrDeObjetosArmaduras = listaArtefactos.filter(artefacto => artefacto.especialidad === 'Armaduras');
@@ -301,15 +365,37 @@ const armaduras = arrDeObjetosArmaduras.map(arma => arma.nombre).sort();
 const arrDeObjetosHerramientas = listaArtefactos.filter(artefacto => artefacto.especialidad === 'Herramientas');
 const herramientas = arrDeObjetosHerramientas.map(arma => arma.nombre).sort();
 
-/* const [tiposDeObjeto, setTiposDeObjeto] = useEffect(tiposDeObjetos) */
 
 
 const NuevoPedido = ()=> {
 
+    const [imagen, setImagen] = useState('yellow-image')
+
+    const cambiaImagen = (e)=> {
+        setImagen(e.target.value.toLowerCase())
+        console.log(imagen)
+    }
+
+    const [tipoDeObjeto, setTipoDeObjeto] = useState([])
+
+    const cambiaTipoDeObjeto = (e)=>{
+        switch (e.target.value){
+            case 'Armas': setTipoDeObjeto([...armas]);
+            break;
+            case 'Armaduras' : setTipoDeObjeto([...armaduras]);
+            break;
+            case 'Herramientas' : setTipoDeObjeto([...herramientas]);
+            break;
+            default:
+        }
+    }
+
     return (
         <div>
             <AdminNavBar />
-            <Container>
+            <TopBodyContainer>
+
+            <FormContainer>
                 <Encabezado>
                     CREAR UN NUEVO PEDIDO
                 </Encabezado>
@@ -319,7 +405,7 @@ const NuevoPedido = ()=> {
                         <ArtefactoTitle>
                             ESPADA LARGA DE GUNDERAMO
                         </ArtefactoTitle>
-                        <ArtefactoImg /* src={} */>
+                        <ArtefactoImg  src={require(`../../Assets/${imagen}.jpg`)}  >
 
                         </ArtefactoImg>
                         </ArtefactoRenglon>
@@ -338,7 +424,7 @@ const NuevoPedido = ()=> {
                     </ArtefactoRenglon>
                     <ArtefactoRenglon>
                         <label>Especialidad</label>
-                        <Select id="especialidad">
+                        <Select onChange={(e)=> {cambiaTipoDeObjeto(e)}} id="especialidad">
                             <option hidden defaultValue>Selecciona una categoría</option>
                             {especialidades.map(especialidad =>
                             <option key={especialidad} value={especialidad}>{especialidad}</option>
@@ -347,9 +433,9 @@ const NuevoPedido = ()=> {
                     </ArtefactoRenglon>
                     <ArtefactoRenglon>
                         <label>Tipo de objeto</label>
-                        <Select id="tipo_de_objeto">
-                            <option hidden defaultValue>Selecciona una categoría</option>
-                            {tiposDeObjetos.map(objeto =>
+                        <Select onChange={(e)=> cambiaImagen(e)} id="tipo_de_objeto">
+                            <option hidden defaultValue>Selecciona un objeto</option>
+                            {tipoDeObjeto.map(objeto =>
                             <option key={objeto} value={objeto}>{objeto}</option>
                             )};
                         </Select>
@@ -375,11 +461,29 @@ const NuevoPedido = ()=> {
                         <input type="date"  />
                     </ArtefactoRenglon>
                     
-                    <input type="submit" value="Agregar a la lista" />
+                    <input className="submit sheen" type="submit" value="Agregar a la lista" />
                 </ArtefactoForm>
-
-
-            </Container>
+            </FormContainer>
+            <CartContainer>
+            <CartInfoContainer>
+                <ArtefactoTitle>
+                    RESUMEN DE PEDIDO
+                </ArtefactoTitle>
+                <SummaryContainer>
+                    <p>Cliente:</p>
+                    <div>
+                    <p>Artefactos a fabricar:</p>
+                    </div>
+                    <div>
+                    <p>Artefactos a reparar:</p>
+                    </div>
+                    <p>Fecha de entrega:</p>
+                    <p>Precio total:</p>
+                </SummaryContainer>
+                </CartInfoContainer>
+                <Button className="sheen">Completar pedido</Button>
+            </CartContainer>
+            </TopBodyContainer>
         </div>
     );
     

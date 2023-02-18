@@ -2,6 +2,7 @@ import {Link} from 'react-router-dom'
 import styled from "styled-components";
 import HomeBackground from '../Assets/home-background.jpg'
 
+
 const Container = styled.div`
 display: flex;
 flex-direction: column;
@@ -30,12 +31,12 @@ justify-content: space-around;
 
 const User = styled.div`
 background-color: #f9f6e8;
-color: #3a1603;
 border: 1px solid #847f56;
 border-radius: 5px;
+color: #3a1603;
 padding: 20px;
 font-size: 18px;
-width: 300px;
+width: 400px;
 display: flex;
 flex-direction: column;
 align-items: center;

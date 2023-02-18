@@ -26,7 +26,7 @@ const AdminNavBar = ()=> {
 
     const LiMenu = styled.li`
     list-style: none;
-    padding: 20px 15px;
+    padding: 15px 15px;
     transition: 0.25s;
     color: #f6ede6;
     :hover {

@@ -88,7 +88,6 @@ img {
     font-family: 'Alegreya Sans', sans-serif;
     border: 1px solid black;
     text-transform:uppercase;
-    box-shadow:-2px 2px 2px #ccc;
     background-color:#ffd770;
     cursor: pointer;
   }
@@ -130,8 +129,41 @@ img {
   background-repeat: no-repeat;
   background-size: 200%;
   background-position: center;
+  font-weight: 900;
 }
 
 .active li {
   color: #3a1603;
+}
+
+.active li:hover {
+  text-shadow: none;
+}
+
+.submit{
+  position:relative;
+    overflow:hidden;
+    padding:12px 20px 10px 20px;
+    color: #3a1603;
+    font-weight:400;
+    font-size:18px;
+    border-radius:5px;
+    font-family: 'Alegreya Sans', sans-serif;
+    border: 1px solid black;
+    text-transform:uppercase;
+    background-color:#ffd770;
+    cursor: pointer;
+}
+
+.submit:active{
+  box-shadow:0px 0px 0px white;
+  -webkit-box-shadow: inset -2px 2px 2px #ccc;
+  -moz-box-shadow:    inset -2px 2px 2px #ccc;
+  box-shadow:         inset -2px 2px 2px #ccc;
+  transform:translate(0, 2px);
+  color:#FFC491;
+  background-color:#EDE358;
+}
+.submit:focus{
+  outline:0;
 }

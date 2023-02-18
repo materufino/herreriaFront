@@ -4,6 +4,12 @@ import AdminNavBar from "./AdminNavBar";
 import MenuOptionBackground from "../../Assets/menu-option-background.png"
 import NuevoPedidoImg from '../../Assets/nuevo-pedido.png'
 import PedidosEnCursoImg from '../../Assets/pedidos-en-curso.png'
+import PedidosTerminadosImg from '../../Assets/pedidos-terminados.png'
+import ClientesImg from '../../Assets/clientes.jpg'
+import HerrerosImg from '../../Assets/herreros.jpg'
+import MenuOptionBackgroundHover from "../../Assets/menu-option-background-hover.png"
+
+
 
 const Container = styled.div`
 display: flex;
@@ -42,12 +48,17 @@ background-image: url(${MenuOptionBackground});
 background-size: cover;
 color: #3a1603;
 padding: 20px;
+padding-left: 40px;
 font-size: 18px;
 width: 300px;
 min-height: 400px;
 display: flex;
 flex-direction: column;
 align-items: center;
+:hover{
+    background-image: url(${MenuOptionBackgroundHover});
+    background-size: cover;
+}
 h3 {
     font-family: 'Rakkas', cursive;
     font-size: 24px;
@@ -84,7 +95,7 @@ const AdminMenu = ()=> {
 
                     <Link to={'../pedidos/terminados'}>
                         <OptionCard>
-                        <CardImg src=""/>
+                        <CardImg style={{marginLeft: '20px'}} src={PedidosTerminadosImg}/>
                         <h3>Pedidos terminados</h3>
                         <CardDiv>Muestra un listado de los pedidos que ya han sido terminados</CardDiv>
                         </OptionCard> 
@@ -92,7 +103,7 @@ const AdminMenu = ()=> {
 
                     <Link to={'../clientes'}>
                         <OptionCard>
-                        <CardImg src=""/>
+                        <CardImg src={ClientesImg}/>
                         <h3>Listado de clientes</h3>
                         <CardDiv>Muestra un listado de los clientes registrados hasta el momento</CardDiv>
                         </OptionCard> 
@@ -100,7 +111,7 @@ const AdminMenu = ()=> {
 
                     <Link to={'../herreros/listado'}>
                         <OptionCard>
-                        <CardImg src=""/>
+                        <CardImg src={HerrerosImg}/>
                         <h3>Listado de Herreros</h3>
                         <CardDiv>Muestra un listado de los Herreros registrados</CardDiv>
                         </OptionCard> 

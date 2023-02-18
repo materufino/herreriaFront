@@ -416,7 +416,6 @@ const ligero = listaArtefactos.filter(artefacto => artefacto.categoria_artefacto
 const mediano = listaArtefactos.filter(artefacto => artefacto.categoria_artefacto === 'm')
 const pesado = listaArtefactos.filter(artefacto => artefacto.categoria_artefacto === 'p')
 const escudo = listaArtefactos.filter(artefacto => artefacto.categoria_artefacto === 'e')
-
 //Trabajos para realizar según categoría
 const trabajosFilo = arrTrabajosParaRealizar.filter(trabajo => trabajo.categoria_artefacto === 'f').sort()
 const trabajosContundente = arrTrabajosParaRealizar.filter(trabajo => trabajo.categoria_artefacto === 'c').sort()

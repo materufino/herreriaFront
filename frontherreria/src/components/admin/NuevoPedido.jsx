@@ -305,7 +305,7 @@ const listaArtefactos = [
     demora_artefacto_nuevo: 72
 },
 {
-    nombre: 'Escudo torreón',
+    nombre: 'Escudo torreon',
     categoria_artefacto: 'e',
     especialidad: 'Armaduras',
     imagen: 'escudo torreon.jpg',
@@ -313,7 +313,7 @@ const listaArtefactos = [
     demora_artefacto_nuevo: 80
 },
 {
-    nombre: 'Pico de minería',
+    nombre: 'Pico de mineria',
     categoria_artefacto: 'h',
     especialidad: 'Herramientas',
     imagen: 'pico de mineria.jpg',
@@ -337,13 +337,196 @@ const listaArtefactos = [
     demora_artefacto_nuevo: 40
 },
 {
-    nombre: 'Cuchillo de peletería',
+    nombre: 'Cuchillo de peleteria',
     categoria_artefacto: 'f',
     especialidad: 'Herramientas',
     imagen: 'cuchillo de peleteria.jpg',
     precio_artefacto_nuevo: 8,
     demora_artefacto_nuevo: 24
     }];
+
+const arrTrabajosParaRealizar = [
+    {
+        nombre: 'Afilado de hoja',
+        categoria_artefacto: 'f',
+        precio: 2,
+        demora: 8
+    },
+    {
+        nombre: 'Engrasado de hoja',
+        categoria_artefacto: 'f',
+        precio: 1,
+        demora: 4
+    },
+    {
+        nombre: 'Cambio de hoja',
+        categoria_artefacto: 'f',
+        precio: 8,
+        demora: 16
+    },
+    {
+        nombre: 'Cambio de empuñadura',
+        categoria_artefacto: 'f',
+        precio: 5,
+        demora: 12
+    },
+    {
+        nombre: 'Tallado de hoja',
+        categoria_artefacto: 'f',
+        precio: 3,
+        demora: 8
+    },
+    {
+        nombre: 'Limpieza de huecos',
+        categoria_artefacto: 'c',
+        precio: 2,
+        demora: 4
+    },
+    {
+        nombre: 'Engrasado de pinchos',
+        categoria_artefacto: 'c',
+        precio: 1,
+        demora: 4
+    },
+    {
+        nombre: 'Reposición de pinchos',
+        categoria_artefacto: 'c',
+        precio: 3,
+        demora: 12
+    },
+    {
+        nombre: 'Cambio de empuñadura',
+        categoria_artefacto: 'c',
+        precio: 5,
+        demora: 12
+    },
+    {
+        nombre: 'Afilado de punta',
+        categoria_artefacto: 'a',
+        precio: 2,
+        demora: 8
+    },
+    {
+        nombre: 'Cambio de mástil',
+        categoria_artefacto: 'a',
+        precio: 4,
+        demora: 12
+    },
+    {
+        nombre: 'Cambio de punta',
+        categoria_artefacto: 'a',
+        precio: 6,
+        demora: 15
+    },
+    {
+        nombre: 'Cambio de empuñadura',
+        categoria_artefacto: 'a',
+        precio: 5,
+        demora: 12
+    },
+    {
+        nombre: 'Afilado de hojas',
+        categoria_artefacto: 'h',
+        precio: 4,
+        demora: 12
+    },
+    {
+        nombre: 'Engrasado de hojas',
+        categoria_artefacto: '',
+        precio: 2,
+        demora: 6
+    },
+    {
+        nombre: 'Cambio de mástil',
+        categoria_artefacto: 'h',
+        precio: 3,
+        demora: 8
+    },
+    {
+        nombre: 'Cambio de empuñadura',
+        categoria_artefacto: 'h',
+        precio: 5,
+        demora: 12
+    },
+    {
+        nombre: 'Arreglo de rasgados',
+        categoria_artefacto: 'l',
+        precio: 3,
+        demora: 10
+    },
+    {
+        nombre: 'Re-costura de pliegues',
+        categoria_artefacto: 'l',
+        precio: 2,
+        demora: 6
+    },
+    {
+        nombre: 'Reposición/Agregado de tachas',
+        categoria_artefacto: 'l',
+        precio: 3,
+        demora: 8
+    },
+    {
+        nombre: 'Reposición de anillas',
+        categoria_artefacto: 'm',
+        precio: 3,
+        demora: 12
+    },
+    {
+        nombre: 'Agregado de placas',
+        categoria_artefacto: 'm',
+        precio: 6,
+        demora: 20
+    },
+    {
+        nombre: 'Pulido del metal',
+        categoria_artefacto: 'm',
+        precio: 2,
+        demora: 6
+    },
+    {
+        nombre: 'Arreglo de abolladuras',
+        categoria_artefacto: 'p',
+        precio: 4,
+        demora: 20
+    },
+    {
+        nombre: 'Ornamentación',
+        categoria_artefacto: 'p',
+        precio: 3,
+        demora: 12
+    },
+    {
+        nombre: 'Pulido del metal',
+        categoria_artefacto: 'p',
+        precio: 3,
+        demora: 12
+    },
+    {
+        nombre: 'Cobertura de agujeros',
+        categoria_artefacto: 'e',
+        precio: 3,
+        demora: 12
+    },
+    {
+        nombre: 'Arreglo de abolladuras',
+        categoria_artefacto: 'e',
+        precio: 3,
+        demora: 12
+    },
+    {
+        nombre: 'Corrección del marco',
+        categoria_artefacto: 'e',
+        precio: 4,
+        demora: 15
+    },
+    {
+        nombre: 'Removido de astillas',
+        categoria_artefacto: 'e',
+        precio: 2,
+        demora: 6
+    },
+]
 
 //para saber qué especialidades hay
 const todasLasEspecialidades = listaArtefactos.map(artefacto => artefacto.especialidad)
@@ -365,16 +548,59 @@ const armaduras = arrDeObjetosArmaduras.map(arma => arma.nombre).sort();
 const arrDeObjetosHerramientas = listaArtefactos.filter(artefacto => artefacto.especialidad === 'Herramientas');
 const herramientas = arrDeObjetosHerramientas.map(arma => arma.nombre).sort();
 
+//Categorías de artefactos
+const filo = listaArtefactos.filter(artefacto => artefacto.categoria_artefacto === 'f')
+const filos = filo.map(filo => filo.nombre).sort();
+
+const contundente = listaArtefactos.filter(artefacto => artefacto.categoria_artefacto === 'c')
+const contundentes = contundente.map(contundente => contundente.nombre).sort();
+
+const hacha = listaArtefactos.filter(artefacto => artefacto.categoria_artefacto === 'h')
+const hachas = hacha.map(hacha => hacha.nombre).sort();
+
+const asta = listaArtefactos.filter(artefacto => artefacto.categoria_artefacto === 'a')
+const astas = asta.map(asta => asta.nombre).sort();
+
+const ligero = listaArtefactos.filter(artefacto => artefacto.categoria_artefacto === 'l')
+const ligeros = ligero.map(ligero => ligero.nombre).sort();
+
+const mediano = listaArtefactos.filter(artefacto => artefacto.categoria_artefacto === 'm')
+const medianos = mediano.map(mediano => mediano.nombre).sort();
+
+const pesado = listaArtefactos.filter(artefacto => artefacto.categoria_artefacto === 'p')
+const pesados = pesado.map(pesado => pesado.nombre).sort();
+
+const escudo = listaArtefactos.filter(artefacto => artefacto.categoria_artefacto === 'e')
+const escudos = escudo.map(escudo => escudo.nombre).sort();
+
+//Trabajos para realizar según categoría
+const trabajosFilo = arrTrabajosParaRealizar.filter(trabajo => trabajo.categoria_artefacto === 'f').sort()
+const trabajosFilos = trabajosFilo.map(trabajo => trabajo.nombre).sort();
+
+const trabajosContundente = arrTrabajosParaRealizar.filter(trabajo => trabajo.categoria_artefacto === 'c').sort()
+const trabajosContundentes = trabajosContundente.map(trabajo => trabajo.nombre).sort();
+
+const trabajosHacha = arrTrabajosParaRealizar.filter(trabajo => trabajo.categoria_artefacto === 'h').sort()
+const trabajosHachas = trabajosHacha.map(trabajo => trabajo.nombre).sort();
+
+const trabajosAsta = arrTrabajosParaRealizar.filter(trabajo => trabajo.categoria_artefacto === 'a').sort()
+const trabajosAstas = trabajosAsta.map(trabajo => trabajo.nombre).sort();
+
+const trabajosLigero = arrTrabajosParaRealizar.filter(trabajo => trabajo.categoria_artefacto === 'l').sort()
+const trabajosLigeros = trabajosLigero.map(trabajo => trabajo.nombre).sort();
+
+const trabajosMediano = arrTrabajosParaRealizar.filter(trabajo => trabajo.categoria_artefacto === 'm').sort()
+const trabajosMedianos = trabajosMediano.map(trabajo => trabajo.nombre).sort();
+
+const trabajosPesado = arrTrabajosParaRealizar.filter(trabajo => trabajo.categoria_artefacto === 'p').sort()
+const trabajosPesados = trabajosPesado.map(trabajo => trabajo.nombre).sort();
+
+const trabajosEscudo = arrTrabajosParaRealizar.filter(trabajo => trabajo.categoria_artefacto === 'e').sort()
+const trabajosEscudos = trabajosEscudo.map(trabajo => trabajo.nombre).sort();
+
 
 
 const NuevoPedido = ()=> {
-
-    const [imagen, setImagen] = useState('yellow-image')
-
-    const cambiaImagen = (e)=> {
-        setImagen(e.target.value.toLowerCase())
-        console.log(imagen)
-    }
 
     const [tipoDeObjeto, setTipoDeObjeto] = useState([])
 
@@ -388,6 +614,57 @@ const NuevoPedido = ()=> {
             break;
             default:
         }
+    }
+
+    const [trabajos, setTrabajos] = useState([])
+    const [imagen, setImagen] = useState('yellow-image')
+
+    const cambiaImagenTrabajos = (e) => {
+        setImagen(e.target.value.toLowerCase())
+
+            if (filos.includes(e.target.value)){
+                setTrabajos([...trabajosFilos]);}
+            else if (contundentes.includes(e.target.value)){
+                setTrabajos([...trabajosContundentes]);}
+            else if (hachas.includes(e.target.value)){ 
+                setTrabajos([...trabajosHachas]);}
+            else if (astas.includes(e.target.value)){ 
+                setTrabajos([...trabajosAstas]);}
+            else if (ligeros.includes(e.target.value)){ 
+                setTrabajos([...trabajosLigeros]);}
+            else if (medianos.includes(e.target.value)){ 
+                setTrabajos([...trabajosMedianos]);}
+            else if (pesados.includes(e.target.value)){ 
+                setTrabajos([...trabajosPesados]);}
+            else if (escudos.includes(e.target.value)){ 
+                setTrabajos([...trabajosEscudos]);}
+    }
+    const [nuevosTrabajos, setNuevosTrabajos] = useState([]);
+    const [masNuevosTrabajos, setMasNuevosTrabajos] = useState([]);
+    const [segundoTrabajo, setSegundoTrabajo] = useState('');
+    const [tercerTrabajo, setTercerTrabajo] = useState('');
+
+    const agregaSegundoTrabajo = (e)=> {
+
+        const index = trabajos.indexOf(e.target.value)
+        const nuevosTrabajos = [...trabajos]
+        nuevosTrabajos.splice(index, 1)
+        setNuevosTrabajos(nuevosTrabajos)
+    
+
+        setSegundoTrabajo(<ArtefactoRenglon>
+            <label>Trabajo 2</label>
+            <Select onChange={(e)=>agregaTercerTrabajo(e)} id="trabajos">
+            <option hidden defaultValue>Selecciona trabajos a realizar</option>
+            {nuevosTrabajos.map(trabajo =>
+            <option key={trabajo} value={trabajo}> {trabajo}
+            </option>)};
+            </Select>
+        </ArtefactoRenglon>)
+    }
+
+    const agregaTercerTrabajo = (e)=> {
+
     }
 
     return (
@@ -433,7 +710,7 @@ const NuevoPedido = ()=> {
                     </ArtefactoRenglon>
                     <ArtefactoRenglon>
                         <label>Tipo de objeto</label>
-                        <Select onChange={(e)=> cambiaImagen(e)} id="tipo_de_objeto">
+                        <Select onChange={(e)=> cambiaImagenTrabajos(e)} id="tipo_de_objeto">
                             <option hidden defaultValue>Selecciona un objeto</option>
                             {tipoDeObjeto.map(objeto =>
                             <option key={objeto} value={objeto}>{objeto}</option>
@@ -441,11 +718,16 @@ const NuevoPedido = ()=> {
                         </Select>
                     </ArtefactoRenglon>
                     <ArtefactoRenglon>
-                        <label>Trabajos a realizar</label>
-                        <Select id="trabajos">
+                        <label>Trabajo 1</label>
+                        <Select onChange={(e)=> agregaSegundoTrabajo(e)} id="trabajos">
                         <option hidden defaultValue>Selecciona trabajos a realizar</option>
+                        {trabajos.map(trabajo =>
+                        <option key={trabajo} value={trabajo}> {trabajo}
+                        </option>)};
                         </Select>
                     </ArtefactoRenglon>
+                    {segundoTrabajo}
+                    {tercerTrabajo}
                     <ArtefactoRenglon>
                         <label>Herrero asignado</label>
                         <Select id="herrero_asignado">

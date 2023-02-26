@@ -5,7 +5,7 @@ import MenuOptionBackground from "../../Assets/menu-option-background.png"
 import NuevoPedidoImg from '../../Assets/nuevo-pedido.png'
 import PedidosEnCursoImg from '../../Assets/pedidos-en-curso.png'
 import PedidosTerminadosImg from '../../Assets/pedidos-terminados.png'
-import ClientesImg from '../../Assets/clientes.jpg'
+import ClientesImg from '../../Assets/clientes.png'
 import HerrerosImg from '../../Assets/herreros.jpg'
 import MenuOptionBackgroundHover from "../../Assets/menu-option-background-hover.png"
 
@@ -103,7 +103,7 @@ const AdminMenu = ()=> {
 
                     <Link to={'../clientes'}>
                         <OptionCard>
-                        <CardImg src={ClientesImg}/>
+                        <CardImg style={{marginLeft: '20px'}} src={ClientesImg}/>
                         <h3>Listado de clientes</h3>
                         <CardDiv>Muestra un listado de los clientes registrados hasta el momento</CardDiv>
                         </OptionCard> 

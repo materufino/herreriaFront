@@ -65,7 +65,7 @@ const AdminNavBar = ()=> {
 
 const CustomLink = ({to, children, ...props}) => {
     const resolvedPath = useResolvedPath(to)
-    const isActive = useMatch({path: resolvedPath.pathname, end: true})
+    const isActive = useMatch({path: resolvedPath.pathname, end: false})
     return (
 
             <Link className={isActive ? "active" : ""} to={to} {...props} >

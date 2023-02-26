@@ -17,6 +17,8 @@ import HerreroTareasPendientes from './components/herrero/HerreroTareasPendiente
 import HerreroModificarTareas from './components/herrero/HerreroModificarTareas';
 import Home from './components/Home';
 import HerreroNavBar from './components/herrero/HerreroNavBar';
+import PedidoFabricacion from './components/admin/PedidoFabricacion'
+import PedidoReparacion from './components/admin/PedidoReparacion'
 
 
 function App() {
@@ -30,6 +32,8 @@ function App() {
           <Route path='register/admin' element={<AdminRegistro />} />
           <Route path='register/herrero' element={<HerreroRegistro />} />
           <Route path='pedidos/nuevo' element={<NuevoPedido />} />
+          <Route path='pedidos/nuevo/fabricacion' element={<PedidoFabricacion />} />
+          <Route path='pedidos/nuevo/reparacion' element={<PedidoReparacion />} />
           {/* menues main */}
           <Route path='menu/admin' element={<AdminMenu />} />
           <Route path='menu/herrero' element={<HerreroMenu />} />

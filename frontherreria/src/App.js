@@ -14,7 +14,7 @@ import Clientes from './components/admin/Clientes';
 import ListadoHerreros from './components/admin/ListadoHerreros';
 import HerreroMenu from './components/herrero/HerreroMenu';
 import HerreroTareasPendientes from './components/herrero/HerreroTareasPendientes';
-import HerreroModificarTareas from './components/herrero/HerreroModificarTareas';
+import HerreroTareasFinalizadas from './components/herrero/HerreroTareasFinalizadas';
 import Home from './components/Home';
 import HerreroNavBar from './components/herrero/HerreroNavBar';
 
@@ -25,7 +25,7 @@ function App() {
       <div className="App">
         <Routes>
           {/* forms */}
-          <Route path='/' element={<Navigate to={'/Home'}replace/>}/>
+          <Route path='/' element={<Navigate to={'/Home'} replace />} />
           <Route path='home' element={<Home />} />
           <Route path='register/admin' element={<AdminRegistro />} />
           <Route path='register/herrero' element={<HerreroRegistro />} />
@@ -40,8 +40,8 @@ function App() {
           <Route path='clientes' element={<Clientes />} />
           <Route path='herreros/listado' element={<ListadoHerreros />} />
           {/* menues de los Herreros */}
-          <Route path='herreros/tareas/pendientes' element={<HerreroTareasPendientes />} />
-          <Route path='herreros/tareas/modificar' element={<HerreroModificarTareas />} />
+          <Route path='herrero/tareas/pendientes' element={<HerreroTareasPendientes />} />
+          <Route path='herrero/tareas/finalizadas' element={<HerreroTareasFinalizadas />} />
         </Routes>
       </div>
     </BrowserRouter>

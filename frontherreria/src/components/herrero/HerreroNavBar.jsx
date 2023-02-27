@@ -1,7 +1,11 @@
 import styled from "styled-components";
 import {Link} from 'react-router-dom'
 import { useState } from "react";
+
 const HerreroNavBar = ()=> {
+
+
+
 
     const StyledNavBar = styled.nav`
     width: 100%;
@@ -35,18 +39,25 @@ const HerreroNavBar = ()=> {
         cursor: pointer;
     }
     `
+
+
+
+
+
     const [items, setItems] = useState([
     /* { label: 'Clientes', path: '/'} */,
-    { label: 'Inicio', path: '/home'},
-    { label: 'Nuevo pedido', path: '/pedidos/nuevo'},
-    { label: 'Herreros', path: '/herreros/listado'},
+    { label: 'Inicio', path: '/menu/herrero'},
+    { label: 'Lista de pedidos', path: '/herrero/tareas/pendientes'},
+    { label: 'Pedidos finalizados', path: '/herrero/tareas/finalizadas'},
     { label: 'Cerrar sesión', path: '/home'}
 ])
+
+
 
     return (
             <StyledNavBar>
                 {items.map((item,index) =>(
-                    <Link to={item.path}>
+                    <Link to={item.path} replace>
                         <LiMenu>{item.label}</LiMenu>
                     </Link>                  
                 ))}

@@ -94,214 +94,214 @@ const encargos = [
         clave: 'reparacion'
     }];
 
-const listaArtefactos = [    
-{
-    nombre: 'Daga',
-    categoria_artefacto: 'f',
-    especialidad: 'Armas',
-    imagen: 'daga.jpg',
-    precio_artefacto_nuevo: 10,
-    demora_artefacto_nuevo: 46
-},
-{
-    nombre: 'Espada corta',
-    categoria_artefacto: 'f',
-    especialidad: 'Armas',
-    imagen: 'espada corta.jpg',
-    precio_artefacto_nuevo: 14,
-    demora_artefacto_nuevo: 52
-},
-{
-    nombre: 'Espada larga',
-    categoria_artefacto: 'f',
-    especialidad: 'Armas',
-    imagen: 'espada larga.jpg',
-    precio_artefacto_nuevo: 18,
-    demora_artefacto_nuevo: 72
-},
-{
-    nombre: 'Espada de dos manos',
-    categoria_artefacto: 'f',
-    especialidad: 'Armas',
-    imagen: 'espada de dos manos.jpg',
-    precio_artefacto_nuevo: 24,
-    demora_artefacto_nuevo: 90
-},
-{
-    nombre: 'Maza',
-    categoria_artefacto: 'c',
-    especialidad: 'Armas',
-    imagen: 'maza.jpg',
-    precio_artefacto_nuevo: 16,
-    demora_artefacto_nuevo: 60
-},
-{
-    nombre: 'Mangual',
-    categoria_artefacto: 'c',
-    especialidad: 'Armas',
-    imagen: 'mangual.jpg',
-    precio_artefacto_nuevo: 18,
-    demora_artefacto_nuevo: 72
-},
-{
-    nombre: 'Estrella del Alba',
-    categoria_artefacto: 'c',
-    especialidad: 'Armas',
-    imagen: 'estrella del alba.jpg',
-    precio_artefacto_nuevo: 16,
-    demora_artefacto_nuevo: 66
-},
-{
-    nombre: 'Alabarda',
-    categoria_artefacto: 'a',
-    especialidad: 'Armas',
-    imagen: 'alabarda.jpg',
-    precio_artefacto_nuevo: 20,
-    demora_artefacto_nuevo: 80
-},
-{
-    nombre: 'Lanza',
-    categoria_artefacto: 'a',
-    especialidad: 'Armas',
-    imagen: 'lanza.jpg',
-    precio_artefacto_nuevo: 14,
-    demora_artefacto_nuevo: 50
-},
-{
-    nombre: 'Hacha arrojadiza',
-    categoria_artefacto: 'h',
-    especialidad: 'Armas',
-    imagen: 'hacha arrojadiza.jpg',
-    precio_artefacto_nuevo: 12,
-    demora_artefacto_nuevo: 40
-},
-{
-    nombre: 'Hacha de combate',
-    categoria_artefacto: 'h',
-    especialidad: 'Armas',
-    imagen: 'hacha de combate.jpg',
-    precio_artefacto_nuevo: 18,
-    demora_artefacto_nuevo: 72
-},
-{
-    nombre: 'Hacha de dos manos',
-    categoria_artefacto: 'h',
-    especialidad: 'Armas',
-    imagen: 'hacha de dos manos.jpg',
-    precio_artefacto_nuevo: 22,
-    demora_artefacto_nuevo: 92
-},
-{
-    nombre: 'Peto de cuero',
-    categoria_artefacto: 'l',
-    especialidad: 'Armaduras',
-    imagen: 'peto de cuero.jpg',
-    precio_artefacto_nuevo: 10,
-    demora_artefacto_nuevo: 58
-},
-{
-    nombre: 'Cuero tachonado',
-    categoria_artefacto: 'l',
-    especialidad: 'Armaduras',
-    imagen: 'cuero tachonado.jpg',
-    precio_artefacto_nuevo: 14,
-    demora_artefacto_nuevo: 66
-},
-{
-    nombre: 'Cota de mallas',
-    categoria_artefacto: 'm',
-    especialidad: 'Armaduras',
-    imagen: 'cota de mallas.jpg',
-    precio_artefacto_nuevo: 20,
-    demora_artefacto_nuevo: 72
-},
-{
-    nombre: 'Cota de mallas y placas',
-    categoria_artefacto: 'm',
-    especialidad: 'Armaduras',
-    imagen: 'cota de mallas y placas.jpg',
-    precio_artefacto_nuevo: 25,
-    demora_artefacto_nuevo: 100
-},
-{
-    nombre: 'Coraza completa',
-    categoria_artefacto: 'p',
-    especialidad: 'Armaduras',
-    imagen: 'coraza completa.jpg',
-    precio_artefacto_nuevo: 35,
-    demora_artefacto_nuevo: 120
-},
-{
-    nombre: 'Yelmo de guerra',
-    categoria_artefacto: 'p',
-    especialidad: 'Armaduras',
-    imagen: 'yelmo de guerra.jpg',
-    precio_artefacto_nuevo: 8,
-    demora_artefacto_nuevo: 40
-},
-{
-    nombre: 'Yelmo bacinete',
-    categoria_artefacto: 'p',
-    especialidad: 'Armaduras',
-    imagen: 'yelmo bacinete.jpg',
-    precio_artefacto_nuevo: 15,
-    demora_artefacto_nuevo: 60
-},
-{
-    nombre: 'Escudo rodella',
-    categoria_artefacto: 'e',
-    especialidad: 'Armaduras',
-    imagen: 'escudo rodella.jpg',
-    precio_artefacto_nuevo: 14,
-    demora_artefacto_nuevo: 58
-},
-{
-    nombre: 'Escudo mediano',
-    categoria_artefacto: 'e',
-    especialidad: 'Armaduras',
-    imagen: 'escudo mediano.jpg',
-    precio_artefacto_nuevo: 18,
-    demora_artefacto_nuevo: 72
-},
-{
-    nombre: 'Escudo torreon',
-    categoria_artefacto: 'e',
-    especialidad: 'Armaduras',
-    imagen: 'escudo torreon.jpg',
-    precio_artefacto_nuevo: 20,
-    demora_artefacto_nuevo: 80
-},
-{
-    nombre: 'Pico de mineria',
-    categoria_artefacto: 'h',
-    especialidad: 'Herramientas',
-    imagen: 'pico de mineria.jpg',
-    precio_artefacto_nuevo: 8,
-    demora_artefacto_nuevo: 30
-},
-{
-    nombre: 'Hacha para talar',
-    categoria_artefacto: 'h',
-    especialidad: 'Herramientas',
-    imagen: 'hacha para talar.jpg',
-    precio_artefacto_nuevo: 12,
-    demora_artefacto_nuevo: 50
-},
-{
-    nombre: 'Hoz de cosecha',
-    categoria_artefacto: 'f',
-    especialidad: 'Herramientas',
-    imagen: 'hoz de cosecha.jpg',
-    precio_artefacto_nuevo: 10,
-    demora_artefacto_nuevo: 40
-},
-{
-    nombre: 'Cuchillo de peleteria',
-    categoria_artefacto: 'f',
-    especialidad: 'Herramientas',
-    imagen: 'cuchillo de peleteria.jpg',
-    precio_artefacto_nuevo: 8,
-    demora_artefacto_nuevo: 24
+const listaArtefactos = [
+    {
+        nombre: 'Daga',
+        categoria_artefacto: 'f',
+        especialidad: 'Armas',
+        imagen: 'daga.jpg',
+        precio_artefacto_nuevo: 10,
+        demora_artefacto_nuevo: 46
+    },
+    {
+        nombre: 'Espada corta',
+        categoria_artefacto: 'f',
+        especialidad: 'Armas',
+        imagen: 'espada corta.jpg',
+        precio_artefacto_nuevo: 14,
+        demora_artefacto_nuevo: 52
+    },
+    {
+        nombre: 'Espada larga',
+        categoria_artefacto: 'f',
+        especialidad: 'Armas',
+        imagen: 'espada larga.jpg',
+        precio_artefacto_nuevo: 18,
+        demora_artefacto_nuevo: 72
+    },
+    {
+        nombre: 'Espada de dos manos',
+        categoria_artefacto: 'f',
+        especialidad: 'Armas',
+        imagen: 'espada de dos manos.jpg',
+        precio_artefacto_nuevo: 24,
+        demora_artefacto_nuevo: 90
+    },
+    {
+        nombre: 'Maza',
+        categoria_artefacto: 'c',
+        especialidad: 'Armas',
+        imagen: 'maza.jpg',
+        precio_artefacto_nuevo: 16,
+        demora_artefacto_nuevo: 60
+    },
+    {
+        nombre: 'Mangual',
+        categoria_artefacto: 'c',
+        especialidad: 'Armas',
+        imagen: 'mangual.jpg',
+        precio_artefacto_nuevo: 18,
+        demora_artefacto_nuevo: 72
+    },
+    {
+        nombre: 'Estrella del Alba',
+        categoria_artefacto: 'c',
+        especialidad: 'Armas',
+        imagen: 'estrella del alba.jpg',
+        precio_artefacto_nuevo: 16,
+        demora_artefacto_nuevo: 66
+    },
+    {
+        nombre: 'Alabarda',
+        categoria_artefacto: 'a',
+        especialidad: 'Armas',
+        imagen: 'alabarda.jpg',
+        precio_artefacto_nuevo: 20,
+        demora_artefacto_nuevo: 80
+    },
+    {
+        nombre: 'Lanza',
+        categoria_artefacto: 'a',
+        especialidad: 'Armas',
+        imagen: 'lanza.jpg',
+        precio_artefacto_nuevo: 14,
+        demora_artefacto_nuevo: 50
+    },
+    {
+        nombre: 'Hacha arrojadiza',
+        categoria_artefacto: 'h',
+        especialidad: 'Armas',
+        imagen: 'hacha arrojadiza.jpg',
+        precio_artefacto_nuevo: 12,
+        demora_artefacto_nuevo: 40
+    },
+    {
+        nombre: 'Hacha de combate',
+        categoria_artefacto: 'h',
+        especialidad: 'Armas',
+        imagen: 'hacha de combate.jpg',
+        precio_artefacto_nuevo: 18,
+        demora_artefacto_nuevo: 72
+    },
+    {
+        nombre: 'Hacha de dos manos',
+        categoria_artefacto: 'h',
+        especialidad: 'Armas',
+        imagen: 'hacha de dos manos.jpg',
+        precio_artefacto_nuevo: 22,
+        demora_artefacto_nuevo: 92
+    },
+    {
+        nombre: 'Peto de cuero',
+        categoria_artefacto: 'l',
+        especialidad: 'Armaduras',
+        imagen: 'peto de cuero.jpg',
+        precio_artefacto_nuevo: 10,
+        demora_artefacto_nuevo: 58
+    },
+    {
+        nombre: 'Cuero tachonado',
+        categoria_artefacto: 'l',
+        especialidad: 'Armaduras',
+        imagen: 'cuero tachonado.jpg',
+        precio_artefacto_nuevo: 14,
+        demora_artefacto_nuevo: 66
+    },
+    {
+        nombre: 'Cota de mallas',
+        categoria_artefacto: 'm',
+        especialidad: 'Armaduras',
+        imagen: 'cota de mallas.jpg',
+        precio_artefacto_nuevo: 20,
+        demora_artefacto_nuevo: 72
+    },
+    {
+        nombre: 'Cota de mallas y placas',
+        categoria_artefacto: 'm',
+        especialidad: 'Armaduras',
+        imagen: 'cota de mallas y placas.jpg',
+        precio_artefacto_nuevo: 25,
+        demora_artefacto_nuevo: 100
+    },
+    {
+        nombre: 'Coraza completa',
+        categoria_artefacto: 'p',
+        especialidad: 'Armaduras',
+        imagen: 'coraza completa.jpg',
+        precio_artefacto_nuevo: 35,
+        demora_artefacto_nuevo: 120
+    },
+    {
+        nombre: 'Yelmo de guerra',
+        categoria_artefacto: 'p',
+        especialidad: 'Armaduras',
+        imagen: 'yelmo de guerra.jpg',
+        precio_artefacto_nuevo: 8,
+        demora_artefacto_nuevo: 40
+    },
+    {
+        nombre: 'Yelmo bacinete',
+        categoria_artefacto: 'p',
+        especialidad: 'Armaduras',
+        imagen: 'yelmo bacinete.jpg',
+        precio_artefacto_nuevo: 15,
+        demora_artefacto_nuevo: 60
+    },
+    {
+        nombre: 'Escudo rodella',
+        categoria_artefacto: 'e',
+        especialidad: 'Armaduras',
+        imagen: 'escudo rodella.jpg',
+        precio_artefacto_nuevo: 14,
+        demora_artefacto_nuevo: 58
+    },
+    {
+        nombre: 'Escudo mediano',
+        categoria_artefacto: 'e',
+        especialidad: 'Armaduras',
+        imagen: 'escudo mediano.jpg',
+        precio_artefacto_nuevo: 18,
+        demora_artefacto_nuevo: 72
+    },
+    {
+        nombre: 'Escudo torreon',
+        categoria_artefacto: 'e',
+        especialidad: 'Armaduras',
+        imagen: 'escudo torreon.jpg',
+        precio_artefacto_nuevo: 20,
+        demora_artefacto_nuevo: 80
+    },
+    {
+        nombre: 'Pico de mineria',
+        categoria_artefacto: 'h',
+        especialidad: 'Herramientas',
+        imagen: 'pico de mineria.jpg',
+        precio_artefacto_nuevo: 8,
+        demora_artefacto_nuevo: 30
+    },
+    {
+        nombre: 'Hacha para talar',
+        categoria_artefacto: 'h',
+        especialidad: 'Herramientas',
+        imagen: 'hacha para talar.jpg',
+        precio_artefacto_nuevo: 12,
+        demora_artefacto_nuevo: 50
+    },
+    {
+        nombre: 'Hoz de cosecha',
+        categoria_artefacto: 'f',
+        especialidad: 'Herramientas',
+        imagen: 'hoz de cosecha.jpg',
+        precio_artefacto_nuevo: 10,
+        demora_artefacto_nuevo: 40
+    },
+    {
+        nombre: 'Cuchillo de peleteria',
+        categoria_artefacto: 'f',
+        especialidad: 'Herramientas',
+        imagen: 'cuchillo de peleteria.jpg',
+        precio_artefacto_nuevo: 8,
+        demora_artefacto_nuevo: 24
     }];
 
 const arrTrabajosParaRealizar = [
@@ -505,7 +505,7 @@ const arrHerreros = [
     {
         nombre: "Robert",
         especialidad: "Armas",
-        rango: "Experto",
+        rango: "Oficial",
         reparaciones: {},
         fabricaciones: {}
     },
@@ -526,7 +526,7 @@ const arrHerreros = [
     {
         nombre: "Reginald",
         especialidad: "Armaduras",
-        rango: "Experto",
+        rango: "Oficial",
         reparaciones: {},
         fabricaciones: {}
     },
@@ -547,7 +547,7 @@ const arrHerreros = [
     {
         nombre: "Corint",
         especialidad: "Herramientas",
-        rango: "Experto",
+        rango: "Oficial",
         reparaciones: {},
         fabricaciones: {}
     },
@@ -556,7 +556,7 @@ const arrHerreros = [
 //para saber qué especialidades hay
 const todasLasEspecialidades = listaArtefactos.map(artefacto => artefacto.especialidad)
 //para remover especialidades duplicadas
-function onlyUnique(value, index, self) { 
+function onlyUnique(value, index, self) {
     return self.indexOf(value) === index;
 }
 const especialidades = todasLasEspecialidades.filter(onlyUnique).sort();
@@ -567,13 +567,13 @@ const tiposDeObjetos = listaArtefactos.map(artefacto => artefacto.nombre);
 const todosLosHerreros = arrHerreros.map(herrero => herrero.nombre)
 
 const arrHerrerosArmas = arrHerreros.filter(herrero => herrero.especialidad === "Armas")
-const herrerosArmas = arrHerrerosArmas.map(herrero => herrero.nombre).sort()
+const herrerosArmas = arrHerrerosArmas.map(herrero => ({ rango: herrero.rango, nombre: herrero.nombre })).sort()
 
 const arrHerrerosArmaduras = arrHerreros.filter(herrero => herrero.especialidad === "Armaduras")
-const herrerosArmaduras = arrHerrerosArmaduras.map(herrero => herrero.nombre).sort()
+const herrerosArmaduras = arrHerrerosArmaduras.map(herrero => ({ nombre: herrero.nombre, rango: herrero.rango })).sort()
 
 const arrHerrerosHerramientas = arrHerreros.filter(herrero => herrero.especialidad === "Herramientas")
-const herrerosHerramientas = arrHerrerosHerramientas.map(herrero => herrero.nombre).sort()
+const herrerosHerramientas = arrHerrerosHerramientas.map(herrero => ({ nombre: herrero.nombre, rango: herrero.rango })).sort()
 
 
 //Artefactos por especialidades
@@ -640,13 +640,13 @@ const PedidoFabricacion = () => {
     const [tipoDeObjeto, setTipoDeObjeto] = useState([])
 
     const [nombreCliente, setNombreCliente] = useState('')
-    
+
     const [nombreArtefacto, setNombreArtefacto] = useState('ENCARGO')
-    
+
     const [fechaEntrega, setFechaEntrega] = useState(dayjs().format("DD/MM/YYYY - hh:mm A", 'es'))
 
     const [tipoDeHerrero, setTipoDeHerrero] = useState([])
-    
+
     const [horasPorTrabajo, setHorasPorTrabajo] = useState(0)
 
     const [horasTrabajo, setHorasTrabajo] = useState(0)
@@ -660,17 +660,17 @@ const PedidoFabricacion = () => {
         setNombreCliente(e.target.value)
     }
 
-    const cambiaTipoDeObjeto = (e)=>{
-        switch (e.target.value){
+    const cambiaTipoDeObjeto = (e) => {
+        switch (e.target.value) {
             case 'Armas': setTipoDeObjeto([...armas])
                 setTipoDeHerrero([...herrerosArmas]);
-            break;
-            case 'Armaduras' : setTipoDeObjeto([...armaduras]) 
+                break;
+            case 'Armaduras': setTipoDeObjeto([...armaduras])
                 setTipoDeHerrero([...herrerosArmaduras]);
-            break;
-            case 'Herramientas' : setTipoDeObjeto([...herramientas]) 
+                break;
+            case 'Herramientas': setTipoDeObjeto([...herramientas])
                 setTipoDeHerrero([...herrerosHerramientas]);
-            break;
+                break;
             default:
         }
 
@@ -678,17 +678,17 @@ const PedidoFabricacion = () => {
 
     const [imagen, setImagen] = useState('yellow-image')
 
-/*     const demora = (e) => {
-        const index = tiposDeObjetos.indexOf(e.target.value)
-        const demora = (listaArtefactos[index].demora_artefacto_nuevo)
-        return <p>{(dayjs().add(demora, "hour").format("DD/MM/YYYY - hh:mm A", 'es'))} ({demora}hs)</p>
-    } */
+    /*     const demora = (e) => {
+            const index = tiposDeObjetos.indexOf(e.target.value)
+            const demora = (listaArtefactos[index].demora_artefacto_nuevo)
+            return <p>{(dayjs().add(demora, "hour").format("DD/MM/YYYY - hh:mm A", 'es'))} ({demora}hs)</p>
+        } */
     const demora = (e) => {
         const index = tiposDeObjetos.indexOf(e.target.value)
         const tiempo_demora = (listaArtefactos[index].demora_artefacto_nuevo)
         return tiempo_demora
     }
-    
+
     const precio = (e) => {
         const index = tiposDeObjetos.indexOf(e.target.value)
         const precio = listaArtefactos[index].precio_artefacto_nuevo
@@ -702,14 +702,14 @@ const PedidoFabricacion = () => {
         setPrecioArtefacto(precio(e))
     }
 
-/*     const cambiarNombreHerrero = () => {
-        {const index = todosLosHerreros.indexOf({herrero})
-        const rango = arrHerreros[index].rango
-
-        tipoDeHerrero.map(herrero =>
-            <option key={herrero} value={herrero}>{rango} {herrero}</option>
-            )};
-    } */
+    /*     const cambiarNombreHerrero = () => {
+            {const index = todosLosHerreros.indexOf({herrero})
+            const rango = arrHerreros[index].rango
+    
+            tipoDeHerrero.map(herrero =>
+                <option key={herrero} value={herrero}>{rango} {herrero}</option>
+                )};
+        } */
 
 
     let modificador
@@ -718,11 +718,11 @@ const PedidoFabricacion = () => {
         const index = todosLosHerreros.indexOf(e.target.value)
         const rango = arrHerreros[index].rango
 
-        if (rango === 'Aprendiz'){
+        if (rango === 'Aprendiz') {
             modificador = 1.5
-        } else if (rango === 'Experto'){
+        } else if (rango === 'Oficial') {
             modificador = 1
-        } else if (rango === 'Maestro'){
+        } else if (rango === 'Maestro') {
             modificador = 0.5
         }
         const demoraTotal = horasTrabajo * modificador
@@ -743,39 +743,39 @@ const PedidoFabricacion = () => {
                 <ArtefactoForm >
                     <ArtefactoRenglon2>
                         <ArtefactoTitle>
-                            {nombreArtefacto} {nombreCliente? "DE" :""} {nombreCliente.toUpperCase()}
+                            {nombreArtefacto} {nombreCliente ? "DE" : ""} {nombreCliente.toUpperCase()}
                         </ArtefactoTitle>
-                        <ArtefactoImg  src={require(`../../Assets/${imagen}.jpg`)}  >
+                        <ArtefactoImg src={require(`../../Assets/${imagen}.jpg`)}  >
                         </ArtefactoImg>
                     </ArtefactoRenglon2>
                     <ArtefactoRenglon>
                         <label>Nombre del cliente</label>
-                        <Input onChange={(e)=> {cambiaNombreCliente(e)}} type="text" />
-                    </ArtefactoRenglon>                   
+                        <Input onChange={(e) => { cambiaNombreCliente(e) }} type="text" />
+                    </ArtefactoRenglon>
                     <ArtefactoRenglon>
                         <label>Especialidad</label>
-                        <Select onChange={(e)=> {cambiaTipoDeObjeto(e)}} id="especialidad">
+                        <Select onChange={(e) => { cambiaTipoDeObjeto(e) }} id="especialidad">
                             <option hidden defaultValue>Selecciona una categoría</option>
                             {especialidades.map(especialidad =>
-                            <option key={especialidad} value={especialidad}>{especialidad}</option>
+                                <option key={especialidad} value={especialidad}>{especialidad}</option>
                             )};
                         </Select>
                     </ArtefactoRenglon>
                     <ArtefactoRenglon>
                         <label>Tipo de objeto</label>
-                        <Select onChange={(e)=> cambiaImagenTrabajos(e)} id="tipo_de_objeto">
+                        <Select onChange={(e) => cambiaImagenTrabajos(e)} id="tipo_de_objeto">
                             <option hidden defaultValue>Selecciona un objeto</option>
                             {tipoDeObjeto.map(objeto =>
-                            <option key={objeto} value={objeto}>{objeto}</option>
+                                <option key={objeto} value={objeto}>{objeto}</option>
                             )};
                         </Select>
                     </ArtefactoRenglon>
                     <ArtefactoRenglon>
                         <label>Herrero asignado</label>
-                        <Select onChange={(e)=>{modificaDemora(e)}} id="herrero_asignado">
+                        <Select onChange={(e) => { modificaDemora(e) }} id="herrero_asignado">
                             <option hidden defaultValue>Selecciona el Herrero</option>
                             {tipoDeHerrero.map(herrero =>
-                            <option key={herrero} value={herrero}>{herrero}</option>
+                                <option key={herrero.nombre} value={herrero.nombre}>{herrero.rango} {herrero.nombre}</option>
                             )};
                         </Select>
                     </ArtefactoRenglon>
@@ -786,7 +786,7 @@ const PedidoFabricacion = () => {
                     <ArtefactoRenglon>
                         <label>Precio </label>
                         <p>{precioArtefacto} monedas de oro</p>
-                    </ArtefactoRenglon>  
+                    </ArtefactoRenglon>
                     <button className="submit sheen" type="submit">Realizar encargo</button>
                 </ArtefactoForm>
             </FormContainer>

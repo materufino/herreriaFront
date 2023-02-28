@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import AdminNavBar from "./AdminNavBar";
 import MenuOptionBackground from "../../Assets/menu-option-background.png"
 import NuevoPedidoImg from '../../Assets/nuevo-pedido.png'
@@ -64,12 +64,12 @@ h3 {
     font-size: 24px;
     margin: 20px 0px;
 };
-` 
+`
 
-const AdminMenu = ()=> {
+const AdminMenu = () => {
 
     return (
-        
+
         <div>
             <AdminNavBar />
             <Container>
@@ -79,47 +79,47 @@ const AdminMenu = ()=> {
                 <OptionsContainer>
                     <Link to={'../pedidos/nuevo'}>
                         <OptionCard>
-                            <CardImg style={{marginLeft: '20px'}} src={NuevoPedidoImg}/>
+                            <CardImg style={{ marginLeft: '20px' }} src={NuevoPedidoImg} />
                             <h3>Crear un nuevo pedido</h3>
                             <CardDiv>Gestiona reparaciones y fabricaciones</CardDiv>
-                        </OptionCard>  
+                        </OptionCard>
                     </Link>
 
                     <Link to={'../pedidos/en_curso'}>
                         <OptionCard>
-                        <CardImg style={{marginLeft: '10px'}} src={PedidosEnCursoImg}/>
-                        <h3>Pedidos en curso</h3>
-                        <CardDiv style={{marginLeft: '30px'}}>Muestra un listado de pedidos en curso y sus respectivos estados</CardDiv>
-                        </OptionCard>  
+                            <CardImg style={{ marginLeft: '10px' }} src={PedidosEnCursoImg} />
+                            <h3>Pedidos en curso</h3>
+                            <CardDiv style={{ marginLeft: '30px' }}>Muestra un listado de pedidos en curso y sus respectivos estados</CardDiv>
+                        </OptionCard>
                     </Link>
 
                     <Link to={'../pedidos/terminados'}>
                         <OptionCard>
-                        <CardImg style={{marginLeft: '20px'}} src={PedidosTerminadosImg}/>
-                        <h3>Pedidos terminados</h3>
-                        <CardDiv>Muestra un listado de los pedidos que ya han sido terminados</CardDiv>
-                        </OptionCard> 
+                            <CardImg style={{ marginLeft: '20px' }} src={PedidosTerminadosImg} />
+                            <h3>Trabajos terminados</h3>
+                            <CardDiv>Muestra un listado de los pedidos que ya han sido terminados</CardDiv>
+                        </OptionCard>
                     </Link>
 
                     <Link to={'../clientes'}>
                         <OptionCard>
-                        <CardImg style={{marginLeft: '20px'}} src={ClientesImg}/>
-                        <h3>Listado de clientes</h3>
-                        <CardDiv>Muestra un listado de los clientes registrados hasta el momento</CardDiv>
-                        </OptionCard> 
+                            <CardImg style={{ marginLeft: '20px' }} src={ClientesImg} />
+                            <h3>Listado de clientes</h3>
+                            <CardDiv>Muestra un listado de los clientes registrados hasta el momento</CardDiv>
+                        </OptionCard>
                     </Link>
 
                     <Link to={'../herreros/listado'}>
                         <OptionCard>
-                        <CardImg src={HerrerosImg}/>
-                        <h3>Listado de Herreros</h3>
-                        <CardDiv>Muestra un listado de los Herreros registrados</CardDiv>
-                        </OptionCard> 
-                    </Link>    
+                            <CardImg src={HerrerosImg} />
+                            <h3>Listado de Herreros</h3>
+                            <CardDiv>Muestra un listado de los Herreros registrados</CardDiv>
+                        </OptionCard>
+                    </Link>
 
                 </OptionsContainer>
             </Container>
         </div>
-        )
-    }
-    export default AdminMenu;
+    )
+}
+export default AdminMenu;

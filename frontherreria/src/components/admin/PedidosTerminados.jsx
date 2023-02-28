@@ -16,19 +16,19 @@ margin: 70px;
 color: #3a1603;
 `
 
-const PedidosTerminados = ()=> {
+const PedidosTerminados = () => {
 
     return (
         <div>
             <AdminNavBar />
             <Container>
                 <EncabezadoH1>
-                        PEDIDOS TERMINADOS
+                    TRABAJOS TERMINADOS
                 </EncabezadoH1>
             </Container>
         </div>
     );
-    
+
 }
 
 export default PedidosTerminados;

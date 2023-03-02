@@ -10,6 +10,7 @@ import dayjs from "dayjs";
 
 const FormContainer = styled.div`
 display: flex;
+margin-bottom: 30px;
 flex-direction: column;
 align-items: center;
 width: 100%;
@@ -678,11 +679,6 @@ const PedidoFabricacion = () => {
 
     const [imagen, setImagen] = useState('yellow-image')
 
-    /*     const demora = (e) => {
-            const index = tiposDeObjetos.indexOf(e.target.value)
-            const demora = (listaArtefactos[index].demora_artefacto_nuevo)
-            return <p>{(dayjs().add(demora, "hour").format("DD/MM/YYYY - hh:mm A", 'es'))} ({demora}hs)</p>
-        } */
     const demora = (e) => {
         const index = tiposDeObjetos.indexOf(e.target.value)
         const tiempo_demora = (listaArtefactos[index].demora_artefacto_nuevo)
@@ -737,7 +733,7 @@ const PedidoFabricacion = () => {
 
             <FormContainer>
                 <Encabezado>
-                    FABRICAR UN NUEVO ARTEFACTO
+                    FABRICAR UN ARTEFACTO
                 </Encabezado>
 
                 <ArtefactoForm >
@@ -748,10 +744,24 @@ const PedidoFabricacion = () => {
                         <ArtefactoImg src={require(`../../Assets/${imagen}.jpg`)}  >
                         </ArtefactoImg>
                     </ArtefactoRenglon2>
+                    <ArtefactoTitle style={{ width: "100%", backgroundColor: "#ffd770", fontSize: "18px" }} >
+                        CLIENTE
+                    </ArtefactoTitle>
                     <ArtefactoRenglon>
-                        <label>Nombre del cliente</label>
+                        <label>Nombre</label>
                         <Input onChange={(e) => { cambiaNombreCliente(e) }} type="text" />
                     </ArtefactoRenglon>
+                    <ArtefactoRenglon>
+                        <label>Apellido</label>
+                        <Input type="text" />
+                    </ArtefactoRenglon>
+                    <ArtefactoRenglon>
+                        <label>Identificador</label>
+                        <Input type="text" />
+                    </ArtefactoRenglon>
+                    <ArtefactoTitle style={{ width: "100%", backgroundColor: "#ffd770", fontSize: "18px" }} >
+                        ARTEFACTO
+                    </ArtefactoTitle>
                     <ArtefactoRenglon>
                         <label>Especialidad</label>
                         <Select onChange={(e) => { cambiaTipoDeObjeto(e) }} id="especialidad">

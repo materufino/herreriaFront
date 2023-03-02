@@ -16,19 +16,19 @@ margin: 70px;
 color: #3a1603;
 `
 
-const ListadoHerreros = ()=> {
+const ListadoHerreros = () => {
 
     return (
         <div>
             <AdminNavBar />
             <Container>
                 <EncabezadoH1>
-                        LISTADO DE HERREROS
+                    HERREROS
                 </EncabezadoH1>
             </Container>
         </div>
     );
-    
+
 }
 
 export default ListadoHerreros;

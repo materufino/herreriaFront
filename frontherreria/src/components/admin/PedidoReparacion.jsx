@@ -5,6 +5,7 @@ import styled from "styled-components";
 import AdminNavBar from "./AdminNavBar";
 import CartBackgroundImg from "../../Assets/cart-background.png"
 import dayjs from "dayjs";
+import axios from "axios";
 
 const Button = styled.button`
 background-color: #bd0900df;
@@ -17,6 +18,7 @@ font-weight: 400;
 
 const FormContainer = styled.div`
 display: flex;
+margin-bottom: 30px;
 flex-direction: column;
 align-items: center;
 width: 100%;
@@ -74,17 +76,6 @@ font-family: 'Rakkas', cursive;
 margin: 70px;
 color: #3a1603;
 `
-
-const encargos = [
-    {
-        nombre: 'Fabricación',
-        clave: 'fabricacion'
-    },
-    {
-        nombre: 'Reparación',
-        clave: 'reparacion'
-    }];
-
 const listaArtefactos = [
     {
         nombre: 'Daga',
@@ -544,7 +535,6 @@ const arrHerreros = [
     },
 ]
 
-
 //para saber qué especialidades hay
 const todasLasEspecialidades = listaArtefactos.map(artefacto => artefacto.especialidad)
 //para remover especialidades duplicadas
@@ -631,7 +621,6 @@ const trabajosPesados = trabajosPesado.map(trabajo => trabajo.nombre).sort();
 const trabajosEscudo = arrTrabajosParaRealizar.filter(trabajo => trabajo.categoria_artefacto === 'e').sort()
 const trabajosEscudos = trabajosEscudo.map(trabajo => trabajo.nombre).sort();
 
-
 const PedidoReparacion = () => {
     const [tipoDeObjeto, setTipoDeObjeto] = useState([])
     const [nombreCliente, setNombreCliente] = useState('')
@@ -652,6 +641,36 @@ const PedidoReparacion = () => {
         setNombreCliente(e.target.value)
     }
 
+    const cambiaImagenTrabajos = (e) => {
+        setImagen(e.target.value.toLowerCase())
+        setNombreArtefacto(e.target.value.toUpperCase())
+
+        if (filos.includes(e.target.value)) {
+            setTrabajos([...trabajosFilos]);
+        }
+        else if (contundentes.includes(e.target.value)) {
+            setTrabajos([...trabajosContundentes]);
+        }
+        else if (hachas.includes(e.target.value)) {
+            setTrabajos([...trabajosHachas]);
+        }
+        else if (astas.includes(e.target.value)) {
+            setTrabajos([...trabajosAstas]);
+        }
+        else if (ligeros.includes(e.target.value)) {
+            setTrabajos([...trabajosLigeros]);
+        }
+        else if (medianos.includes(e.target.value)) {
+            setTrabajos([...trabajosMedianos]);
+        }
+        else if (pesados.includes(e.target.value)) {
+            setTrabajos([...trabajosPesados]);
+        }
+        else if (escudos.includes(e.target.value)) {
+            setTrabajos([...trabajosEscudos]);
+        }
+    }
+
     const cambiaTipoDeObjeto = (e) => {
         switch (e.target.value) {
             case 'Armas': setTipoDeObjeto([...armas])
@@ -665,7 +684,6 @@ const PedidoReparacion = () => {
                 break;
             default:
         }
-
     }
 
     const checkDemora = (posicion) => {
@@ -678,8 +696,8 @@ const PedidoReparacion = () => {
     }
 
     const demora = () => {
-        const demoraTotal = checkDemora(0) + checkDemora(1) + checkDemora(2)
-        setHorasDeTrabajo(demoraTotal)
+        const demorasTotales = checkDemora(0) + checkDemora(1) + checkDemora(2)
+        setHorasDeTrabajo(demorasTotales)
     }
 
     const modificaDemora = (e) => {
@@ -712,37 +730,6 @@ const PedidoReparacion = () => {
         setPrecioArtefacto(precioTotal)
     }
 
-    const cambiaImagenTrabajos = (e) => {
-        setImagen(e.target.value.toLowerCase())
-        setNombreArtefacto(e.target.value.toUpperCase())
-
-
-        if (filos.includes(e.target.value)) {
-            setTrabajos([...trabajosFilos]);
-        }
-        else if (contundentes.includes(e.target.value)) {
-            setTrabajos([...trabajosContundentes]);
-        }
-        else if (hachas.includes(e.target.value)) {
-            setTrabajos([...trabajosHachas]);
-        }
-        else if (astas.includes(e.target.value)) {
-            setTrabajos([...trabajosAstas]);
-        }
-        else if (ligeros.includes(e.target.value)) {
-            setTrabajos([...trabajosLigeros]);
-        }
-        else if (medianos.includes(e.target.value)) {
-            setTrabajos([...trabajosMedianos]);
-        }
-        else if (pesados.includes(e.target.value)) {
-            setTrabajos([...trabajosPesados]);
-        }
-        else if (escudos.includes(e.target.value)) {
-            setTrabajos([...trabajosEscudos]);
-        }
-    }
-
     const agregarBoton1 = (e) => {
         setTrabajosSeleccionados([e.target.value, null, null])
         precio()
@@ -764,28 +751,58 @@ const PedidoReparacion = () => {
         console.log("Precio: ", precioArtefacto, ". Demora: ", horasDeTrabajo, ". Trabajos seleccionados: ", trabajosSeleccionados)
     }
 
+    const { register, handleSubmit, reset } = useForm();
+    const navigate = useNavigate();
+
+    const creaCliente = async (values) => {
+        // POST http://localhost:3000/api/clients
+        // En el body enviamos el objeto con los datos
+        const res = await axios.post('http://localhost:3000/api/clients', values);
+        if (res.data.fatal) {
+            // alert(res.data.fatal);
+            alert('Error en el server');
+        } else {
+            alert('Cliente creado correctamente');
+            navigate('/clientes');
+        }
+    }
+
+
     return (
         <div>
             <AdminNavBar />
 
             <FormContainer>
                 <Encabezado>
-                    CREAR UN NUEVO PEDIDO
+                    REPARAR UN ARTEFACTO
                 </Encabezado>
 
-                <ArtefactoForm >
+                <ArtefactoForm onSubmit={handleSubmit(creaCliente)}>
                     <ArtefactoRenglon>
                         <ArtefactoTitle>
                             {nombreArtefacto} {nombreCliente ? "DE" : ""} {nombreCliente.toUpperCase()}
                         </ArtefactoTitle>
                         <ArtefactoImg src={require(`../../Assets/${imagen}.jpg`)}  >
-
                         </ArtefactoImg>
                     </ArtefactoRenglon>
+                    <ArtefactoTitle style={{ width: "100%", backgroundColor: "#ffd770", fontSize: "18px" }} >
+                        CLIENTE
+                    </ArtefactoTitle>
                     <ArtefactoRenglon>
-                        <label>Nombre del cliente</label>
+                        <label>Nombre</label>
                         <Input onChange={(e) => { cambiaNombreCliente(e) }} type="text" />
                     </ArtefactoRenglon>
+                    <ArtefactoRenglon>
+                        <label>Apellido</label>
+                        <Input type="text" />
+                    </ArtefactoRenglon>
+                    <ArtefactoRenglon>
+                        <label>Identificador</label>
+                        <Input type="text" />
+                    </ArtefactoRenglon>
+                    <ArtefactoTitle style={{ width: "100%", backgroundColor: "#ffd770", fontSize: "18px" }} >
+                        ARTEFACTO
+                    </ArtefactoTitle>
                     <ArtefactoRenglon>
                         <label>Especialidad</label>
                         <Select onChange={(e) => { cambiaTipoDeObjeto(e) }} id="especialidad">
@@ -819,7 +836,7 @@ const PedidoReparacion = () => {
                             <Select onChange={(e) => { agregarBoton2(e) }} id="trabajos">
                                 <option hidden defaultValue>Selecciona trabajos a realizar</option>
                                 {trabajos.filter(t => {
-                                    return !trabajosSeleccionados.includes(t)
+                                    return t !== trabajosSeleccionados[0]
                                 }
                                 ).map(trabajo =>
                                     <option key={trabajo} value={trabajo}> {trabajo}
@@ -833,7 +850,7 @@ const PedidoReparacion = () => {
                             <Select onChange={(e) => { agregarBoton3(e) }} id="trabajos">
                                 <option hidden defaultValue>Selecciona trabajos a realizar</option>
                                 {trabajos.filter(t => {
-                                    return !trabajosSeleccionados.includes(t)
+                                    return t !== trabajosSeleccionados[0] && t !== trabajosSeleccionados[1]
                                 }
                                 ).map(trabajo =>
                                     <option key={trabajo} value={trabajo}> {trabajo}

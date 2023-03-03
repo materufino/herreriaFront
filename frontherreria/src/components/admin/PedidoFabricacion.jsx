@@ -5,7 +5,7 @@ import styled from "styled-components";
 import AdminNavBar from "./AdminNavBar";
 import CartBackgroundImg from "../../Assets/cart-background.png"
 import dayjs from "dayjs";
-
+import axios from "axios";
 
 
 const FormContainer = styled.div`
@@ -490,68 +490,86 @@ const arrTrabajosParaRealizar = [
 
 const arrHerreros = [
     {
-        nombre: "Relian",
-        especialidad: "Armas",
-        rango: "Maestro",
-        reparaciones: {},
-        fabricaciones: {}
+        id: 1,
+        username: "reliana",
+        name: "Relian",
+        surname: "A",
+        category: "Armas",
+        range: "Maestro",
+        password: "1234"
     },
     {
-        nombre: "Carlos",
-        especialidad: "Armas",
-        rango: "Aprendiz",
-        reparaciones: {},
-        fabricaciones: {}
+        id: 2,
+        username: "carlsb",
+        name: "Carls",
+        surname: "B",
+        category: "Armas",
+        range: "Aprendiz",
+        password: "1234"
     },
     {
-        nombre: "Robert",
-        especialidad: "Armas",
-        rango: "Oficial",
-        reparaciones: {},
-        fabricaciones: {}
+        id: 3,
+        username: "robertc",
+        name: "Robert",
+        surname: "C",
+        category: "Armas",
+        range: "Oficial",
+        password: "1234"
     },
     {
-        nombre: "Ernest",
-        especialidad: "Armaduras",
-        rango: "Maestro",
-        reparaciones: {},
-        fabricaciones: {}
+        id: 4,
+        username: "ernestd",
+        name: "Ernest",
+        surname: "D",
+        category: "Armaduras",
+        range: "Maestro",
+        password: "1234"
     },
     {
-        nombre: "Lilian",
-        especialidad: "Armaduras",
-        rango: "Aprendiz",
-        reparaciones: {},
-        fabricaciones: {}
+        id: 5,
+        username: "lilianf",
+        name: "Lilian",
+        surname: "F",
+        category: "Armaduras",
+        range: "Aprendiz",
+        password: "1234"
     },
     {
-        nombre: "Reginald",
-        especialidad: "Armaduras",
-        rango: "Oficial",
-        reparaciones: {},
-        fabricaciones: {}
+        id: 6,
+        username: "reginaldg",
+        name: "Reginald",
+        surname: "G",
+        category: "Armaduras",
+        range: "Oficial",
+        password: "1234"
     },
     {
-        nombre: "Loric",
-        especialidad: "Herramientas",
-        rango: "Maestro",
-        reparaciones: {},
-        fabricaciones: {}
+        id: 7,
+        username: "lorich",
+        name: "Loric",
+        surname: "H",
+        category: "Herramientas",
+        range: "Maestro",
+        password: "1234"
     },
     {
-        nombre: "Pojnal",
-        especialidad: "Herramientas",
-        rango: "Aprendiz",
-        reparaciones: {},
-        fabricaciones: {}
+        id: 8,
+        username: "pojnali",
+        name: "Pojnal",
+        surname: "I",
+        category: "Herramientas",
+        range: "Aprendiz",
+        password: "1234"
     },
     {
-        nombre: "Corint",
-        especialidad: "Herramientas",
-        rango: "Oficial",
-        reparaciones: {},
-        fabricaciones: {}
-    },
+        id: 9,
+        username: "corintj",
+        name: "Corint",
+        surname: "J",
+        category: "Herramientas",
+        range: "Oficial",
+        password: "1234"
+    }
 ]
 
 //para saber qué especialidades hay
@@ -565,16 +583,16 @@ const especialidades = todasLasEspecialidades.filter(onlyUnique).sort();
 const tiposDeObjetos = listaArtefactos.map(artefacto => artefacto.nombre);
 
 //Herreros por especialidades
-const todosLosHerreros = arrHerreros.map(herrero => herrero.nombre)
+const todosLosHerreros = arrHerreros.map(herrero => herrero.name)
 
-const arrHerrerosArmas = arrHerreros.filter(herrero => herrero.especialidad === "Armas")
-const herrerosArmas = arrHerrerosArmas.map(herrero => ({ rango: herrero.rango, nombre: herrero.nombre })).sort()
+const arrHerrerosArmas = arrHerreros.filter(herrero => herrero.category === "Armas")
+const herrerosArmas = arrHerrerosArmas.map(herrero => ({ name: herrero.name, range: herrero.range })).sort()
 
-const arrHerrerosArmaduras = arrHerreros.filter(herrero => herrero.especialidad === "Armaduras")
-const herrerosArmaduras = arrHerrerosArmaduras.map(herrero => ({ nombre: herrero.nombre, rango: herrero.rango })).sort()
+const arrHerrerosArmaduras = arrHerreros.filter(herrero => herrero.category === "Armaduras")
+const herrerosArmaduras = arrHerrerosArmaduras.map(herrero => ({ name: herrero.name, range: herrero.range })).sort()
 
-const arrHerrerosHerramientas = arrHerreros.filter(herrero => herrero.especialidad === "Herramientas")
-const herrerosHerramientas = arrHerrerosHerramientas.map(herrero => ({ nombre: herrero.nombre, rango: herrero.rango })).sort()
+const arrHerrerosHerramientas = arrHerreros.filter(herrero => herrero.category === "Herramientas")
+const herrerosHerramientas = arrHerrerosHerramientas.map(herrero => ({ name: herrero.name, range: herrero.range })).sort()
 
 
 //Artefactos por especialidades
@@ -712,7 +730,7 @@ const PedidoFabricacion = () => {
 
     const modificaDemora = (e) => {
         const index = todosLosHerreros.indexOf(e.target.value)
-        const rango = arrHerreros[index].rango
+        const rango = arrHerreros[index].range
 
         if (rango === 'Aprendiz') {
             modificador = 1.5
@@ -785,7 +803,7 @@ const PedidoFabricacion = () => {
                         <Select onChange={(e) => { modificaDemora(e) }} id="herrero_asignado">
                             <option hidden defaultValue>Selecciona el Herrero</option>
                             {tipoDeHerrero.map(herrero =>
-                                <option key={herrero.nombre} value={herrero.nombre}>{herrero.rango} {herrero.nombre}</option>
+                                <option key={herrero.name} value={herrero.name}>{herrero.range} {herrero.name}</option>
                             )};
                         </Select>
                     </ArtefactoRenglon>

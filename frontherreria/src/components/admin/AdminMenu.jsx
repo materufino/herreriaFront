@@ -58,6 +58,9 @@ align-items: center;
 :hover{
     background-image: url(${MenuOptionBackgroundHover});
     background-size: cover;
+    text-shadow: 0 0 0.2em #101010, 0 0 0.2em #050504,0 0 0.2em #0e0d0d;
+    cursor: pointer;
+    color: #ffeda4;
 }
 h3 {
     font-family: 'Rakkas', cursive;
@@ -109,7 +112,7 @@ const AdminMenu = () => {
                         </OptionCard>
                     </Link>
 
-                    <Link to={'../herreros/listado'}>
+                    <Link to={'../herreros/opciones'}>
                         <OptionCard>
                             <CardImg src={HerrerosImg} />
                             <h3>Listado de Herreros</h3>

@@ -471,68 +471,86 @@ const arrTrabajosParaRealizar = [
 
 const arrHerreros = [
     {
-        nombre: "Relian",
-        especialidad: "Armas",
-        rango: "Maestro",
-        reparaciones: {},
-        fabricaciones: {}
+        id: 1,
+        username: "reliana",
+        name: "Relian",
+        surname: "A",
+        category: "Armas",
+        range: "Maestro",
+        password: "1234"
     },
     {
-        nombre: "Carlos",
-        especialidad: "Armas",
-        rango: "Aprendiz",
-        reparaciones: {},
-        fabricaciones: {}
+        id: 2,
+        username: "carlsb",
+        name: "Carls",
+        surname: "B",
+        category: "Armas",
+        range: "Aprendiz",
+        password: "1234"
     },
     {
-        nombre: "Robert",
-        especialidad: "Armas",
-        rango: "Oficial",
-        reparaciones: {},
-        fabricaciones: {}
+        id: 3,
+        username: "robertc",
+        name: "Robert",
+        surname: "C",
+        category: "Armas",
+        range: "Oficial",
+        password: "1234"
     },
     {
-        nombre: "Ernest",
-        especialidad: "Armaduras",
-        rango: "Maestro",
-        reparaciones: {},
-        fabricaciones: {}
+        id: 4,
+        username: "ernestd",
+        name: "Ernest",
+        surname: "D",
+        category: "Armaduras",
+        range: "Maestro",
+        password: "1234"
     },
     {
-        nombre: "Lilian",
-        especialidad: "Armaduras",
-        rango: "Aprendiz",
-        reparaciones: {},
-        fabricaciones: {}
+        id: 5,
+        username: "lilianf",
+        name: "Lilian",
+        surname: "F",
+        category: "Armaduras",
+        range: "Aprendiz",
+        password: "1234"
     },
     {
-        nombre: "Reginald",
-        especialidad: "Armaduras",
-        rango: "Oficial",
-        reparaciones: {},
-        fabricaciones: {}
+        id: 6,
+        username: "reginaldg",
+        name: "Reginald",
+        surname: "G",
+        category: "Armaduras",
+        range: "Oficial",
+        password: "1234"
     },
     {
-        nombre: "Loric",
-        especialidad: "Herramientas",
-        rango: "Maestro",
-        reparaciones: {},
-        fabricaciones: {}
+        id: 7,
+        username: "lorich",
+        name: "Loric",
+        surname: "H",
+        category: "Herramientas",
+        range: "Maestro",
+        password: "1234"
     },
     {
-        nombre: "Pojnal",
-        especialidad: "Herramientas",
-        rango: "Aprendiz",
-        reparaciones: {},
-        fabricaciones: {}
+        id: 8,
+        username: "pojnali",
+        name: "Pojnal",
+        surname: "I",
+        category: "Herramientas",
+        range: "Aprendiz",
+        password: "1234"
     },
     {
-        nombre: "Corint",
-        especialidad: "Herramientas",
-        rango: "Oficial",
-        reparaciones: {},
-        fabricaciones: {}
-    },
+        id: 9,
+        username: "corintj",
+        name: "Corint",
+        surname: "J",
+        category: "Herramientas",
+        range: "Oficial",
+        password: "1234"
+    }
 ]
 
 //para saber qué especialidades hay
@@ -550,16 +568,16 @@ const tiposDeObjetos = listaArtefactos.map(artefacto => artefacto.nombre);
 const arrNombresTrabajosParaRealizar = arrTrabajosParaRealizar.map(trabajo => trabajo.nombre)
 
 //Herreros por especialidades
-const todosLosHerreros = arrHerreros.map(herrero => herrero.nombre)
+const todosLosHerreros = arrHerreros.map(herrero => herrero.name)
 
-const arrHerrerosArmas = arrHerreros.filter(herrero => herrero.especialidad === "Armas")
-const herrerosArmas = arrHerrerosArmas.map(herrero => ({ nombre: herrero.nombre, rango: herrero.rango })).sort()
+const arrHerrerosArmas = arrHerreros.filter(herrero => herrero.category === "Armas")
+const herrerosArmas = arrHerrerosArmas.map(herrero => ({ name: herrero.name, range: herrero.range, id: herrero.id })).sort()
 
-const arrHerrerosArmaduras = arrHerreros.filter(herrero => herrero.especialidad === "Armaduras")
-const herrerosArmaduras = arrHerrerosArmaduras.map(herrero => ({ nombre: herrero.nombre, rango: herrero.rango })).sort()
+const arrHerrerosArmaduras = arrHerreros.filter(herrero => herrero.category === "Armaduras")
+const herrerosArmaduras = arrHerrerosArmaduras.map(herrero => ({ name: herrero.name, range: herrero.range })).sort()
 
-const arrHerrerosHerramientas = arrHerreros.filter(herrero => herrero.especialidad === "Herramientas")
-const herrerosHerramientas = arrHerrerosHerramientas.map(herrero => ({ nombre: herrero.nombre, rango: herrero.rango })).sort()
+const arrHerrerosHerramientas = arrHerreros.filter(herrero => herrero.category === "Herramientas")
+const herrerosHerramientas = arrHerrerosHerramientas.map(herrero => ({ name: herrero.name, range: herrero.range })).sort()
 
 //Artefactos por especialidades
 const arrDeObjetosArmas = listaArtefactos.filter(artefacto => artefacto.especialidad === 'Armas');
@@ -636,6 +654,8 @@ const PedidoReparacion = () => {
     let modificador
     let valor
     let tardanza
+    useEffect(() => { precio(); demora() }, [trabajosSeleccionados])
+
 
     const cambiaNombreCliente = (e) => {
         setNombreCliente(e.target.value)
@@ -702,7 +722,7 @@ const PedidoReparacion = () => {
 
     const modificaDemora = (e) => {
         const index = todosLosHerreros.indexOf(e.target.value)
-        const rango = arrHerreros[index].rango
+        const rango = arrHerreros[index].range
 
         if (rango === 'Aprendiz') {
             modificador = 1.5
@@ -732,38 +752,34 @@ const PedidoReparacion = () => {
 
     const agregarBoton1 = (e) => {
         setTrabajosSeleccionados([e.target.value, null, null])
-        precio()
-        demora()
-        console.log("Precio: ", precioArtefacto, ". Demora: ", horasDeTrabajo, ". Trabajos seleccionados: ", trabajosSeleccionados)
     }
 
     const agregarBoton2 = (e) => {
         setTrabajosSeleccionados([trabajosSeleccionados[0], e.target.value, null])
-        precio()
-        demora()
-        console.log("Precio: ", precioArtefacto, ". Demora: ", horasDeTrabajo, ". Trabajos seleccionados: ", trabajosSeleccionados)
     }
 
     const agregarBoton3 = (e) => {
         setTrabajosSeleccionados([trabajosSeleccionados[0], trabajosSeleccionados[1], e.target.value])
-        precio()
-        demora()
-        console.log("Precio: ", precioArtefacto, ". Demora: ", horasDeTrabajo, ". Trabajos seleccionados: ", trabajosSeleccionados)
     }
 
     const { register, handleSubmit, reset } = useForm();
     const navigate = useNavigate();
 
-    const creaCliente = async (values) => {
-        // POST http://localhost:3000/api/clients
-        // En el body enviamos el objeto con los datos
-        const res = await axios.post('http://localhost:3000/api/clients', values);
+    const creaOrden = async (values) => {
+        const res = await axios.post('http://localhost:3000/api/orders', values);
         if (res.data.fatal) {
-            // alert(res.data.fatal);
             alert('Error en el server');
         } else {
-            alert('Cliente creado correctamente');
-            navigate('/clientes');
+            alert('Encargo creado correctamente');
+            navigate('/menu/admin');
+        }
+
+        const res2 = await axios.post('http://localhost:3000/api/clients', values);
+        if (res2.data.fatal) {
+            alert('Error en el server');
+        } else {
+            alert('Encargo creado correctamente');
+            navigate('/menu/admin');
         }
     }
 
@@ -777,7 +793,7 @@ const PedidoReparacion = () => {
                     REPARAR UN ARTEFACTO
                 </Encabezado>
 
-                <ArtefactoForm onSubmit={handleSubmit(creaCliente)}>
+                <ArtefactoForm onSubmit={handleSubmit(creaOrden)}>
                     <ArtefactoRenglon>
                         <ArtefactoTitle>
                             {nombreArtefacto} {nombreCliente ? "DE" : ""} {nombreCliente.toUpperCase()}
@@ -790,22 +806,22 @@ const PedidoReparacion = () => {
                     </ArtefactoTitle>
                     <ArtefactoRenglon>
                         <label>Nombre</label>
-                        <Input onChange={(e) => { cambiaNombreCliente(e) }} type="text" />
+                        <Input onChange={(e) => { cambiaNombreCliente(e) }} type="text" /* {...register('???')} */ />
                     </ArtefactoRenglon>
                     <ArtefactoRenglon>
                         <label>Apellido</label>
-                        <Input type="text" />
+                        <Input type="text" /* {...register('???')} */ />
                     </ArtefactoRenglon>
                     <ArtefactoRenglon>
-                        <label>Identificador</label>
-                        <Input type="text" />
+                        <label>Documento</label>
+                        <Input type="text" {...register('dni')} />
                     </ArtefactoRenglon>
                     <ArtefactoTitle style={{ width: "100%", backgroundColor: "#ffd770", fontSize: "18px" }} >
                         ARTEFACTO
                     </ArtefactoTitle>
                     <ArtefactoRenglon>
                         <label>Especialidad</label>
-                        <Select onChange={(e) => { cambiaTipoDeObjeto(e) }} id="especialidad">
+                        <Select {...register('product_type')} onChange={(e) => { cambiaTipoDeObjeto(e) }} id="especialidad">
                             <option hidden defaultValue>Selecciona una categoría</option>
                             {especialidades.map(especialidad =>
                                 <option key={especialidad} value={especialidad}>{especialidad}</option>
@@ -814,7 +830,7 @@ const PedidoReparacion = () => {
                     </ArtefactoRenglon>
                     <ArtefactoRenglon>
                         <label>Tipo de objeto</label>
-                        <Select onChange={(e) => cambiaImagenTrabajos(e)} id="tipo_de_objeto">
+                        <Select {...register('product_subtype')} onChange={(e) => cambiaImagenTrabajos(e)} id="tipo_de_objeto">
                             <option hidden defaultValue>Selecciona un objeto</option>
                             {tipoDeObjeto.map(objeto =>
                                 <option key={objeto} value={objeto}>{objeto}</option>
@@ -823,7 +839,7 @@ const PedidoReparacion = () => {
                     </ArtefactoRenglon>
                     <ArtefactoRenglon>
                         <label>Trabajo 1</label>
-                        <Select onChange={(e) => agregarBoton1(e)} id="trabajos">
+                        <Select {...register('sub_task1')} onChange={(e) => agregarBoton1(e)} id="trabajos">
                             <option hidden defaultValue>Selecciona trabajos a realizar</option>
                             {trabajos.map(trabajo =>
                                 <option key={trabajo} value={trabajo}> {trabajo}
@@ -833,7 +849,7 @@ const PedidoReparacion = () => {
                     {trabajosSeleccionados[0] !== null && (
                         <ArtefactoRenglon>
                             <label>Trabajo 2</label>
-                            <Select onChange={(e) => { agregarBoton2(e) }} id="trabajos">
+                            <Select {...register('sub_task2')} onChange={(e) => { agregarBoton2(e) }} id="trabajos">
                                 <option hidden defaultValue>Selecciona trabajos a realizar</option>
                                 {trabajos.filter(t => {
                                     return t !== trabajosSeleccionados[0]
@@ -847,7 +863,7 @@ const PedidoReparacion = () => {
                     {trabajosSeleccionados[1] !== null && (
                         <ArtefactoRenglon>
                             <label>Trabajo 3</label>
-                            <Select onChange={(e) => { agregarBoton3(e) }} id="trabajos">
+                            <Select {...register('sub_task3')} onChange={(e) => { agregarBoton3(e) }} id="trabajos">
                                 <option hidden defaultValue>Selecciona trabajos a realizar</option>
                                 {trabajos.filter(t => {
                                     return t !== trabajosSeleccionados[0] && t !== trabajosSeleccionados[1]
@@ -860,20 +876,20 @@ const PedidoReparacion = () => {
                     )}
                     <ArtefactoRenglon>
                         <label>Herrero asignado</label>
-                        <Select onChange={(e) => { modificaDemora(e) }} id="herrero_asignado">
+                        <Select  {...register('name')} onChange={(e) => { modificaDemora(e) }} id="herrero_asignado">
                             <option hidden defaultValue>Selecciona el Herrero</option>
                             {tipoDeHerrero.map(herrero =>
-                                <option key={herrero.nombre} value={herrero.nombre}>{herrero.rango} {herrero.nombre}</option>
+                                <option key={herrero.name} value={herrero.name}>{herrero.range} {herrero.name}</option>
                             )};
                         </Select>
                     </ArtefactoRenglon>
                     <ArtefactoRenglon>
-                        <label>Fecha de entrega </label>
-                        <p>{fechaEntrega} ({horasPorTrabajo}hs) </p>
+                        <label>Fecha de entrega</label>
+                        <p /* {...register('end_date')} */ >{fechaEntrega}</p><p>({horasPorTrabajo}hs)</p>
                     </ArtefactoRenglon>
                     <ArtefactoRenglon>
                         <label>Precio </label>
-                        <p>{precioArtefacto} monedas de oro</p>
+                        <p /* {...register('price')} */>{precioArtefacto}</p> <p>monedas de oro</p>
                     </ArtefactoRenglon>
 
                     <button className="submit sheen" type="submit">Agregar encargo</button>
@@ -882,8 +898,6 @@ const PedidoReparacion = () => {
 
         </div>
     );
-
-
 }
 
 export default PedidoReparacion

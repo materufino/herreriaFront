@@ -12,6 +12,7 @@ import PedidosEnCurso from './components/admin/PedidosEnCurso';
 import PedidosTerminados from './components/admin/PedidosTerminados';
 import Clientes from './components/admin/Clientes';
 import ListadoHerreros from './components/admin/ListadoHerreros';
+import Herreros from './components/admin/Herreros';
 import HerreroMenu from './components/herrero/HerreroMenu';
 import HerreroTareasPendientes from './components/herrero/HerreroTareasPendientes';
 import HerreroModificarTareas from './components/herrero/HerreroModificarTareas';
@@ -27,10 +28,10 @@ function App() {
       <div className="App">
         <Routes>
           {/* forms */}
-          <Route path='/' element={<Navigate to={'/Home'}replace/>}/>
+          <Route path='/' element={<Navigate to={'/home'} replace />} />
           <Route path='home' element={<Home />} />
           <Route path='register/admin' element={<AdminRegistro />} />
-          <Route path='register/herrero' element={<HerreroRegistro />} />
+          <Route path='herreros/registro' element={<HerreroRegistro />} />
           <Route path='pedidos/nuevo' element={<NuevoPedido />} />
           <Route path='pedidos/nuevo/fabricacion' element={<PedidoFabricacion />} />
           <Route path='pedidos/nuevo/reparacion' element={<PedidoReparacion />} />
@@ -38,11 +39,12 @@ function App() {
           <Route path='menu/admin' element={<AdminMenu />} />
           <Route path='menu/herrero' element={<HerreroMenu />} />
           {/* menues del Admin */}
+          <Route path='herreros/listado' element={<ListadoHerreros />} />
           <Route path='pedidos/creado' element={<PedidoCreado />} />
           <Route path='pedidos/en_curso' element={<PedidosEnCurso />} />
           <Route path='pedidos/terminados' element={<PedidosTerminados />} />
           <Route path='clientes' element={<Clientes />} />
-          <Route path='herreros/listado' element={<ListadoHerreros />} />
+          <Route path='herreros/opciones' element={<Herreros />} />
           {/* menues de los Herreros */}
           <Route path='herreros/tareas/pendientes' element={<HerreroTareasPendientes />} />
           <Route path='herreros/tareas/modificar' element={<HerreroModificarTareas />} />

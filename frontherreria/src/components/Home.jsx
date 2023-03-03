@@ -1,4 +1,4 @@
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import styled from "styled-components";
 import HomeBackground from '../Assets/home-background.jpg'
 
@@ -67,7 +67,7 @@ const DivCreaCuenta = styled.div`
     color: black;
 `
 
-const Home = ()=> {
+const Home = () => {
 
     return (
         <Container>
@@ -77,15 +77,15 @@ const Home = ()=> {
                     <h3>COMPLETA TUS DATOS</h3>
                     <LabelInputContainer>
                         <label>Nombre de usuario</label>
-                        <input type="text"/>
+                        <input type="text" />
                     </LabelInputContainer>
                     <LabelInputContainer>
                         <label>Contraseña</label>
-                        <input type="password"/>
+                        <input type="password" />
                     </LabelInputContainer>
                     <LoginButton className="sheen">INGRESAR</LoginButton>
 
-                    <Link to={'../register/herrero'}>
+                    <Link to={'../menu/admin'}>
                         <DivCreaCuenta>
                             ¿Aún no tienes cuenta? Pulsa aquí.
                         </DivCreaCuenta>
@@ -94,7 +94,7 @@ const Home = ()=> {
             </LoginContainer>
         </Container>
     );
-    
+
 }
 
 export default Home;

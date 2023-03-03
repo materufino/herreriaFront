@@ -1,5 +1,6 @@
 import AdminNavBar from "./AdminNavBar";
 import styled from "styled-components";
+import axios from "axios";
 
 const Container = styled.div`
 display: flex;
@@ -16,19 +17,19 @@ margin: 70px;
 color: #3a1603;
 `
 
-const PedidoCreado = ()=> {
+const PedidoCreado = () => {
 
     return (
         <div>
             <AdminNavBar />
             <Container>
                 <EncabezadoH1>
-                        PEDIDO CREADO CON ÉXITO
+                    PEDIDO CREADO CON ÉXITO
                 </EncabezadoH1>
             </Container>
         </div>
     );
-    
+
 }
 
 export default PedidoCreado;

@@ -52,7 +52,7 @@ const AdminNavBar = () => {
             <CustomLink to={'/clientes'}>
                 <LiMenu>Clientes</LiMenu>
             </CustomLink>
-            <CustomLink to={'/herreros/opciones'}>
+            <CustomLink to={'/herreros'}>
                 <LiMenu>Herreros</LiMenu>
             </CustomLink>
             <CustomLink to={'/home'}>

@@ -44,7 +44,7 @@ function App() {
           <Route path='pedidos/en_curso' element={<PedidosEnCurso />} />
           <Route path='pedidos/terminados' element={<PedidosTerminados />} />
           <Route path='clientes' element={<Clientes />} />
-          <Route path='herreros/opciones' element={<Herreros />} />
+          <Route path='herreros' element={<Herreros />} />
           {/* menues de los Herreros */}
           <Route path='herreros/tareas/pendientes' element={<HerreroTareasPendientes />} />
           <Route path='herreros/tareas/modificar' element={<HerreroModificarTareas />} />

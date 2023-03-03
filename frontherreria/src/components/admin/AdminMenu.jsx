@@ -112,10 +112,10 @@ const AdminMenu = () => {
                         </OptionCard>
                     </Link>
 
-                    <Link to={'../herreros/opciones'}>
+                    <Link to={'../herreros/'}>
                         <OptionCard>
                             <CardImg src={HerrerosImg} />
-                            <h3>Listado de Herreros</h3>
+                            <h3>Herreros</h3>
                             <CardDiv>Muestra un listado de los Herreros registrados</CardDiv>
                         </OptionCard>
                     </Link>

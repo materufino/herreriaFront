@@ -773,16 +773,7 @@ const PedidoReparacion = () => {
             alert('Encargo creado correctamente');
             navigate('/menu/admin');
         }
-
-        const res2 = await axios.post('http://localhost:3000/api/clients', values);
-        if (res2.data.fatal) {
-            alert('Error en el server');
-        } else {
-            alert('Encargo creado correctamente');
-            navigate('/menu/admin');
-        }
     }
-
 
     return (
         <div>

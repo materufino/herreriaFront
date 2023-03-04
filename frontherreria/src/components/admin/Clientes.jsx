@@ -56,7 +56,6 @@ padding-left: 80px;
     background-image: url(${MenuOptionBackgroundHover});
     background-size: cover;
     text-shadow: 0 0 0.2em #101010, 0 0 0.2em #050504,0 0 0.2em #0e0d0d;
-    cursor: pointer;
     color: #ffeda4;
 }
 `
@@ -136,7 +135,7 @@ const Clientes = () => {
 
             <FormContainer>
                 <Encabezado>
-                    LISTADO DE CLIENTES
+                    LISTADO DE CLIENTES ({arrClientes.length})
                 </Encabezado>
                 <ArtefactoForm>
                     {arrClientes.map(cliente =>

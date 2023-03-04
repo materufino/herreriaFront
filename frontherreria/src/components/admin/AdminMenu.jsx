@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import { Link } from 'react-router-dom'
 import AdminNavBar from "./AdminNavBar";
-import MenuOptionBackground from "../../Assets/menu-option-background.png"
 import NuevoPedidoImg from '../../Assets/nuevo-pedido.png'
 import PedidosEnCursoImg from '../../Assets/pedidos-en-curso.png'
 import PedidosTerminadosImg from '../../Assets/pedidos-terminados.png'
 import ClientesImg from '../../Assets/clientes.png'
 import HerrerosImg from '../../Assets/herreros.jpg'
+import MenuOptionBackground from "../../Assets/menu-option-background.png"
 import MenuOptionBackgroundHover from "../../Assets/menu-option-background-hover.png"
 
 
@@ -84,7 +84,7 @@ const AdminMenu = () => {
                         <OptionCard>
                             <CardImg style={{ marginLeft: '20px' }} src={NuevoPedidoImg} />
                             <h3>Crear un nuevo pedido</h3>
-                            <CardDiv>Gestiona reparaciones y fabricaciones</CardDiv>
+                            <CardDiv>Accede a un menú para la gestión de reparaciones y fabricaciones</CardDiv>
                         </OptionCard>
                     </Link>
 
@@ -116,7 +116,7 @@ const AdminMenu = () => {
                         <OptionCard>
                             <CardImg src={HerrerosImg} />
                             <h3>Herreros</h3>
-                            <CardDiv>Muestra un listado de los Herreros registrados</CardDiv>
+                            <CardDiv>Accede a un menú para la gestión de los Herreros</CardDiv>
                         </OptionCard>
                     </Link>
 

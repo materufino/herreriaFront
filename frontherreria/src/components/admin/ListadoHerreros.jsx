@@ -6,6 +6,7 @@ import axios from "axios";
 
 import MenuOptionBackground from "../../Assets/navbar-option-background.jpg"
 import MenuOptionBackgroundHover from "../../Assets/navbar-option-background.jpg"
+import { useEffect, useState } from "react";
 
 const Encabezado = styled.h1`
 font-size: 50px;
@@ -56,7 +57,6 @@ padding-left: 80px;
     background-image: url(${MenuOptionBackgroundHover});
     background-size: cover;
     text-shadow: 0 0 0.2em #101010, 0 0 0.2em #050504,0 0 0.2em #0e0d0d;
-    cursor: pointer;
     color: #ffeda4;
 }
 `
@@ -75,7 +75,7 @@ justify-content: start;
 gap: 10px;
 `
 
-const arrHerreros = [
+const arrHerreros2 = [
     {
         id: 1,
         username: "reliana",
@@ -171,13 +171,25 @@ const asignaImagen = (range) => {
 
 const ListadoHerreros = () => {
 
+    const [arrHerreros, setArrHerreros] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await axios.get("http://localhost:3000/api/users")
+            setArrHerreros(res.data)
+        }
+        fetchData();
+    }, [])
+
+    console.log(arrHerreros)
+
     return (
         <div>
             <AdminNavBar />
 
             <FormContainer>
                 <Encabezado>
-                    LISTADO DE HERREROS
+                    LISTADO DE HERREROS ({arrHerreros.length})
                 </Encabezado>
                 <ArtefactoForm>
                     {arrHerreros.map(herrero =>

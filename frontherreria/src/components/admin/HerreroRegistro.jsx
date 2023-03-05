@@ -58,15 +58,15 @@ const HerreroRegistro = () => {
     const { register, handleSubmit, reset } = useForm();
     const navigate = useNavigate();
 
-    /*     const registraHerrero = async (values) => {
-            const res = await axios.post('http://localhost:3000/api/users/register', values);
-            if (res.data.fatal) {
-                alert('Error en el server');
-            } else {
-                alert('Herrero registrado correctamente');
-                navigate('/menu/admin');
-            } */
-
+    const registraHerrero = async (values) => {
+        const res = await axios.post('http://localhost:3000/api/users/register', values);
+        if (res.data.fatal) {
+            alert('Error en el server');
+        } else {
+            alert('Herrero registrado exitosamente');
+            navigate('/menu/admin');
+        }
+    }
     return (
         <div>
             <AdminNavBar />
@@ -76,7 +76,7 @@ const HerreroRegistro = () => {
                     REGISTRAR UN NUEVO HERRERO
                 </Encabezado>
 
-                <ArtefactoForm /* onSubmit={handleSubmit(registraHerrero)} */>
+                <ArtefactoForm onSubmit={handleSubmit(registraHerrero)} >
                     <ArtefactoRenglon>
                         <label>Nombre</label>
                         <Input {...register('name')} type="text" />
@@ -104,7 +104,7 @@ const HerreroRegistro = () => {
                     </ArtefactoRenglon>
                     <ArtefactoRenglon>
                         <label>Rango</label>
-                        <Select {...register('range')} id="especialidad">
+                        <Select {...register('rango')} id="especialidad">
                             <option hidden defaultValue>Selecciona una categoría</option>
                             <option value="Aprendiz">Aprendiz</option>
                             <option value="Oficial">Oficial</option>
@@ -118,5 +118,4 @@ const HerreroRegistro = () => {
         </div>
     );
 }
-/* } */
 export default HerreroRegistro

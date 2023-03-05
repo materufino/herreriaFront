@@ -24,22 +24,18 @@ width: 100%;
 /* height: 100vh; */
 `
 
-const Select = styled.select`
-width: 50%;
-height: 25px;
-`
-
-const Input = styled.input`
-width: 48%;
-height: 20px;
-`
-
 const ArtefactoForm = styled.form`
 display: flex;
-flex-direction: column;
-align-items: center;
-width: 400px;
+flex-direction: row;
+align-items: flex-start;
+justify-content: center;
+width: 100%;
 gap: 20px;
+
+ @media (min-width: 425px) { 
+    flex-wrap: wrap;
+    justify-content: center;
+ }
 `
 
 const CardHerrero = styled.div`
@@ -75,104 +71,21 @@ justify-content: start;
 gap: 10px;
 `
 
-const arrHerreros2 = [
-    {
-        id: 1,
-        username: "reliana",
-        name: "Relian",
-        surname: "A",
-        category: "Armas",
-        range: "Maestro",
-        password: "1234"
-    },
-    {
-        id: 2,
-        username: "carlsb",
-        name: "Carls",
-        surname: "B",
-        category: "Armas",
-        range: "Aprendiz",
-        password: "1234"
-    },
-    {
-        id: 3,
-        username: "robertc",
-        name: "Robert",
-        surname: "C",
-        category: "Armas",
-        range: "Oficial",
-        password: "1234"
-    },
-    {
-        id: 4,
-        username: "ernestd",
-        name: "Ernest",
-        surname: "D",
-        category: "Armaduras",
-        range: "Maestro",
-        password: "1234"
-    },
-    {
-        id: 5,
-        username: "lilianf",
-        name: "Lilian",
-        surname: "F",
-        category: "Armaduras",
-        range: "Aprendiz",
-        password: "1234"
-    },
-    {
-        id: 6,
-        username: "reginaldg",
-        name: "Reginald",
-        surname: "G",
-        category: "Armaduras",
-        range: "Oficial",
-        password: "1234"
-    },
-    {
-        id: 7,
-        username: "lorich",
-        name: "Loric",
-        surname: "H",
-        category: "Herramientas",
-        range: "Maestro",
-        password: "1234"
-    },
-    {
-        id: 8,
-        username: "pojnali",
-        name: "Pojnal",
-        surname: "I",
-        category: "Herramientas",
-        range: "Aprendiz",
-        password: "1234"
-    },
-    {
-        id: 9,
-        username: "corintj",
-        name: "Corint",
-        surname: "J",
-        category: "Herramientas",
-        range: "Oficial",
-        password: "1234"
-    }
-]
-
-const asignaImagen = (range) => {
-    if (range == "Maestro") {
-        return require(`../../Assets/martilloMaestro.png`)
-    } else if (range == "Oficial") {
-        return require(`../../Assets/martilloOficial.png`)
-    } else if (range == "Aprendiz") {
-        return require(`../../Assets/martilloAprendiz.png`)
-    }
-}
-
 const ListadoHerreros = () => {
 
     const [arrHerreros, setArrHerreros] = useState([]);
+    const [arrOrdenes, setArrOrdenes] = useState([]);
 
+    //GET ORDERS
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await axios.get("http://localhost:3000/api/orders")
+            setArrOrdenes(res.data)
+        }
+        fetchData();
+    }, [])
+
+    //GET HERREROS
     useEffect(() => {
         const fetchData = async () => {
             const res = await axios.get("http://localhost:3000/api/users")
@@ -181,7 +94,31 @@ const ListadoHerreros = () => {
         fetchData();
     }, [])
 
-    console.log(arrHerreros)
+    function compareNombre(a, b) {
+        if (a.name < b.name) {
+            return -1;
+        }
+        if (a.name > b.name) {
+            return 1;
+        }
+        return 0;
+    }
+
+    const trabajosRealizados = (id) => {
+        const trabajosDeUnHerrero = arrOrdenes.filter(order => order.user_id == id)
+        const cantidadDeTrabajos = trabajosDeUnHerrero.length
+        return cantidadDeTrabajos
+    }
+
+    const asignaImagen = (rango) => {
+        if (rango == "Maestro") {
+            return require(`../../Assets/martilloMaestro.png`)
+        } else if (rango == "Oficial") {
+            return require(`../../Assets/martilloOficial.png`)
+        } else if (rango == "Aprendiz") {
+            return require(`../../Assets/martilloAprendiz.png`)
+        }
+    }
 
     return (
         <div>
@@ -192,11 +129,11 @@ const ListadoHerreros = () => {
                     LISTADO DE HERREROS ({arrHerreros.length})
                 </Encabezado>
                 <ArtefactoForm>
-                    {arrHerreros.map(herrero =>
+                    {arrHerreros.sort(compareNombre).map(herrero =>
                         <CardHerrero>
-                            <img style={{ position: "absolute", top: "40px", right: "40px", width: "80px", height: "80px" }} src={asignaImagen(herrero.range)} alt="" />
+                            <img style={{ position: "absolute", top: "40px", right: "40px", width: "80px", height: "80px" }} src={asignaImagen(herrero.rango)} alt="" />
                             <TituloCard>{herrero.name.toUpperCase()} {herrero.surname.toUpperCase()}</TituloCard>
-                            <RenglonCard>
+                            <RenglonCard >
                                 <div>Usuario: </div>
                                 <div style={{ fontWeight: "900" }}>{herrero.username} </div>
                             </RenglonCard>
@@ -206,11 +143,11 @@ const ListadoHerreros = () => {
                             </RenglonCard>
                             <RenglonCard>
                                 <div>Rango: </div>
-                                <div style={{ fontWeight: "900" }}>{herrero.range} </div>
+                                <div style={{ fontWeight: "900" }}>{herrero.rango} </div>
                             </RenglonCard>
                             <RenglonCard>
-                                <div>Trabajos asignados: </div>
-                                <div style={{ fontWeight: "900" }}>44{/* arrayOrders.map por id y .lenght */} </div>
+                                <div>Total de trabajos asignados: </div>
+                                <div style={{ fontWeight: "900" }}>{trabajosRealizados(herrero.id)} </div>
                             </RenglonCard>
                         </CardHerrero>
                     )}

@@ -25,6 +25,7 @@ width: 90%;
 display: flex;
 justify-content: center;
 gap: 20px;
+
 `
 const CardDiv = styled.div`
 width: 60%;

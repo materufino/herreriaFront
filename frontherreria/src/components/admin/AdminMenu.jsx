@@ -5,7 +5,7 @@ import NuevoPedidoImg from '../../Assets/nuevo-pedido.png'
 import PedidosEnCursoImg from '../../Assets/pedidos-en-curso.png'
 import PedidosTerminadosImg from '../../Assets/pedidos-terminados.png'
 import ClientesImg from '../../Assets/clientes.png'
-import HerrerosImg from '../../Assets/herreros.jpg'
+import HerrerosImg from '../../Assets/herreros.png'
 import MenuOptionBackground from "../../Assets/menu-option-background.png"
 import MenuOptionBackgroundHover from "../../Assets/menu-option-background-hover.png"
 
@@ -31,6 +31,12 @@ width: 90%;
 display: flex;
 justify-content: space-around;
 gap: 10px;
+ @media (min-width: 425px) { 
+    flex-wrap: wrap;
+ }
+  @media (min-width: 1850px) { 
+    flex-wrap: nowrap;
+ }
 `
 const CardDiv = styled.div`
 width: 60%;
@@ -67,6 +73,12 @@ h3 {
     font-size: 24px;
     margin: 20px 0px;
 };
+ @media (min-width: 425px) { 
+    margin-bottom: 20px;
+ }
+  @media (min-width: 1850px) { 
+    margin-bottom: 0px;
+ }
 `
 
 const AdminMenu = () => {
@@ -114,7 +126,7 @@ const AdminMenu = () => {
 
                     <Link to={'../herreros/'}>
                         <OptionCard>
-                            <CardImg src={HerrerosImg} />
+                            <CardImg style={{ marginLeft: '20px' }} src={HerrerosImg} />
                             <h3>Herreros</h3>
                             <CardDiv>Accede a un menú para la gestión de los Herreros</CardDiv>
                         </OptionCard>

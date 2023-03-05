@@ -6,70 +6,7 @@ import axios from "axios";
 
 import MenuOptionBackground from "../../Assets/menu-option-background.png"
 import MenuOptionBackgroundHover from "../../Assets/menu-option-background-hover.png"
-import { useState } from "react";
-
-const arrOrdenes = [
-    {
-        id: 1,
-        task: "Reparación",
-        product_type: "Armas",
-        product_subtype: "Espada larga",
-        order_status: "En proceso",
-        start_date: "06/03/2023 - 12:00hs",
-        end_date: "09/03/2023 - 19:00hs",
-        price: "12",
-        obs: "Lorem ipsum dolor sit amet consectetur, adipisicing eaaaaaa aaaaaaaaaaaa aaaaaaaaaaa aaaaaaad asdasdasd asdasjgdashgdj ipsum dolor sit amet consectetur, adipisicing eaaaaaa aaaaaaaaaaaa aaaaaaaaaaa aaaaaaad asdasdasd asdasjgda asgdjasgjgdas gdasgdas gdjasgh gdasjdglit. Deserunt earum repellendus eius, impedit reiciendis accusamus!",
-        client_id: "1",
-        user_id: "1",
-        sub_task1: "Afiladura de hoja",
-        sub_task2: "Cambio de empuñadura",
-        sub_task3: "Engrasado de hoja",
-        sub_task1_status: "Terminado",
-        sub_task2_status: "En proceso",
-        sub_task3_status: "En espera",
-        product_id: "15"
-    },
-    {
-        id: 2,
-        task: "Fabricación",
-        product_type: "Armaduras",
-        product_subtype: "Cota de mallas",
-        order_status: "En proceso",
-        start_date: "06/03/2023 - 12:00hs",
-        end_date: "09/03/2023 - 19:00hs",
-        price: "16",
-        obs: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Deserunt earum repellendus eius, impedit reiciendis accusamus!",
-        client_id: "4",
-        user_id: "4",
-        sub_task1: "Arreglo de abolladuras",
-        sub_task2: "Recambio de anillas",
-        sub_task3: "",
-        sub_task1_status: "Terminado",
-        sub_task2_status: "En proceso",
-        sub_task3_status: "",
-        product_id: "20"
-    },
-    {
-        id: 2,
-        task: "Reparación",
-        product_type: "Herramientas",
-        product_subtype: "Pico de mineria",
-        order_status: "En proceso",
-        start_date: "06/03/2023 - 12:00hs",
-        end_date: "09/03/2023 - 19:00hs",
-        price: "9",
-        obs: "",
-        client_id: "9",
-        user_id: "7",
-        sub_task1: "Cambio de empuñadura",
-        sub_task2: "Afilado",
-        sub_task3: "",
-        sub_task1_status: "Terminado",
-        sub_task2_status: "En proceso",
-        sub_task3_status: "",
-        product_id: "30"
-    },
-]
+import { useEffect, useState } from "react";
 
 const Encabezado = styled.h1`
 font-size: 50px;
@@ -84,7 +21,6 @@ margin-bottom: 30px;
 flex-direction: column;
 align-items: center;
 width: 100%;
-/* height: 100vh; */
 `
 
 const Select = styled.select`
@@ -99,10 +35,18 @@ height: 20px;
 
 const ArtefactoForm = styled.form`
 display: flex;
-flex-direction: column;
+flex-direction: row;
 align-items: center;
-width: 400px;
+justify-content: start;
+width: 100%;
 gap: 20px;
+ @media (min-width: 425px) { 
+    flex-wrap: wrap;
+    justify-content: center;
+ }
+  @media (min-width: 1850px) { 
+    margin-bottom: 0px;
+ }
 `
 
 const CardHerrero = styled.div`
@@ -126,6 +70,8 @@ padding-left: 150px;
 `
 
 const TituloCard = styled.h3`
+width: 80%;
+min-height: 50px;
 font-size: 25px;
 margin-top: 90px;
 font-family: 'Rakkas', cursive;
@@ -153,6 +99,9 @@ padding: 20px;
 display: flex;
 flex-direction: column;
 gap: 20px;
+:last-child{
+    align-items: flex-end;
+}
 `
 
 const CruzButton = styled.button`
@@ -164,28 +113,84 @@ background-color: #e07f3a;
 
 const PedidosTerminados = () => {
 
+    const [arrClientes, setArrClientes] = useState([]);
+    const [arrHerreros, setArrHerreros] = useState([]);
+    const [comentarios, setComentarios] = useState('');
+    const [arrOrdenes, setArrOrdenes] = useState([]);
+    /*     const [arrTodasLasOrdenes, setArrTodasLasOrdenes] = useState([]);
+        const arrEnProceso = [];
+        let nombreCliente = ''; */
 
-    const [comentarios, setComentarios] = useState('')
+    //GET CLIENTES
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await axios.get("http://localhost:3000/api/clients")
+            setArrClientes(res.data)
+        }
+        fetchData();
+    }, [])
+
+    //GET HERREROS
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await axios.get("http://localhost:3000/api/users")
+            setArrHerreros(res.data)
+        }
+        fetchData();
+    }, [])
+
+    //GET ORDENES "FINALIZADO"
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await axios.get("http://localhost:3000/api/orders")
+            setArrOrdenes((res.data).filter(order => order.order_status == "Finalizado"))
+        }
+        fetchData();
+    }, [])
+
 
     const asignaImagen = (subtype) => {
         return require(`../../Assets/${subtype.toLowerCase()}.jpg`)
     }
 
-    const checkComentarios = (obs) => {
+    const checkComentarios = (obs, user_id) => {
         if (obs) {
             return <div style={{ display: "Flex", gap: "20px" }}>
                 <p>Sí</p>
-                <button style={{ marginTop: "-10px" }} className="sheen" onClick={(e) => { mostrarComentario(e, obs) }}>Mostrar</button>
+                <button style={{ marginTop: "-10px" }} className="sheen" onClick={(e) => { mostrarComentario(e, obs, user_id) }}>Mostrar</button>
             </div>
         } else { return <p>No</p> }
     }
 
-    const mostrarComentario = (e, obs) => {
+    const mostrarNombreCliente = (id) => {
+        if (arrClientes.length > 0) {
+            const clientesPorNombre = arrClientes.map(client => ({ name: client.name, surname: client.surname, id: client.id }))
+            const clientesPorId = arrClientes.map(client => client.id)
+            const idCliente = parseInt(id);
+            const index = clientesPorId.indexOf(idCliente)
+            const nombreCliente = clientesPorNombre[index].name + " " + clientesPorNombre[index].surname
+            return nombreCliente.toUpperCase()
+        } else { return "esperando cliente" }
+    }
+
+    const mostrarNombreHerrero = (id) => {
+        if (arrHerreros.length > 0) {
+            const herrerosPorNombre = arrHerreros.map(herrero => ({ name: herrero.name, surname: herrero.surname, id: herrero.id, rango: herrero.rango }))
+            const HerrerosPorId = arrHerreros.map(herrero => herrero.id)
+            const idHerrero = parseInt(id);
+            const index = HerrerosPorId.indexOf(idHerrero)
+            const nombreHerrero = herrerosPorNombre[index].rango + " " + herrerosPorNombre[index].name + " " + herrerosPorNombre[index].surname
+            return nombreHerrero
+        } else { return "esperando herrero" }
+    }
+
+    const mostrarComentario = (e, obs, user_id) => {
         e.preventDefault()
         setComentarios(<DivComentario>
             <CruzButton className="sheen" onClick={(e) => ocultarComentario(e)} >X</CruzButton>
             <img src={require(`../../Assets/comentario-herrero.jpg`)} alt="" />
-            <p> "{obs}" </p>
+            <p> "{obs}"</p>
+            <p>{mostrarNombreHerrero(user_id)}</p>
         </DivComentario>)
     }
 
@@ -200,14 +205,14 @@ const PedidosTerminados = () => {
 
             <FormContainer>
                 <Encabezado>
-                    TRABAJOS TERMINADOS ({arrOrdenes.length})
+                    TRABAJOS FINALIZADOS ({arrOrdenes.length})
                 </Encabezado>
 
                 <ArtefactoForm>
                     {arrOrdenes.map(orden =>
-                        <CardHerrero>
-                            <img style={{ position: "absolute", top: "130px", right: "120px", width: "80px", height: "80px" }} src={asignaImagen(orden.product_subtype)} alt="" />
-                            <TituloCard>{orden.product_subtype.toUpperCase()} DE {orden.client_id.toUpperCase()}</TituloCard>
+                        <CardHerrero key={orden.id}>
+                            <img style={{ position: "absolute", top: "150px", right: "120px", width: "80px", height: "80px" }} src={asignaImagen(orden.product_subtype)} alt="" />
+                            <TituloCard>{orden.product_subtype.toUpperCase()} DE {mostrarNombreCliente(orden.client_id)}</TituloCard>
                             <RenglonCard>
                                 <div>Tarea: </div>
                                 <div style={{ fontWeight: "900" }}>{orden.task} </div>
@@ -229,12 +234,12 @@ const PedidosTerminados = () => {
                                 <div style={{ fontWeight: "900" }}>{orden.price} monedas de oro</div>
                             </RenglonCard>
                             <RenglonCard>
-                                <div>Herrero asignado: </div>
-                                <div style={{ fontWeight: "900" }}>{orden.user_id} </div>
+                                <div>Herrero: </div>
+                                <div style={{ fontWeight: "900" }}>{mostrarNombreHerrero(orden.user_id)} </div>
                             </RenglonCard>
-                            <RenglonCard>
+                            {orden.sub_task1 && <RenglonCard>
                                 <div>Tareas encargadas: </div>
-                            </RenglonCard>
+                            </RenglonCard>}
                             {orden.sub_task1 && <RenglonCard>
                                 <div style={{ fontWeight: "900", fontSize: "20px", fontSize: "20px" }}>{orden.sub_task1}: </div>
                                 <div style={{ fontWeight: "900", fontSize: "20px" }}>{orden.sub_task1_status} </div>
@@ -249,7 +254,7 @@ const PedidosTerminados = () => {
                             </RenglonCard>}
                             <RenglonCard>
                                 <div>Tiene comentarios? </div>
-                                <div style={{ fontWeight: "900" }}>{checkComentarios(orden.obs)} </div>
+                                <div style={{ fontWeight: "900" }}>{checkComentarios(orden.obs, orden.user_id)} </div>
                             </RenglonCard>
                             {comentarios}
                         </CardHerrero>

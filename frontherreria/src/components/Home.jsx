@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom'
 import styled from "styled-components";
 import HomeBackground from '../Assets/home-background.jpg'
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 
 
 const Container = styled.div`
@@ -22,7 +25,7 @@ color: white;
 text-shadow: 0 0 0.2em #fbdd1a, 0 0 0.2em #fbdd1a,0 0 0.2em #fbdd1a;
 `
 
-const LoginContainer = styled.div`
+const LoginForm = styled.form`
 width: 70%;
 display: flex;
 justify-content: space-around;
@@ -67,23 +70,36 @@ const DivCreaCuenta = styled.div`
     color: black;
 `
 
+
 const Home = () => {
+
+    const { register, handleSubmit, reset } = useForm();
+    const navigate = useNavigate();
+
+    const login = async (values) => {
+        const res = await axios.post('http://localhost:3000/api/users', values);
+        if (res.data.fatal) {
+            alert('Error en el server');
+        } else {
+            navigate('/menu/admin');
+        }
+    }
 
     return (
         <Container>
             <Encabezado>¡BIENVENIDO, GUARDIÁN DE LA CHISPA!</Encabezado>
-            <LoginContainer>
+            <LoginForm onSubmit={handleSubmit(login)}>
                 <User>
                     <h3>COMPLETA TUS DATOS</h3>
                     <LabelInputContainer>
                         <label>Nombre de usuario</label>
-                        <input type="text" />
+                        <input {...register('username')} type="text" />
                     </LabelInputContainer>
                     <LabelInputContainer>
                         <label>Contraseña</label>
-                        <input type="password" />
+                        <input {...register('password')} type="password" />
                     </LabelInputContainer>
-                    <LoginButton className="sheen">INGRESAR</LoginButton>
+                    <LoginButton className="sheen" type="submit">INGRESAR</LoginButton>
 
                     <Link to={'../menu/admin'}>
                         <DivCreaCuenta>
@@ -91,7 +107,7 @@ const Home = () => {
                         </DivCreaCuenta>
                     </Link>
                 </User>
-            </LoginContainer>
+            </LoginForm>
         </Container>
     );
 

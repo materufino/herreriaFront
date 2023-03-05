@@ -6,6 +6,7 @@ import axios from "axios";
 
 import MenuOptionBackground from "../../Assets/menu-option-background2.png"
 import MenuOptionBackgroundHover from "../../Assets/menu-option-background-hover2.png"
+import { useEffect, useState } from "react";
 
 const Encabezado = styled.h1`
 font-size: 50px;
@@ -23,22 +24,17 @@ width: 100%;
 /* height: 100vh; */
 `
 
-const Select = styled.select`
-width: 50%;
-height: 25px;
-`
-
-const Input = styled.input`
-width: 48%;
-height: 20px;
-`
-
 const ArtefactoForm = styled.form`
 display: flex;
-flex-direction: column;
-align-items: center;
-width: 400px;
+flex-direction: row;
+align-items: flex-start;
+justify-content: center;
+width: 100%;
 gap: 20px;
+ @media (min-width: 425px) { 
+    flex-wrap: wrap;
+    justify-content: center;
+ }
 `
 
 const CardHerrero = styled.div`
@@ -46,23 +42,21 @@ position: relative;
 display: flex;
 flex-direction: column;
 align-items: flex-start;
-width: 375px;
-height: 350px;
-background-image: url(${MenuOptionBackground});
-background-size: cover;
+width: 330px;
+height: 250px;
+background-color: #ffeda4;
+border-radius: 10px;
+border: 3px solid #ffeda4;
 gap: 20px;
-padding-left: 80px;
+padding: 30px 0px 0px 60px;
 :hover{
-    background-image: url(${MenuOptionBackgroundHover});
-    background-size: cover;
-    text-shadow: 0 0 0.2em #101010, 0 0 0.2em #050504,0 0 0.2em #0e0d0d;
-    color: #ffeda4;
+    border: 3px solid #3a1603;
 }
 `
 
 const TituloCard = styled.h3`
 font-size: 25px;
-margin-top: 120px;
+margin-top: 20px;
 font-family: 'Rakkas', cursive;
 `
 
@@ -72,62 +66,63 @@ font-size: 25px;
 display: flex;
 justify-content: start;
 gap: 10px;
+:last-child{
+    margin-bottom: 30px;
+}
 `
 
-const arrClientes = [
-    {
-        id: 1,
-        name: "Marcus",
-        surname: "A",
-        user_id: "1",
-        dni: "23",
-    },
-    {
-        id: 2,
-        name: "Lucian",
-        surname: "B",
-        user_id: "2",
-        dni: "52",
-    },
-    {
-        id: 3,
-        name: "Rowan",
-        surname: "C",
-        user_id: "3",
-        dni: "11",
-    },
-    {
-        id: 4,
-        name: "Lilia",
-        surname: "D",
-        user_id: "4",
-        dni: "55",
-    },
-    {
-        id: 5,
-        name: "Renata",
-        surname: "F",
-        user_id: "5",
-        dni: "167",
-    },
-    {
-        id: 6,
-        name: "Gunderamo",
-        surname: "G",
-        user_id: "6",
-        dni: "200",
-    },
-    {
-        id: 7,
-        name: "Rey Teodorico",
-        surname: "R",
-        user_id: "7",
-        dni: "1",
-    }
-]
-
-
 const Clientes = () => {
+
+    const [arrClientes, setArrClientes] = useState([]);
+    const [arrOrdenes, setArrOrdenes] = useState([]);
+
+    //GET CLIENTES
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await axios.get("http://localhost:3000/api/clients")
+            setArrClientes(res.data)
+        }
+        fetchData();
+    }, [])
+
+    //GET ORDERS
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await axios.get("http://localhost:3000/api/orders")
+            setArrOrdenes(res.data)
+        }
+        fetchData();
+    }, [])
+
+    const trabajosEncargados = (id) => {
+        const trabajosDeUnCliente = arrOrdenes.filter(order => order.client_id == id)
+        const cantidadDeTrabajos = trabajosDeUnCliente.length
+        return cantidadDeTrabajos
+    }
+
+    const listaTrabajosEncargados = (id) => {
+        const trabajosDeUnCliente = arrOrdenes.filter(order => order.client_id == id)
+        const listadoTrabajosDeUnCliente = trabajosDeUnCliente.map(trabajo => ({ task: trabajo.task, artefact: trabajo.product_subtype, status: trabajo.order_status }))
+        return listadoTrabajosDeUnCliente.map((trabajo, i) => <p key={`trabajo_${i}`}> {trabajo.task} de {trabajo.artefact} ({trabajo.status} ) </p>)
+    }
+
+    const dineroInvertido = (id) => {
+        const trabajosDeUnCliente = arrOrdenes.filter(order => order.client_id == id)
+        const listadoTrabajosDeUnCliente = trabajosDeUnCliente.map(trabajo => trabajo.price)
+        let total = listadoTrabajosDeUnCliente.reduce((a, b) => a + b, 0);
+        return total
+
+    }
+
+    function compareNombre(a, b) {
+        if (a.name < b.name) {
+            return -1;
+        }
+        if (a.name > b.name) {
+            return 1;
+        }
+        return 0;
+    }
 
     return (
         <div>
@@ -138,16 +133,28 @@ const Clientes = () => {
                     LISTADO DE CLIENTES ({arrClientes.length})
                 </Encabezado>
                 <ArtefactoForm>
-                    {arrClientes.map(cliente =>
-                        <CardHerrero>
+                    {arrClientes.sort(compareNombre).map(cliente =>
+                        <CardHerrero key={cliente.id}>
                             <TituloCard>{cliente.name.toUpperCase()} {cliente.surname.toUpperCase()}</TituloCard>
                             <RenglonCard>
-                                <div>Documento: </div>
-                                <div style={{ fontWeight: "900" }}>{cliente.dni} </div>
+                                <div>Identificador: </div>
+                                <div style={{ fontWeight: "900" }}>{cliente.id} </div>
                             </RenglonCard>
                             <RenglonCard>
-                                <div>Encargos realizados: </div>
-                                <div style={{ fontWeight: "900" }}>44{/* arrayOrders.map por id y .lenght */} </div>
+                                <div>Dinero invertido: </div>
+                                <div style={{ fontWeight: "900" }}> {dineroInvertido(cliente.id)} M.O.</div>
+                            </RenglonCard>
+                            <RenglonCard>
+                                <div>Trabajos encargados: </div>
+                                <div style={{ fontWeight: "900" }}> {trabajosEncargados(cliente.id)}</div>
+                                {trabajosEncargados(cliente.id) > 0 &&
+                                    <span className="tooltip" >
+                                        <i style={{ fontSize: "30px" }} className="fa-solid fa-book-journal-whills"></i>
+                                        <div style={{ fontSize: "20px", fontWeight: "900", marginTop: "-10px" }}> <span className="tooltiptext">{listaTrabajosEncargados(cliente.id)}</span></div>
+                                    </span>}
+                            </RenglonCard>
+                            <RenglonCard>
+
                             </RenglonCard>
                         </CardHerrero>
                     )}

@@ -15,6 +15,12 @@ width: 90%;
 display: flex;
 justify-content: center;
 gap: 20px;
+ @media (min-width: 425px) { 
+    flex-wrap: wrap ;
+ }
+  @media (min-width: 1850px) { 
+    margin-bottom: 0px;
+ }
 `
 const CardDiv = styled.div`
 width: 60%;

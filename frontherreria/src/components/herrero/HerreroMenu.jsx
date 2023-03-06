@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom";
+import { BrowserRouter, Link } from "react-router-dom";
 import styled from "styled-components";
-
+import axios from "axios";
 import HerreroNavBar from "./HerreroNavBar";
+import { useEffect, useState } from "react";
 
 
 const Container = styled.div`
@@ -69,10 +70,14 @@ p{
 
 
 
-const HerreroMenu = ()=> {
+const HerreroMenu = () => {
+
+
+
 
     return (
         <div>
+
             <HerreroNavBar />
             <Container>
                 <Encabezado>
@@ -81,36 +86,36 @@ const HerreroMenu = ()=> {
 
                 <SubTitulo> Novedades </SubTitulo>
                 <OptionsContainer>
-                   
+
                     <OptionCard>
-                        <img src="" alt=""/>
+                        <img src="" alt="" />
                         <h3>Grandes noticias</h3>
                         <p>Las ventas de este mes ya superan en un 45% las del mes pasado!</p>
                     </OptionCard>
-                    
-                    
-                    <Link to='/herrero/tareas/pendientes'>  
+
+
+                    <Link to='/herrero/tareas/pendientes'>
                         <OptionCard>
-                            <img src="" alt=""/>
+                            <img src="" alt="" />
                             <h3>Tienes pedidos nuevos</h3>
                             <p>Presiona aqui para ver todos tus pedidos pendientes</p>
                         </OptionCard>
-                        </Link>
-                       
+                    </Link>
+
 
                     <OptionCard>
-                        <img src="" alt=""/>
+                        <img src="" alt="" />
                         <h3>Tecnología</h3>
                         <p>El nuevo material esta aún siendo testeado pero tenemos grandes expectativas</p>
                     </OptionCard>
-                    
+
                 </OptionsContainer>
-            
+
             </Container>
 
         </div>
     );
-    
+
 }
 
 export default HerreroMenu;

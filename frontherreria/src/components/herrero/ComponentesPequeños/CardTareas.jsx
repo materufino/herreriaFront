@@ -1,6 +1,7 @@
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
-import ListaPedidos from '../ArrayPedidos'
+import { useDebounce } from "react-use"
 
 
 const Contenedor = styled.div`
@@ -21,6 +22,9 @@ h3 {
 label{
     margin: 10px;
 }
+span{
+    text-transform: capitalize;
+}
 `
 
 
@@ -30,6 +34,9 @@ label{
 const Trabajos = styled.div`
     display: flex;
     flex-wrap: wrap;
+    width: 80%;
+    margin: auto;
+    gap: 15px;
     h4{
         width: 100%;
         text-align: center;
@@ -45,6 +52,11 @@ const Trabajos = styled.div`
         margin: 10px;
         display: inline-block;
         
+    }
+    h5{
+        width: 60%;
+        text-align: left;
+        font-size: 1.1rem;
     }
 `
 const ContenedorTextArea = styled.div`
@@ -74,76 +86,194 @@ const ContenedorTextArea = styled.div`
 
 
 
-
-const CardTareas = ({ idTarea, objeto, especialidad, tipo_artefacto, categoriaObjeto, realizar, herrero, tiempoEstimado, estado, observaciones, textoBoton, readOnly, index }) => {
-
+const CardTareas = ({ pedidos, setPedidos, id, task, product_type, product_subtype, order_status, start_date, end_date, obs, sub_task1, sub_task2, sub_task3, sub_task1_status, sub_task2_status, sub_task3_status, textoBoton, readOnly, index }) => {
 
 
-    const [pedidos, setPedidos] = useState(ListaPedidos);
+
 
     // Cambiar estado global del pedido PENDIENTE O FINALIZADO
-    const onCambiarEstado = (id) => {
-        const pedidosActualizados = [...pedidos];
-        const pedidoActualizado = pedidosActualizados.find(pedido => pedido.idTarea === id);
-        if (pedidoActualizado.estado === 'pendiente') {
-            pedidoActualizado.estado = 'finalizado'
-        } else {
-            pedidoActualizado.estado = 'pendiente'
+
+    const [order, setOrder] = useState([])
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await axios.get(`http://localhost:3000/api/orders/${id}`)
+            setOrder(res.data)
         }
-        setPedidos(pedidosActualizados);
+        fetchData();
+    }, [])
+
+
+    const [globalActual, setGlobalActual] = useState(order_status)
+
+    const [estadoActual, setEstadoActual] = useState((globalActual === 'Pendiente') ? 'Finalizado' : 'Pendiente')
+
+
+    const onCambiarEstado = async () => {
+
+
+        const res = await axios.put(`http://localhost:3000/api/orders/${id}`, {
+            ...order,
+            order_status: estadoActual
+        })
+        if (res.data.fatal) {
+            alert('Error en el server');
+        } else {
+            alert('Estado global modificado con exito')
+        }
+
+        setGlobalActual(estadoActual)
+
+
     }
 
-    //FALTA QUE SE VUELVA A RENDERIZAR LUEGO DE CAMBIAR LOS ESTADOS, YA QUE SE MODIFICA PERO NO SE VUELVE A RENDERIZAR
+    const [subTaskEstado1, setSubTaskEstado1] = useState(sub_task1_status)
+
+    const [subTaskEstado2, setSubTaskEstado2] = useState(sub_task2_status)
+
+    const [subTaskEstado3, setSubTaskEstado3] = useState(sub_task3_status)
 
 
-    const [estadoActual, setEstadoActual] = useState(realizar)
 
     // Cambiar estado de la tarea  con el select En espera - En proceso - Finalizado
-    const handleEstado = (event, index) => {
-        console.log(estadoActual)
-        const estadoActualizado = [...estadoActual]
-        estadoActualizado[index].estado = event.target.value
-        setEstadoActual(estadoActualizado)
-        console.log(estadoActual)
+
+    const handleEstado1 = async (event) => {
+
+        setSubTaskEstado1(event.target.value)
+
+        const res = await axios.put(`http://localhost:3000/api/orders/${id}`, {
+            ...order,
+            sub_task1_status: event.target.value,
+            sub_task2_status: subTaskEstado2,
+            sub_task3_status: subTaskEstado3
+        })
+
+        if (res.data.fatal) {
+            alert('Error en el server');
+        } else {
+            alert('Estado subtask 1 modificado con exito')
+        }
+
+
+
     }
-    //El select no se puede volver a utilizar dice "estadoActual is not iterable"
+
+    const handleEstado2 = async (event) => {
+
+        setSubTaskEstado2(event.target.value)
+
+        const res = await axios.put(`http://localhost:3000/api/orders/${id}`, {
+            ...order,
+            sub_task1_status: subTaskEstado1,
+            sub_task2_status: event.target.value,
+            sub_task3_status: subTaskEstado3
+        })
+
+        if (res.data.fatal) {
+            alert('Error en el server');
+        } else {
+            alert('Estado subtask 2 modificado con exito')
+        }
+
+
+    }
+
+    const handleEstado3 = async (event) => {
+        setSubTaskEstado3(event.target.value)
+        const res = await axios.put(`http://localhost:3000/api/orders/${id}`, {
+            ...order,
+            sub_task1_status: subTaskEstado1,
+            sub_task2_status: subTaskEstado2,
+            sub_task3_status: event.target.value
+        })
+
+        if (res.data.fatal) {
+            alert('Error en el server');
+        } else {
+            alert('Estado subtask 3 modificado con exito')
+        }
+
+    }
+
+
 
 
 
     //TextArea
 
-    const [observacion, setObservacion] = useState(observaciones);
-    const handleObservationChange = (event) => {
-        console.log(observacion)
-        const obsActualizada = event.target.value
-        setObservacion(obsActualizada)
-    }
-    //No guarda la ultima letra y se ejecuta muchas veces
+    const [mensaje, setMensaje] = useState('')
+
+
+
+
+    useDebounce(async () => {
+
+        console.log(mensaje)
+        /*  const res = await axios.put(`http://localhost:3000/api/orders/${id}`, {
+             ...order,
+             obs: mensaje
+         })
+         if (res.data.fatal) {
+             alert('Error en el server');
+         } else {
+             alert('Observacion modificada con exito')
+         }
+  */
+    }, 1000, [mensaje])
+
+
+
+
 
 
 
     return (
-        <Contenedor>
 
-            <h3>{objeto}</h3>
+
+        <Contenedor>
+            <h3> {product_type}: <span>{product_subtype}</span> </h3>
             <Trabajos>
-                <h4>Trabajos a realizar: </h4>
-                {realizar.map((pendiente, index) => (
-                    <div key={index}>
-                        <p>{pendiente.trabajo}</p>
-                        <label htmlFor="estado">Estado:</label>
-                        <select name="estado" id="estado" value={realizar[index].estado} disabled={readOnly} onChange={(event) => handleEstado(event, index)}>
+
+                {task === 'reparacion' &&
+                    <>
+                        <h5>{id}</h5>
+                        <h4>Trabajos a realizar:</h4>
+                        <h5> {sub_task1}</h5>
+
+                        <select name="estado" id="estado" value={subTaskEstado1} disabled={readOnly} onChange={(event) => handleEstado1(event)}>
                             <option value="En espera">En espera</option>
                             <option value="En proceso">En proceso</option>
                             <option value="Finalizado">Finalizado</option>
                         </select>
-                    </div>
-                ))}
+
+                        {(sub_task2) &&
+                            <><h5> {sub_task2}</h5>
+                                <select name="estado" id="estado" value={subTaskEstado2} disabled={readOnly} onChange={(event) => handleEstado2(event)}>
+                                    <option value="En espera">En espera</option>
+                                    <option value="En proceso">En proceso</option>
+                                    <option value="Finalizado">Finalizado</option>
+                                </select> </>
+
+                        }
+                        {(sub_task3) &&
+                            <><h5> {sub_task3}</h5>
+                                <select name="estado" id="estado" value={subTaskEstado3} disabled={readOnly} onChange={(event) => handleEstado3(event)}>
+                                    <option value="En espera">En espera</option>
+                                    <option value="En proceso">En proceso</option>
+                                    <option value="Finalizado">Finalizado</option>
+                                </select> </>
+                        }
+                    </>
+                }
+
+                {task === 'fabricacion' &&
+                    <h4>Trabajo a realizar: Fabricar </h4>}
+
             </Trabajos>
             <ContenedorTextArea>
                 <h4>Observaciones</h4>
-                <textarea defaultValue={observaciones} cols="30" rows="10" disabled={readOnly} onChange={handleObservationChange} ></textarea>
-                <button type="submit" onClick={() => onCambiarEstado(idTarea)}>{textoBoton}</button>
+                <textarea defaultValue={obs} cols="30" rows="10" disabled={readOnly} onChange={(e) => setMensaje(e.target.value)} ></textarea>
+                <button type="submit" onClick={() => onCambiarEstado(id)}>{textoBoton}</button>
             </ContenedorTextArea>
         </Contenedor>
 
@@ -153,4 +283,6 @@ const CardTareas = ({ idTarea, objeto, especialidad, tipo_artefacto, categoriaOb
 
 
 export default CardTareas;
+
+
 

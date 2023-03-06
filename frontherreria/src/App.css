@@ -303,3 +303,9 @@ button:focus {
   visibility: visible;
   opacity: 1;
 }
+
+.tooltip .tooltipgrey {
+  background-color: #948578;
+  bottom: 175%;
+  margin-left: -225px;
+}

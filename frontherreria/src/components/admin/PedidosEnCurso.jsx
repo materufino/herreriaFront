@@ -111,6 +111,9 @@ right: 10px;
 top: 10px;
 background-color: #e07f3a;
 `
+const Icon = styled.i`
+font-size: 35px;
+`
 
 
 
@@ -153,16 +156,6 @@ const PedidoEnCurso = () => {
         return require(`../../Assets/${subtype.toLowerCase()}.jpg`)
     }
 
-    const checkComentarios = (obs, user_id) => {
-        if (obs) {
-            return <div style={{ display: "Flex", gap: "20px" }}>
-                <p>Sí</p>
-                <button style={{ marginTop: "-10px" }} className="sheen" onClick={(e) => { mostrarComentario(e, obs, user_id) }}>Mostrar</button>
-                <i class="fa-regular fa-comment-dots"></i>
-            </div>
-        } else { return <p>No</p> }
-    }
-
     const mostrarNombreCliente = (id) => {
         console.log(id)
         if (arrClientes.length > 0) {
@@ -186,19 +179,17 @@ const PedidoEnCurso = () => {
         } else { return "esperando herrero" }
     }
 
-    const mostrarComentario = (e, obs, user_id) => {
-        e.preventDefault()
-        setComentarios(<DivComentario>
-            <CruzButton className="sheen" onClick={(e) => ocultarComentario(e)} >X</CruzButton>
-            <img src={require(`../../Assets/comentario-herrero.jpg`)} alt="" />
-            <p> "{obs}"</p>
-            <p>{mostrarNombreHerrero(user_id)}</p>
-        </DivComentario>)
-    }
-
-    const ocultarComentario = (e, obs) => {
-        e.preventDefault()
-        setComentarios('')
+    const mostrarComentarios = (order_id, herrero_id) => {
+        const estaOrden = arrOrdenes.filter(order => order.id == order_id)
+        const trabajoDelHerrero = estaOrden.filter(order => order.user_id == herrero_id)
+        const comentariosDeUnHerrero = trabajoDelHerrero.map(trabajo => ({ obs: trabajo.obs, herrero_id: trabajo.user_id }))
+        return comentariosDeUnHerrero.map((trabajo, i) =>
+            <div key={`trabajo_${i}`}>
+                < img src={require(`../../Assets/comentario-herrero.jpg`)} />
+                <p style={{ margin: "20px 0px" }} > "{trabajo.obs}"</p>
+                <div style={{ marginLeft: "190px" }} >{mostrarNombreHerrero(trabajo.herrero_id)}</div>
+            </div>
+        )
     }
 
     return (
@@ -254,11 +245,13 @@ const PedidoEnCurso = () => {
                                 <div style={{ fontWeight: "900", fontSize: "20px" }}>{orden.sub_task3}: </div>
                                 <div style={{ fontWeight: "900", fontSize: "20px" }}>{orden.sub_task3_status} </div>
                             </RenglonCard>}
-                            <RenglonCard>
-                                <div>Tiene comentarios? </div>
-                                <div style={{ fontWeight: "900" }}>{checkComentarios(orden.obs, orden.user_id)} </div>
-                            </RenglonCard>
-                            {comentarios}
+                            {orden.obs && <RenglonCard>
+                                <div> Comentarios: </div>
+                                <span className="tooltip" >
+                                    <p style={{ marginTop: "-10px" }}> <Icon className="fa-regular fa-comment-dots"></Icon></p>
+                                    <div style={{ fontSize: "20px", fontWeight: "900", marginTop: "-10px" }}> <span className="tooltiptext tooltipgrey">{mostrarComentarios(orden.id, orden.user_id)}</span></div>
+                                </span>
+                            </RenglonCard>}
                         </CardHerrero>
                     )}
                 </ArtefactoForm>

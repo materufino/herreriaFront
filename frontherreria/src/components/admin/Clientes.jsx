@@ -71,6 +71,10 @@ gap: 10px;
 }
 `
 
+const Icon = styled.i`
+font-size: 30px;
+`
+
 const Clientes = () => {
 
     const [arrClientes, setArrClientes] = useState([]);
@@ -149,7 +153,7 @@ const Clientes = () => {
                                 <div style={{ fontWeight: "900" }}> {trabajosEncargados(cliente.id)}</div>
                                 {trabajosEncargados(cliente.id) > 0 &&
                                     <span className="tooltip" >
-                                        <i style={{ fontSize: "30px" }} className="fa-solid fa-book-journal-whills"></i>
+                                        <Icon className="fa-solid fa-book-journal-whills"></Icon>
                                         <div style={{ fontSize: "20px", fontWeight: "900", marginTop: "-10px" }}> <span className="tooltiptext">{listaTrabajosEncargados(cliente.id)}</span></div>
                                     </span>}
                             </RenglonCard>

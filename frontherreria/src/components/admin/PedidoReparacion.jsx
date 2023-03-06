@@ -83,6 +83,11 @@ font-family: 'Rakkas', cursive;
 margin: 70px;
 color: #3a1603;
 `
+
+const DivNoMostrar = styled.div`
+display: none;
+`
+
 const listaArtefactos = [
     {
         nombre: 'Daga',
@@ -483,71 +488,52 @@ function onlyUnique(value, index, self) {
     return self.indexOf(value) === index;
 }
 const especialidades = todasLasEspecialidades.filter(onlyUnique).sort();
-
 const tiposDeObjetos = listaArtefactos.map(artefacto => artefacto.nombre);
 
 //Trabajos para realizar
-
 const arrNombresTrabajosParaRealizar = arrTrabajosParaRealizar.map(trabajo => trabajo.nombre)
-
 
 //Artefactos por especialidades
 const arrDeObjetosArmas = listaArtefactos.filter(artefacto => artefacto.especialidad === 'Armas');
 const armas = arrDeObjetosArmas.map(arma => arma.nombre).sort();
-
 const arrDeObjetosArmaduras = listaArtefactos.filter(artefacto => artefacto.especialidad === 'Armaduras');
 const armaduras = arrDeObjetosArmaduras.map(arma => arma.nombre).sort();
-
 const arrDeObjetosHerramientas = listaArtefactos.filter(artefacto => artefacto.especialidad === 'Herramientas');
 const herramientas = arrDeObjetosHerramientas.map(arma => arma.nombre).sort();
 
 //Categorías de artefactos
 const filo = listaArtefactos.filter(artefacto => artefacto.categoria_artefacto === 'f')
 const filos = filo.map(filo => filo.nombre).sort();
-
 const contundente = listaArtefactos.filter(artefacto => artefacto.categoria_artefacto === 'c')
 const contundentes = contundente.map(contundente => contundente.nombre).sort();
-
 const hacha = listaArtefactos.filter(artefacto => artefacto.categoria_artefacto === 'h')
 const hachas = hacha.map(hacha => hacha.nombre).sort();
-
 const asta = listaArtefactos.filter(artefacto => artefacto.categoria_artefacto === 'a')
 const astas = asta.map(asta => asta.nombre).sort();
-
 const ligero = listaArtefactos.filter(artefacto => artefacto.categoria_artefacto === 'l')
 const ligeros = ligero.map(ligero => ligero.nombre).sort();
-
 const mediano = listaArtefactos.filter(artefacto => artefacto.categoria_artefacto === 'm')
 const medianos = mediano.map(mediano => mediano.nombre).sort();
-
 const pesado = listaArtefactos.filter(artefacto => artefacto.categoria_artefacto === 'p')
 const pesados = pesado.map(pesado => pesado.nombre).sort();
-
 const escudo = listaArtefactos.filter(artefacto => artefacto.categoria_artefacto === 'e')
 const escudos = escudo.map(escudo => escudo.nombre).sort();
 
 //Trabajos para realizar según categoría
 const trabajosFilo = arrTrabajosParaRealizar.filter(trabajo => trabajo.categoria_artefacto === 'f').sort()
 const trabajosFilos = trabajosFilo.map(trabajo => trabajo.nombre).sort();
-
 const trabajosContundente = arrTrabajosParaRealizar.filter(trabajo => trabajo.categoria_artefacto === 'c').sort()
 const trabajosContundentes = trabajosContundente.map(trabajo => trabajo.nombre).sort();
-
 const trabajosHacha = arrTrabajosParaRealizar.filter(trabajo => trabajo.categoria_artefacto === 'h').sort()
 const trabajosHachas = trabajosHacha.map(trabajo => trabajo.nombre).sort();
-
 const trabajosAsta = arrTrabajosParaRealizar.filter(trabajo => trabajo.categoria_artefacto === 'a').sort()
 const trabajosAstas = trabajosAsta.map(trabajo => trabajo.nombre).sort();
-
 const trabajosLigero = arrTrabajosParaRealizar.filter(trabajo => trabajo.categoria_artefacto === 'l').sort()
 const trabajosLigeros = trabajosLigero.map(trabajo => trabajo.nombre).sort();
-
 const trabajosMediano = arrTrabajosParaRealizar.filter(trabajo => trabajo.categoria_artefacto === 'm').sort()
 const trabajosMedianos = trabajosMediano.map(trabajo => trabajo.nombre).sort();
-
 const trabajosPesado = arrTrabajosParaRealizar.filter(trabajo => trabajo.categoria_artefacto === 'p').sort()
 const trabajosPesados = trabajosPesado.map(trabajo => trabajo.nombre).sort();
-
 const trabajosEscudo = arrTrabajosParaRealizar.filter(trabajo => trabajo.categoria_artefacto === 'e').sort()
 const trabajosEscudos = trabajosEscudo.map(trabajo => trabajo.nombre).sort();
 
@@ -565,13 +551,15 @@ const PedidoReparacion = () => {
     const [imagen, setImagen] = useState('yellow-image')
     const [arrHerreros, setArrHerreros] = useState([]);
     const [arrClientes, setArrClientes] = useState([]);
+    const [statusTask1, setStatusTask1] = useState('')
+    const [statusTask2, setStatusTask2] = useState('')
+    const [statusTask3, setStatusTask3] = useState('')
     let modificador
     let valor
     let tardanza
     useEffect(() => { precio(); demora() }, [trabajosSeleccionados])
 
     // GET HERREROS
-
     useEffect(() => {
         const fetchData = async () => {
             const res = await axios.get("http://localhost:3000/api/users")
@@ -611,7 +599,6 @@ const PedidoReparacion = () => {
     const herrerosHerramientas = arrHerrerosHerramientas.map(herrero => ({ name: herrero.name, rango: herrero.rango, id: herrero.id, surname: herrero.surname })).sort(compareRango)
 
     //GET CLIENTES
-
     useEffect(() => {
         const fetchData = async () => {
             const res = await axios.get("http://localhost:3000/api/clients")
@@ -619,7 +606,6 @@ const PedidoReparacion = () => {
         }
         fetchData();
     }, [])
-
 
     const cambiaNombreCliente = (e) => {
         const clientesPorNombre = arrClientes.map(client => ({ name: client.name, surname: client.surname, id: client.id }))
@@ -721,14 +707,17 @@ const PedidoReparacion = () => {
 
     const agregarBoton1 = (e) => {
         setTrabajosSeleccionados([e.target.value, null, null])
+        setStatusTask1('En espera')
     }
 
     const agregarBoton2 = (e) => {
         setTrabajosSeleccionados([trabajosSeleccionados[0], e.target.value, null])
+        setStatusTask2('En espera')
     }
 
     const agregarBoton3 = (e) => {
         setTrabajosSeleccionados([trabajosSeleccionados[0], trabajosSeleccionados[1], e.target.value])
+        setStatusTask3('En espera')
     }
 
     const { register, handleSubmit, reset } = useForm();
@@ -757,7 +746,6 @@ const PedidoReparacion = () => {
             setArrClientes(res.data)
         }
         fetchData();
-
     }
 
     return (
@@ -770,7 +758,6 @@ const PedidoReparacion = () => {
                 </Encabezado>
 
                 <ArtefactoForm onSubmit={handleSubmit(registraCliente)}>
-
                     <FormTitle style={{ width: "100%", backgroundColor: "#ffd770", fontSize: "18px" }} >
                         CLIENTE
                     </FormTitle>
@@ -786,7 +773,7 @@ const PedidoReparacion = () => {
                         <label>Documento</label>
                         <Input type="text" {...register('dni')} />
                     </ArtefactoRenglon>
-                    <button className="submit sheen" type="submit">Registrar cliente</button>
+                    <button style={{ marginLeft: "210px" }} className="submit sheen" type="submit">Registrar cliente</button>
                 </ArtefactoForm>
 
                 <ArtefactoForm onSubmit={handleSubmit(creaOrden)}>
@@ -841,7 +828,7 @@ const PedidoReparacion = () => {
                         <ArtefactoRenglon>
                             <label>Trabajo 2</label>
                             <Select {...register('sub_task2')} onChange={(e) => { agregarBoton2(e) }} id="trabajo2">
-                                <option hidden defaultValue>Selecciona trabajos a realizar</option>
+                                <option hidden defaultValue></option>
                                 {trabajos.filter(t => {
                                     return t !== trabajosSeleccionados[0]
                                 }
@@ -855,7 +842,7 @@ const PedidoReparacion = () => {
                         <ArtefactoRenglon>
                             <label>Trabajo 3</label>
                             <Select {...register('sub_task3')} onChange={(e) => { agregarBoton3(e) }} id="trabajo3">
-                                <option hidden defaultValue>Selecciona trabajos a realizar</option>
+                                <option hidden defaultValue></option>
                                 {trabajos.filter(t => {
                                     return t !== trabajosSeleccionados[0] && t !== trabajosSeleccionados[1]
                                 }
@@ -880,14 +867,45 @@ const PedidoReparacion = () => {
                     </ArtefactoRenglon>
                     <ArtefactoRenglon>
                         <label>Fecha de entrega</label>
-                        <Input type="text" {...register('end_date')} value={fechaEntrega} disabled />
+                        <Input type="text" value={fechaEntrega} {...register('end_date')} />
                     </ArtefactoRenglon>
                     <ArtefactoRenglon>
                         <label>Precio </label>
-                        <Input style={{ width: "30px", marginLeft: "115px" }} type="text" {...register('price')} value={precioArtefacto} disabled />
+                        <Input type="number" style={{ width: "30px", marginLeft: "115px" }} value={precioArtefacto} {...register('price')} />
                         <p>monedas de oro</p>
                     </ArtefactoRenglon>
-                    <button className="submit sheen" type="submit">Agregar encargo</button>
+
+                    <DivNoMostrar>
+                        <ArtefactoRenglon>
+                            <label>Tarea</label>
+                            <Input type="text" {...register('task')} value="Reparación" />
+                        </ArtefactoRenglon>
+                        <ArtefactoRenglon>
+                            <label>Estado de orden</label>
+                            <Input type="text" {...register('order_status')} value="En proceso" />
+                        </ArtefactoRenglon>
+                        <ArtefactoRenglon>
+                            <label>Fecha de inicio</label>
+                            <Input type="text" {...register('start_date')} value={dayjs().format("DD/MM/YYYY - hh:mm A", 'es')} />
+                        </ArtefactoRenglon>
+                        <ArtefactoRenglon>
+                            <label>Comentarios</label>
+                            <Input type="text" {...register('obs')} value="" />
+                        </ArtefactoRenglon>
+                        <ArtefactoRenglon>
+                            <label>Estado tarea 1</label>
+                            <Input type="text" value={statusTask1} {...register('sub_task1_status')} />
+                        </ArtefactoRenglon>
+                        <ArtefactoRenglon>
+                            <label>Estado tarea 2</label>
+                            <Input type="text" value={statusTask2} {...register('sub_task2_status')} />
+                        </ArtefactoRenglon>
+                        <ArtefactoRenglon>
+                            <label>Estado tarea 3</label>
+                            <Input type="text" value={statusTask3} {...register('sub_task3_status')} />
+                        </ArtefactoRenglon>
+                    </DivNoMostrar>
+                    <button style={{ marginLeft: "200px" }} className="submit sheen" type="submit">Agregar encargo</button>
                 </ArtefactoForm>
             </FormContainer>
 

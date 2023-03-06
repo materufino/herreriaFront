@@ -15,7 +15,7 @@ import ListadoHerreros from './components/admin/ListadoHerreros';
 import Herreros from './components/admin/Herreros';
 import HerreroMenu from './components/herrero/HerreroMenu';
 import HerreroTareasPendientes from './components/herrero/HerreroTareasPendientes';
-import HerreroModificarTareas from './components/herrero/HerreroModificarTareas';
+import HerreroTareasFinalizadas from './components/herrero/HerreroTareasFinalizadas';
 import Home from './components/Home';
 import HerreroNavBar from './components/herrero/HerreroNavBar';
 import PedidoFabricacion from './components/admin/PedidoFabricacion'
@@ -46,8 +46,8 @@ function App() {
           <Route path='clientes' element={<Clientes />} />
           <Route path='herreros' element={<Herreros />} />
           {/* menues de los Herreros */}
-          <Route path='herreros/tareas/pendientes' element={<HerreroTareasPendientes />} />
-          <Route path='herreros/tareas/modificar' element={<HerreroModificarTareas />} />
+          <Route path='herrero/tareas/pendientes' element={<HerreroTareasPendientes />} />
+          <Route path='herrero/tareas/finalizadas' element={<HerreroTareasFinalizadas />} />
         </Routes>
       </div>
     </BrowserRouter>

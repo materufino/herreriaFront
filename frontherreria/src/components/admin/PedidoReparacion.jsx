@@ -551,9 +551,9 @@ const PedidoReparacion = () => {
     const [imagen, setImagen] = useState('yellow-image')
     const [arrHerreros, setArrHerreros] = useState([]);
     const [arrClientes, setArrClientes] = useState([]);
-    const [statusTask1, setStatusTask1] = useState('')
-    const [statusTask2, setStatusTask2] = useState('')
-    const [statusTask3, setStatusTask3] = useState('')
+    const [statusTask1, setStatusTask1] = useState(null)
+    const [statusTask2, setStatusTask2] = useState(null)
+    const [statusTask3, setStatusTask3] = useState(null)
     let modificador
     let valor
     let tardanza
@@ -711,8 +711,20 @@ const PedidoReparacion = () => {
     }
 
     const agregarBoton2 = (e) => {
-        setTrabajosSeleccionados([trabajosSeleccionados[0], e.target.value, null])
+        if (e.target.value !== "Selecciona un trabajo") {
+            setTrabajosSeleccionados([trabajosSeleccionados[0], e.target.value, null])
+        } else { setTrabajosSeleccionados([trabajosSeleccionados[0], null, null]) }
         setStatusTask2('En espera')
+    }
+
+    const checkTask = (sub_task) => {
+        if (sub_task == "Selecciona un trabajo") {
+            const task = null
+            return task
+        } else {
+            const task = sub_task
+            return task
+        }
     }
 
     const agregarBoton3 = (e) => {
@@ -726,6 +738,8 @@ const PedidoReparacion = () => {
     const creaOrden = async (values) => {
         values.price = precioArtefacto
         values.end_date = fechaEntrega
+        values.sub_task2 = checkTask(values.sub_task2)
+        values.sub_task3 = checkTask(values.sub_task3)
         values.sub_task1_status = statusTask1
         values.sub_task2_status = statusTask2
         values.sub_task3_status = statusTask3
@@ -833,7 +847,7 @@ const PedidoReparacion = () => {
                         <ArtefactoRenglon>
                             <label>Trabajo 2</label>
                             <Select {...register('sub_task2')} onChange={(e) => { agregarBoton2(e) }} id="trabajo2">
-                                <option hidden defaultValue></option>
+                                <option hidden defaultValue>Selecciona un trabajo</option>
                                 {trabajos.filter(t => {
                                     return t !== trabajosSeleccionados[0]
                                 }
@@ -847,7 +861,7 @@ const PedidoReparacion = () => {
                         <ArtefactoRenglon>
                             <label>Trabajo 3</label>
                             <Select {...register('sub_task3')} onChange={(e) => { agregarBoton3(e) }} id="trabajo3">
-                                <option hidden defaultValue></option>
+                                <option hidden defaultValue>Selecciona un trabajo</option>
                                 {trabajos.filter(t => {
                                     return t !== trabajosSeleccionados[0] && t !== trabajosSeleccionados[1]
                                 }

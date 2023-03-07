@@ -724,6 +724,11 @@ const PedidoReparacion = () => {
     const navigate = useNavigate();
 
     const creaOrden = async (values) => {
+        values.price = precioArtefacto
+        values.end_date = fechaEntrega
+        values.sub_task1_status = statusTask1
+        values.sub_task2_status = statusTask2
+        values.sub_task3_status = statusTask3
         const res = await axios.post('http://localhost:3000/api/orders', values);
         if (res.data.fatal) {
             alert('Error en el server');
@@ -867,11 +872,11 @@ const PedidoReparacion = () => {
                     </ArtefactoRenglon>
                     <ArtefactoRenglon>
                         <label>Fecha de entrega</label>
-                        <Input type="text" value={fechaEntrega} {...register('end_date')} />
+                        <Input type="text" value={fechaEntrega} disabled />
                     </ArtefactoRenglon>
                     <ArtefactoRenglon>
                         <label>Precio </label>
-                        <Input type="number" style={{ width: "30px", marginLeft: "115px" }} value={precioArtefacto} {...register('price')} />
+                        <Input type="number" style={{ width: "30px", marginLeft: "115px" }} value={precioArtefacto} disabled />
                         <p>monedas de oro</p>
                     </ArtefactoRenglon>
 
@@ -894,15 +899,15 @@ const PedidoReparacion = () => {
                         </ArtefactoRenglon>
                         <ArtefactoRenglon>
                             <label>Estado tarea 1</label>
-                            <Input type="text" value={statusTask1} {...register('sub_task1_status')} />
+                            <Input type="text" value={statusTask1} />
                         </ArtefactoRenglon>
                         <ArtefactoRenglon>
                             <label>Estado tarea 2</label>
-                            <Input type="text" value={statusTask2} {...register('sub_task2_status')} />
+                            <Input type="text" value={statusTask2} />
                         </ArtefactoRenglon>
                         <ArtefactoRenglon>
                             <label>Estado tarea 3</label>
-                            <Input type="text" value={statusTask3} {...register('sub_task3_status')} />
+                            <Input type="text" value={statusTask3} />
                         </ArtefactoRenglon>
                     </DivNoMostrar>
                     <button style={{ marginLeft: "200px" }} className="submit sheen" type="submit">Agregar encargo</button>

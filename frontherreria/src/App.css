@@ -215,23 +215,7 @@ button:focus {
   outline: 0;
 }
 
-/* EFECTOS DE LOS BOTONES ENDS */
 
-.active {
-  background-image: url('./Assets/navbar-option-background.jpg');
-  background-repeat: no-repeat;
-  background-size: 200%;
-  background-position: center;
-  font-weight: 900;
-}
-
-.active li {
-  color: #3a1603;
-}
-
-.active li:hover {
-  text-shadow: none;
-}
 
 .submit {
   position: relative;
@@ -262,6 +246,22 @@ button:focus {
   outline: 0;
 }
 
+/* EFECTOS DE LOS BOTONES ENDS */
+.active {
+  background-image: url('./Assets/navbar-option-background.jpg');
+  background-repeat: no-repeat;
+  background-size: 200%;
+  background-position: center;
+  font-weight: 900;
+}
+
+.active li {
+  color: #3a1603;
+}
+
+.active li:hover {
+  text-shadow: none;
+}
 
 /* TOOLTIP */
 

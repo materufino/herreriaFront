@@ -56,6 +56,9 @@ padding-left: 80px;
     color: #ffeda4;
 }
 `
+const Icon = styled.i`
+font-size: 30px;
+`
 
 const TituloCard = styled.h3`
 font-size: 25px;
@@ -120,6 +123,12 @@ const ListadoHerreros = () => {
         }
     }
 
+    const listaTrabajosEncargados = (id) => {
+        const trabajosDeUnHerrero = arrOrdenes.filter(order => order.user_id == id)
+        const listadoTrabajosDeUnHerrero = trabajosDeUnHerrero.map(trabajo => ({ task: trabajo.task, artefact: trabajo.product_subtype, status: trabajo.order_status, client: trabajo.client_id }))
+        return listadoTrabajosDeUnHerrero.map((trabajo, i) => <p key={`trabajo_${i}`}> {trabajo.task} de {trabajo.artefact} ({trabajo.status} ) </p>)
+    }
+
     return (
         <div>
             <AdminNavBar />
@@ -146,8 +155,13 @@ const ListadoHerreros = () => {
                                 <div style={{ fontWeight: "900" }}>{herrero.rango} </div>
                             </RenglonCard>
                             <RenglonCard>
-                                <div>Total de trabajos asignados: </div>
+                                <div>Trabajos asignados: </div>
                                 <div style={{ fontWeight: "900" }}>{trabajosRealizados(herrero.id)} </div>
+                                {trabajosRealizados(herrero.id) > 0 &&
+                                    <span className="tooltip" >
+                                        <Icon className="fa-solid fa-book-journal-whills"></Icon>
+                                        <div style={{ fontSize: "20px", fontWeight: "900", marginTop: "-10px" }}> <span className="tooltiptext">{listaTrabajosEncargados(herrero.id)}</span></div>
+                                    </span>}
                             </RenglonCard>
                         </CardHerrero>
                     )}

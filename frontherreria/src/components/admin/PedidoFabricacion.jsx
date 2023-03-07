@@ -7,6 +7,14 @@ import CartBackgroundImg from "../../Assets/cart-background.png"
 import dayjs from "dayjs";
 import axios from "axios";
 
+const Button = styled.button`
+background-color: #bd0900df;
+font-size: 25px;
+margin-left: 75px;
+padding: 0px 10px;
+color: white;
+font-weight: 400;
+`
 
 const FormContainer = styled.div`
 display: flex;
@@ -14,7 +22,7 @@ margin-bottom: 30px;
 flex-direction: column;
 align-items: center;
 width: 100%;
-/* height: 100vh; */
+gap: 30px;
 `
 
 const Select = styled.select`
@@ -50,14 +58,6 @@ align-items: center ;
 font-size: 20px;
 `
 
-const ArtefactoRenglon2 = styled.div`
-width: 100%;
-display: flex;
-justify-content: space-between;
-align-items: center ;
-font-size: 20px;
-`
-
 const ArtefactoTitle = styled.div`
 margin-left: 0 auto;
 font-size: 20px;
@@ -65,17 +65,16 @@ font-family: 'Rakkas', cursive;
 color: #3a1603;
 `
 
-const ContainerImg = styled.div`
-width: 200px;
-height: 200px;
-overflow: hidden;
-margin: 10px;
-position: relative;
+const FormTitle = styled.div`
+margin-left: 0 auto;
+font-size: 20px;
+font-family: 'Rakkas', cursive;
+color: #3a1603;
 `
 
 const ArtefactoImg = styled.img`
-width: 150px;
-height: 150px;
+width: 100px;
+height: 100px;
 `
 
 const Encabezado = styled.h1`
@@ -85,15 +84,9 @@ margin: 70px;
 color: #3a1603;
 `
 
-const encargos = [
-    {
-        nombre: 'Fabricación',
-        clave: 'fabricacion'
-    },
-    {
-        nombre: 'Reparación',
-        clave: 'reparacion'
-    }];
+const DivNoMostrar = styled.div`
+display: none;
+`
 
 const listaArtefactos = [
     {
@@ -488,90 +481,6 @@ const arrTrabajosParaRealizar = [
     },
 ]
 
-const arrHerreros = [
-    {
-        id: 1,
-        username: "reliana",
-        name: "Relian",
-        surname: "A",
-        category: "Armas",
-        range: "Maestro",
-        password: "1234"
-    },
-    {
-        id: 2,
-        username: "carlsb",
-        name: "Carls",
-        surname: "B",
-        category: "Armas",
-        range: "Aprendiz",
-        password: "1234"
-    },
-    {
-        id: 3,
-        username: "robertc",
-        name: "Robert",
-        surname: "C",
-        category: "Armas",
-        range: "Oficial",
-        password: "1234"
-    },
-    {
-        id: 4,
-        username: "ernestd",
-        name: "Ernest",
-        surname: "D",
-        category: "Armaduras",
-        range: "Maestro",
-        password: "1234"
-    },
-    {
-        id: 5,
-        username: "lilianf",
-        name: "Lilian",
-        surname: "F",
-        category: "Armaduras",
-        range: "Aprendiz",
-        password: "1234"
-    },
-    {
-        id: 6,
-        username: "reginaldg",
-        name: "Reginald",
-        surname: "G",
-        category: "Armaduras",
-        range: "Oficial",
-        password: "1234"
-    },
-    {
-        id: 7,
-        username: "lorich",
-        name: "Loric",
-        surname: "H",
-        category: "Herramientas",
-        range: "Maestro",
-        password: "1234"
-    },
-    {
-        id: 8,
-        username: "pojnali",
-        name: "Pojnal",
-        surname: "I",
-        category: "Herramientas",
-        range: "Aprendiz",
-        password: "1234"
-    },
-    {
-        id: 9,
-        username: "corintj",
-        name: "Corint",
-        surname: "J",
-        category: "Herramientas",
-        range: "Oficial",
-        password: "1234"
-    }
-]
-
 //para saber qué especialidades hay
 const todasLasEspecialidades = listaArtefactos.map(artefacto => artefacto.especialidad)
 //para remover especialidades duplicadas
@@ -579,105 +488,153 @@ function onlyUnique(value, index, self) {
     return self.indexOf(value) === index;
 }
 const especialidades = todasLasEspecialidades.filter(onlyUnique).sort();
-
 const tiposDeObjetos = listaArtefactos.map(artefacto => artefacto.nombre);
 
-//Herreros por especialidades
-const todosLosHerreros = arrHerreros.map(herrero => herrero.name)
-
-const arrHerrerosArmas = arrHerreros.filter(herrero => herrero.category === "Armas")
-const herrerosArmas = arrHerrerosArmas.map(herrero => ({ name: herrero.name, range: herrero.range })).sort()
-
-const arrHerrerosArmaduras = arrHerreros.filter(herrero => herrero.category === "Armaduras")
-const herrerosArmaduras = arrHerrerosArmaduras.map(herrero => ({ name: herrero.name, range: herrero.range })).sort()
-
-const arrHerrerosHerramientas = arrHerreros.filter(herrero => herrero.category === "Herramientas")
-const herrerosHerramientas = arrHerrerosHerramientas.map(herrero => ({ name: herrero.name, range: herrero.range })).sort()
-
+//Trabajos para realizar
+const arrNombresTrabajosParaRealizar = arrTrabajosParaRealizar.map(trabajo => trabajo.nombre)
 
 //Artefactos por especialidades
 const arrDeObjetosArmas = listaArtefactos.filter(artefacto => artefacto.especialidad === 'Armas');
 const armas = arrDeObjetosArmas.map(arma => arma.nombre).sort();
-
 const arrDeObjetosArmaduras = listaArtefactos.filter(artefacto => artefacto.especialidad === 'Armaduras');
 const armaduras = arrDeObjetosArmaduras.map(arma => arma.nombre).sort();
-
 const arrDeObjetosHerramientas = listaArtefactos.filter(artefacto => artefacto.especialidad === 'Herramientas');
 const herramientas = arrDeObjetosHerramientas.map(arma => arma.nombre).sort();
 
 //Categorías de artefactos
 const filo = listaArtefactos.filter(artefacto => artefacto.categoria_artefacto === 'f')
 const filos = filo.map(filo => filo.nombre).sort();
-
 const contundente = listaArtefactos.filter(artefacto => artefacto.categoria_artefacto === 'c')
 const contundentes = contundente.map(contundente => contundente.nombre).sort();
-
 const hacha = listaArtefactos.filter(artefacto => artefacto.categoria_artefacto === 'h')
 const hachas = hacha.map(hacha => hacha.nombre).sort();
-
 const asta = listaArtefactos.filter(artefacto => artefacto.categoria_artefacto === 'a')
 const astas = asta.map(asta => asta.nombre).sort();
-
 const ligero = listaArtefactos.filter(artefacto => artefacto.categoria_artefacto === 'l')
 const ligeros = ligero.map(ligero => ligero.nombre).sort();
-
 const mediano = listaArtefactos.filter(artefacto => artefacto.categoria_artefacto === 'm')
 const medianos = mediano.map(mediano => mediano.nombre).sort();
-
 const pesado = listaArtefactos.filter(artefacto => artefacto.categoria_artefacto === 'p')
 const pesados = pesado.map(pesado => pesado.nombre).sort();
-
 const escudo = listaArtefactos.filter(artefacto => artefacto.categoria_artefacto === 'e')
 const escudos = escudo.map(escudo => escudo.nombre).sort();
 
 //Trabajos para realizar según categoría
 const trabajosFilo = arrTrabajosParaRealizar.filter(trabajo => trabajo.categoria_artefacto === 'f').sort()
 const trabajosFilos = trabajosFilo.map(trabajo => trabajo.nombre).sort();
-
 const trabajosContundente = arrTrabajosParaRealizar.filter(trabajo => trabajo.categoria_artefacto === 'c').sort()
 const trabajosContundentes = trabajosContundente.map(trabajo => trabajo.nombre).sort();
-
 const trabajosHacha = arrTrabajosParaRealizar.filter(trabajo => trabajo.categoria_artefacto === 'h').sort()
 const trabajosHachas = trabajosHacha.map(trabajo => trabajo.nombre).sort();
-
 const trabajosAsta = arrTrabajosParaRealizar.filter(trabajo => trabajo.categoria_artefacto === 'a').sort()
 const trabajosAstas = trabajosAsta.map(trabajo => trabajo.nombre).sort();
-
 const trabajosLigero = arrTrabajosParaRealizar.filter(trabajo => trabajo.categoria_artefacto === 'l').sort()
 const trabajosLigeros = trabajosLigero.map(trabajo => trabajo.nombre).sort();
-
 const trabajosMediano = arrTrabajosParaRealizar.filter(trabajo => trabajo.categoria_artefacto === 'm').sort()
 const trabajosMedianos = trabajosMediano.map(trabajo => trabajo.nombre).sort();
-
 const trabajosPesado = arrTrabajosParaRealizar.filter(trabajo => trabajo.categoria_artefacto === 'p').sort()
 const trabajosPesados = trabajosPesado.map(trabajo => trabajo.nombre).sort();
-
 const trabajosEscudo = arrTrabajosParaRealizar.filter(trabajo => trabajo.categoria_artefacto === 'e').sort()
 const trabajosEscudos = trabajosEscudo.map(trabajo => trabajo.nombre).sort();
 
 const PedidoFabricacion = () => {
     const [tipoDeObjeto, setTipoDeObjeto] = useState([])
-
     const [nombreCliente, setNombreCliente] = useState('')
-
     const [nombreArtefacto, setNombreArtefacto] = useState('ENCARGO')
-
     const [fechaEntrega, setFechaEntrega] = useState(dayjs().format("DD/MM/YYYY - hh:mm A", 'es'))
-
-    const [tipoDeHerrero, setTipoDeHerrero] = useState([])
-
     const [horasPorTrabajo, setHorasPorTrabajo] = useState(0)
-
-    const [horasTrabajo, setHorasTrabajo] = useState(0)
-
+    const [tipoDeHerrero, setTipoDeHerrero] = useState([])
+    const [horasDeTrabajo, setHorasDeTrabajo] = useState(0)
     const [precioArtefacto, setPrecioArtefacto] = useState(0)
+    const [trabajosSeleccionados, setTrabajosSeleccionados] = useState([null, null, null])
+    const [trabajos, setTrabajos] = useState([])
+    const [imagen, setImagen] = useState('yellow-image')
+    const [arrHerreros, setArrHerreros] = useState([]);
+    const [arrClientes, setArrClientes] = useState([]);
+    const [statusTask1, setStatusTask1] = useState('')
+    const [statusTask2, setStatusTask2] = useState('')
+    const [statusTask3, setStatusTask3] = useState('')
+    const [horasTrabajo, setHorasTrabajo] = useState(0)
+    let modificador
+    let valor
+    let tardanza
+    useEffect(() => { precio(); demora() }, [trabajosSeleccionados])
 
-    /* .add(listaArtefactos[0].demora_artefacto_nuevo, 'hour') */
+    // GET HERREROS
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await axios.get("http://localhost:3000/api/users")
+            setArrHerreros(res.data)
+        }
+        fetchData();
+    }, [])
 
+    function compareRango(a, b) {
+        if (a.rango < b.rango) {
+            return -1;
+        }
+        if (a.rango > b.rango) {
+            return 1;
+        }
+        return 0;
+    }
+
+    function compareNombre(a, b) {
+        if (a.name < b.name) {
+            return -1;
+        }
+        if (a.name > b.name) {
+            return 1;
+        }
+        return 0;
+    }
+
+    const todosLosHerreros = arrHerreros.map(herrero => herrero.name)
+    const todosLosHerrerosPorId = arrHerreros.map(herrero => herrero.id)
+    //Herreros por especialidades
+    const arrHerrerosArmas = arrHerreros.filter(herrero => herrero.category === "Armas")
+    const herrerosArmas = arrHerrerosArmas.map(herrero => ({ name: herrero.name, rango: herrero.rango, id: herrero.id, surname: herrero.surname })).sort(compareRango)
+    const arrHerrerosArmaduras = arrHerreros.filter(herrero => herrero.category === "Armaduras")
+    const herrerosArmaduras = arrHerrerosArmaduras.map(herrero => ({ name: herrero.name, rango: herrero.rango, id: herrero.id, surname: herrero.surname })).sort(compareRango)
+    const arrHerrerosHerramientas = arrHerreros.filter(herrero => herrero.category === "Herramientas")
+    const herrerosHerramientas = arrHerrerosHerramientas.map(herrero => ({ name: herrero.name, rango: herrero.rango, id: herrero.id, surname: herrero.surname })).sort(compareRango)
+
+    //GET CLIENTES
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await axios.get("http://localhost:3000/api/clients")
+            setArrClientes(res.data)
+        }
+        fetchData();
+    }, [])
 
     const cambiaNombreCliente = (e) => {
-        setNombreCliente(e.target.value)
+        const clientesPorNombre = arrClientes.map(client => ({ name: client.name, surname: client.surname, id: client.id }))
+        const idCliente = parseInt(e.target.value);
+        const clientesPorId = arrClientes.map(client => client.id)
+        const index = clientesPorId.indexOf(idCliente)
+        const nombreCliente = clientesPorNombre[index].name + " " + clientesPorNombre[index].surname
+        setNombreCliente(nombreCliente)
     }
+
+
+
+    const modificaDemora = (e) => {
+        const index = todosLosHerrerosPorId.indexOf(parseInt(e.target.value))
+        const rango = arrHerreros[index].rango
+
+        if (rango == 'Aprendiz') {
+            modificador = 1.5
+        } else if (rango == 'Oficial') {
+            modificador = 1
+        } else if (rango == 'Maestro') {
+            modificador = 0.5
+        }
+        const demoraTotal = horasTrabajo * modificador
+        setHorasPorTrabajo(demoraTotal)
+        setFechaEntrega(dayjs().add(demoraTotal, "hour").format("DD/MM/YYYY - hh:mm A", 'es'))
+    }
+
 
     const cambiaTipoDeObjeto = (e) => {
         switch (e.target.value) {
@@ -692,21 +649,23 @@ const PedidoFabricacion = () => {
                 break;
             default:
         }
-
     }
 
-    const [imagen, setImagen] = useState('yellow-image')
 
     const demora = (e) => {
-        const index = tiposDeObjetos.indexOf(e.target.value)
-        const tiempo_demora = (listaArtefactos[index].demora_artefacto_nuevo)
-        return tiempo_demora
+        if (e) {
+            const index = tiposDeObjetos.indexOf(e.target.value)
+            const tiempo_demora = (listaArtefactos[index].demora_artefacto_nuevo)
+            return tiempo_demora
+        } else { return 0 }
     }
 
     const precio = (e) => {
-        const index = tiposDeObjetos.indexOf(e.target.value)
-        const precio = listaArtefactos[index].precio_artefacto_nuevo
-        return precio
+        if (e) {
+            const index = tiposDeObjetos.indexOf(e.target.value)
+            const precio = listaArtefactos[index].precio_artefacto_nuevo
+            return precio
+        } else { return 0 }
     }
 
     const cambiaImagenTrabajos = (e) => {
@@ -716,34 +675,42 @@ const PedidoFabricacion = () => {
         setPrecioArtefacto(precio(e))
     }
 
-    /*     const cambiarNombreHerrero = () => {
-            {const index = todosLosHerreros.indexOf({herrero})
-            const rango = arrHerreros[index].rango
-    
-            tipoDeHerrero.map(herrero =>
-                <option key={herrero} value={herrero}>{rango} {herrero}</option>
-                )};
-        } */
 
+    const { register, handleSubmit, reset } = useForm();
+    const navigate = useNavigate();
 
-    let modificador
-
-    const modificaDemora = (e) => {
-        const index = todosLosHerreros.indexOf(e.target.value)
-        const rango = arrHerreros[index].range
-
-        if (rango === 'Aprendiz') {
-            modificador = 1.5
-        } else if (rango === 'Oficial') {
-            modificador = 1
-        } else if (rango === 'Maestro') {
-            modificador = 0.5
+    const creaOrden = async (values) => {
+        values.price = precioArtefacto
+        values.end_date = fechaEntrega
+        values.sub_task1 = null
+        values.sub_task2 = null
+        values.sub_task3 = null
+        values.sub_task1_status = null
+        values.sub_task2_status = null
+        values.sub_task3_status = null
+        const res = await axios.post('http://localhost:3000/api/orders', values);
+        if (res.data.fatal) {
+            alert('Error en el server');
+        } else {
+            alert('Encargo creado correctamente');
+            navigate('/menu/admin');
         }
-        const demoraTotal = horasTrabajo * modificador
-        setHorasPorTrabajo(demoraTotal)
-        setFechaEntrega(dayjs().add(demoraTotal, "hour").format("DD/MM/YYYY - hh:mm A", 'es'))
     }
 
+    const registraCliente = async (values) => {
+        const res = await axios.post('http://localhost:3000/api/clients', values);
+        if (res.data.fatal) {
+            alert('Error en el server');
+        } else {
+            alert('Cliente registrado exitosamente');
+            navigate('/pedidos/nuevo/fabricacion');
+        }
+        const fetchData = async () => {
+            const res = await axios.get("http://localhost:3000/api/clients")
+            setArrClientes(res.data)
+        }
+        fetchData();
+    }
 
     return (
         <div>
@@ -754,35 +721,49 @@ const PedidoFabricacion = () => {
                     FABRICAR UN ARTEFACTO
                 </Encabezado>
 
-                <ArtefactoForm >
-                    <ArtefactoRenglon2>
+                <ArtefactoForm onSubmit={handleSubmit(registraCliente)}>
+                    <FormTitle style={{ width: "100%", backgroundColor: "#ffd770", fontSize: "18px" }} >
+                        CLIENTE
+                    </FormTitle>
+                    <ArtefactoRenglon>
+                        <label>Nombre</label>
+                        <Input type="text" {...register('name')} />
+                    </ArtefactoRenglon>
+                    <ArtefactoRenglon>
+                        <label>Apellido</label>
+                        <Input type="text" {...register('surname')} />
+                    </ArtefactoRenglon>
+                    <ArtefactoRenglon>
+                        <label>Documento</label>
+                        <Input type="text" {...register('dni')} />
+                    </ArtefactoRenglon>
+                    <button style={{ marginLeft: "210px" }} className="submit sheen" type="submit">Registrar cliente</button>
+                </ArtefactoForm>
+
+                <ArtefactoForm onSubmit={handleSubmit(creaOrden)}>
+                    <FormTitle style={{ width: "100%", backgroundColor: "#ffd770", fontSize: "18px" }} >
+                        ARTEFACTO
+                    </FormTitle>
+                    <ArtefactoRenglon>
                         <ArtefactoTitle>
                             {nombreArtefacto} {nombreCliente ? "DE" : ""} {nombreCliente.toUpperCase()}
                         </ArtefactoTitle>
                         <ArtefactoImg src={require(`../../Assets/${imagen}.jpg`)}  >
                         </ArtefactoImg>
-                    </ArtefactoRenglon2>
-                    <ArtefactoTitle style={{ width: "100%", backgroundColor: "#ffd770", fontSize: "18px" }} >
-                        CLIENTE
-                    </ArtefactoTitle>
-                    <ArtefactoRenglon>
-                        <label>Nombre</label>
-                        <Input onChange={(e) => { cambiaNombreCliente(e) }} type="text" />
                     </ArtefactoRenglon>
                     <ArtefactoRenglon>
-                        <label>Apellido</label>
-                        <Input type="text" />
+                        <label>Cliente</label>
+                        <Select {...register('client_id')} onChange={(e) => { cambiaNombreCliente(e) }}>
+                            <option hidden defaultValue >Selecciona un cliente</option>
+                            {arrClientes.sort(compareNombre).map(cliente =>
+                                <option key={cliente.id} className={cliente.name} value={cliente.id}>{cliente.name} {cliente.surname}
+                                </option>
+                            )};
+                        </Select>
                     </ArtefactoRenglon>
-                    <ArtefactoRenglon>
-                        <label>Identificador</label>
-                        <Input type="text" />
-                    </ArtefactoRenglon>
-                    <ArtefactoTitle style={{ width: "100%", backgroundColor: "#ffd770", fontSize: "18px" }} >
-                        ARTEFACTO
-                    </ArtefactoTitle>
                     <ArtefactoRenglon>
                         <label>Especialidad</label>
-                        <Select onChange={(e) => { cambiaTipoDeObjeto(e) }} id="especialidad">
+                        <Select {...register('product_type')} onChange={(e) => { cambiaTipoDeObjeto(e) }} id="especialidad">
                             <option hidden defaultValue>Selecciona una categoría</option>
                             {especialidades.map(especialidad =>
                                 <option key={especialidad} value={especialidad}>{especialidad}</option>
@@ -791,38 +772,109 @@ const PedidoFabricacion = () => {
                     </ArtefactoRenglon>
                     <ArtefactoRenglon>
                         <label>Tipo de objeto</label>
-                        <Select onChange={(e) => cambiaImagenTrabajos(e)} id="tipo_de_objeto">
+                        <Select {...register('product_subtype')} onChange={(e) => cambiaImagenTrabajos(e)} id="tipo_de_objeto">
                             <option hidden defaultValue>Selecciona un objeto</option>
                             {tipoDeObjeto.map(objeto =>
                                 <option key={objeto} value={objeto}>{objeto}</option>
                             )};
                         </Select>
                     </ArtefactoRenglon>
+                    {/*  <ArtefactoRenglon>
+                        <label>Trabajo 1</label>
+                        <Select {...register('sub_task1')} onChange={(e) => agregarBoton1(e)} id="trabajo1">
+                            <option hidden defaultValue>Selecciona trabajos a realizar</option>
+                            {trabajos.map(trabajo =>
+                                <option key={trabajo} value={trabajo}> {trabajo}
+                                </option>)};
+                        </Select>
+                    </ArtefactoRenglon>
+                    {trabajosSeleccionados[0] !== null && (
+                        <ArtefactoRenglon>
+                            <label>Trabajo 2</label>
+                            <Select {...register('sub_task2')} onChange={(e) => { agregarBoton2(e) }} id="trabajo2">
+                                <option hidden defaultValue></option>
+                                {trabajos.filter(t => {
+                                    return t !== trabajosSeleccionados[0]
+                                }
+                                ).map(trabajo =>
+                                    <option key={trabajo} value={trabajo}> {trabajo}
+                                    </option>)};
+                            </Select>
+                        </ArtefactoRenglon>
+                    )}
+                    {trabajosSeleccionados[1] !== null && (
+                        <ArtefactoRenglon>
+                            <label>Trabajo 3</label>
+                            <Select {...register('sub_task3')} onChange={(e) => { agregarBoton3(e) }} id="trabajo3">
+                                <option hidden defaultValue></option>
+                                {trabajos.filter(t => {
+                                    return t !== trabajosSeleccionados[0] && t !== trabajosSeleccionados[1]
+                                }
+                                ).map(trabajo =>
+                                    <option key={trabajo} value={trabajo}> {trabajo}
+                                    </option>)};
+                            </Select>
+                        </ArtefactoRenglon>
+                    )} */}
                     <ArtefactoRenglon>
                         <label>Herrero asignado</label>
-                        <Select onChange={(e) => { modificaDemora(e) }} id="herrero_asignado">
+                        <Select  {...register('user_id')} onChange={(e) => { modificaDemora(e) }} id="herrero_asignado">
                             <option hidden defaultValue>Selecciona el Herrero</option>
                             {tipoDeHerrero.map(herrero =>
-                                <option key={herrero.name} value={herrero.name}>{herrero.range} {herrero.name}</option>
+                                <option key={herrero.id} value={herrero.id}>{herrero.rango} {herrero.name} {herrero.surname} </option>
                             )};
                         </Select>
                     </ArtefactoRenglon>
                     <ArtefactoRenglon>
-                        <label>Fecha de entrega </label>
-                        <p>{fechaEntrega} ({horasPorTrabajo}hs) </p>
+                        <label>Tiempo de trabajo</label>
+                        <p>{horasPorTrabajo}hs</p>
+                    </ArtefactoRenglon>
+                    <ArtefactoRenglon>
+                        <label>Fecha de entrega</label>
+                        <Input type="text" value={fechaEntrega} disabled />
                     </ArtefactoRenglon>
                     <ArtefactoRenglon>
                         <label>Precio </label>
-                        <p>{precioArtefacto} monedas de oro</p>
+                        <Input type="number" style={{ width: "30px", marginLeft: "115px" }} value={precioArtefacto} disabled />
+                        <p>monedas de oro</p>
                     </ArtefactoRenglon>
-                    <button className="submit sheen" type="submit">Realizar encargo</button>
+
+                    <DivNoMostrar>
+                        <ArtefactoRenglon>
+                            <label>Tarea</label>
+                            <Input readOnly type="text" {...register('task')} value="Fabricación" />
+                        </ArtefactoRenglon>
+                        <ArtefactoRenglon>
+                            <label>Estado de orden</label>
+                            <Input readOnly type="text" {...register('order_status')} value="En proceso" />
+                        </ArtefactoRenglon>
+                        <ArtefactoRenglon>
+                            <label>Fecha de inicio</label>
+                            <Input readOnly type="text" {...register('start_date')} value={dayjs().format("DD/MM/YYYY - hh:mm A", 'es')} />
+                        </ArtefactoRenglon>
+                        <ArtefactoRenglon>
+                            <label>Comentarios</label>
+                            <Input readOnly type="text" {...register('obs')} value="" />
+                        </ArtefactoRenglon>
+                        <ArtefactoRenglon>
+                            <label>Estado tarea 1</label>
+                            <Input readOnly type="text" value={statusTask1} />
+                        </ArtefactoRenglon>
+                        <ArtefactoRenglon>
+                            <label>Estado tarea 2</label>
+                            <Input readOnly type="text" value={statusTask2} />
+                        </ArtefactoRenglon>
+                        <ArtefactoRenglon>
+                            <label>Estado tarea 3</label>
+                            <Input readOnly type="text" value={statusTask3} />
+                        </ArtefactoRenglon>
+                    </DivNoMostrar>
+                    <button style={{ marginLeft: "200px" }} className="submit sheen" type="submit">Agregar encargo</button>
                 </ArtefactoForm>
             </FormContainer>
 
-        </div>
+        </div >
     );
-
-
 }
 
 export default PedidoFabricacion

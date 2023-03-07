@@ -424,7 +424,6 @@ const PedidosTerminados = () => {
     }
 
     const mostrarNombreCliente = (id) => {
-        console.log(id)
         if (arrClientes.length > 0) {
             const clientesPorNombre = arrClientes.map(client => ({ name: client.name, surname: client.surname, id: client.id }))
             const clientesPorId = arrClientes.map(client => client.id)
@@ -446,13 +445,33 @@ const PedidosTerminados = () => {
         } else { return "esperando herrero" }
     }
 
+    const mostrarRangoHerrero = (id) => {
+        if (arrHerreros.length > 0) {
+            const herrerosPorNombre = arrHerreros.map(herrero => ({ name: herrero.name, surname: herrero.surname, id: herrero.id, rango: herrero.rango }))
+            const HerrerosPorId = arrHerreros.map(herrero => herrero.id)
+            const idHerrero = parseInt(id);
+            const index = HerrerosPorId.indexOf(idHerrero)
+            const rangoHerrero = herrerosPorNombre[index].rango
+            return rangoHerrero
+        } else { return "esperando herrero" }
+    }
+
+    const asignaImagenHerrero = (rango_herrero) => {
+        if (rango_herrero == "Maestro") {
+            return (require(`../../Assets/comentario-herrero-maestro.jpg`))
+        } else if (rango_herrero == "Oficial") {
+            return (require(`../../Assets/comentario-herrero.jpg`))
+        } else if (rango_herrero == "Aprendiz") {
+            return (require(`../../Assets/comentario-herrero-aprendiz.jpg`))
+        }
+    }
     const mostrarComentarios = (order_id, herrero_id) => {
         const estaOrden = arrOrdenes.filter(order => order.id == order_id)
         const trabajoDelHerrero = estaOrden.filter(order => order.user_id == herrero_id)
         const comentariosDeUnHerrero = trabajoDelHerrero.map(trabajo => ({ obs: trabajo.obs, herrero_id: trabajo.user_id }))
         return comentariosDeUnHerrero.map((trabajo, i) =>
             <div key={`trabajo_${i}`}>
-                < img src={require(`../../Assets/comentario-herrero.jpg`)} />
+                < img src={asignaImagenHerrero(mostrarRangoHerrero(herrero_id))} />
                 <p style={{ margin: "20px 0px" }} > "{trabajo.obs}"</p>
                 <div style={{ marginLeft: "190px" }} >{mostrarNombreHerrero(trabajo.herrero_id)}</div>
             </div>

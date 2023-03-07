@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { Link, useMatch, useResolvedPath } from 'react-router-dom'
 import NavBarBackground from '../../Assets/navbar-background.jpeg'
 import NavBarOptionBackground from '../../Assets/navbar-option-background.jpg'
+import { useState } from "react";
 
 
 const AdminNavBar = () => {
@@ -16,13 +17,28 @@ const AdminNavBar = () => {
     height: 70px;
     align-items: center;
     padding-right: 20px;
+    @media (max-width: 1200px) { 
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-end;
+    }
     `
-    const UlMenu = styled.ul`
-    width: auto;
-    display: flex;
-    flex-direction: row;
-    justify-content: start;
-    `
+
+    /*     const UlMenu = styled.ul`
+        width: auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: start;
+            @media (max-width: 1200px) { 
+                flex-direction: column;
+                display: ${navBarDisplay};
+                background-image: url(${NavBarBackground});
+                color: #f6ede6;
+                    :hover {
+                        
+                    }
+     }
+        ` */
 
     const LiMenu = styled.li`
     list-style: none;
@@ -33,10 +49,19 @@ const AdminNavBar = () => {
         text-shadow: 0 0 0.2em #fbdd1a, 0 0 0.2em #fbdd1a,0 0 0.2em #fbdd1a;
         cursor: pointer;
     }
+        @media (max-width: 1200px) { 
+    color: #f6ede6;
+            width: 100px;
+            background-image: url(${NavBarBackground});
+            :hover {
+                
+            }
+ }
     `
 
     return (
         <StyledNavBar>
+
             <CustomLink to={'/menu/admin'}>
                 <LiMenu>Inicio</LiMenu>
             </CustomLink>
@@ -58,6 +83,7 @@ const AdminNavBar = () => {
             <CustomLink to={'/home'}>
                 <LiMenu>Cerrar sesión</LiMenu>
             </CustomLink>
+
         </StyledNavBar>
     );
 

@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDebounce } from "react-use"
+import { Navigate, useNavigate } from "react-router-dom";
 
 
 const Contenedor = styled.div`
@@ -98,16 +99,14 @@ const ContenedorTextArea = styled.div`
 const CardTareas = ({ pedidos, setPedidos, id, task, product_type, product_subtype, order_status, start_date, end_date, obs, sub_task1, sub_task2, sub_task3, sub_task1_status, sub_task2_status, sub_task3_status, textoBoton, readOnly, index }) => {
 
 
-
+    const navigate = useNavigate();
 
     // Cambiar estado global del pedido En proceso O FINALIZADO
 
     const [order, setOrder] = useState([])
-
     const [globalActual, setGlobalActual] = useState(order_status)
-
     const [estadoActual, setEstadoActual] = useState((globalActual === 'En proceso') ? 'Finalizado' : 'En proceso')
-
+    const [seccion, setSeccion] = useState((order_status === 'En proceso') ? 'finalizadas' : 'pendientes')
 
     useEffect(() => {
         const fetchData = async () => {
@@ -133,6 +132,8 @@ const CardTareas = ({ pedidos, setPedidos, id, task, product_type, product_subty
             alert('Error en el server');
         } else {
             alert('Estado global modificado con exito')
+            navigate(`/herrero/tareas/${seccion}`)
+            console.log(seccion)
         }
 
         setGlobalActual(estadoActual)

@@ -85,7 +85,6 @@ const DivCreaCuenta = styled.div`
 
 const Home = () => {
     const [error, setError] = useState('');
-    /*  const [token, setToken] = useLocalStorage('token'); */
     const [token, setToken] = useLocalStorage('token')
 
     const setRole = useSetRoleContext();
@@ -95,16 +94,18 @@ const Home = () => {
 
     const login = async (values) => {
         const res = await axios.post('http://localhost:3000/api/users/login', values);
-        if (res.data.fatal) {
-            setError(res.data.fatal);
-        } else {
+        if (!res.data.fatal) {
             setError('');
             setToken(res.data.token);
             setRole(jwtDecode(res.data.token)['user_rango']);
             setIsLogged(true);
-            navigate('/menu/admin');
+            const { user_rango } = jwtDecode(res.data.token);
+            user_rango === 'Admin' ? navigate('../menu/admin') : navigate('../menu/herrero')
 
         }
+        else {
+            setError(res.data.fatal);
+        };
     }
 
     return (

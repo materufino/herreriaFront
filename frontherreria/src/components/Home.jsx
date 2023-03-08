@@ -4,6 +4,11 @@ import HomeBackground from '../Assets/home-background.jpg'
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
+import jwtDecode from "jwt-decode";
+import { useContext, useState } from "react";
+import { useSetLoggedContext, useSetRoleContext } from "../components/providers/LoggedProvider.jsx";
+import { useLocalStorage } from 'react-use';
+
 
 
 const Container = styled.div`
@@ -48,6 +53,13 @@ h3 {
     font-size: 24px;
     margin-bottom: 20px;
 };
+h4{
+    color: #bb3b24;
+        padding:5px;
+    font-family: 'Rakkas', cursive;
+    font-size:20px;
+
+}
 `
 const LabelInputContainer = styled.div`
 display: flex;
@@ -72,16 +84,26 @@ const DivCreaCuenta = styled.div`
 
 
 const Home = () => {
+    const [error, setError] = useState('');
+    /*  const [token, setToken] = useLocalStorage('token'); */
+    const [token, setToken] = useLocalStorage('token')
 
-    const { register, handleSubmit, reset } = useForm();
+    const setRole = useSetRoleContext();
+    const setIsLogged = useSetLoggedContext();
+    const { register, handleSubmit } = useForm();
     const navigate = useNavigate();
 
     const login = async (values) => {
-        const res = await axios.post('http://localhost:3000/api/users', values);
+        const res = await axios.post('http://localhost:3000/api/users/login', values);
         if (res.data.fatal) {
-            alert('Error en el server');
+            setError(res.data.fatal);
         } else {
+            setError('');
+            setToken(res.data.token);
+            setRole(jwtDecode(res.data.token)['user_rango']);
+            setIsLogged(true);
             navigate('/menu/admin');
+            console.log(res.data.token);
         }
     }
 
@@ -91,6 +113,7 @@ const Home = () => {
             <LoginForm onSubmit={handleSubmit(login)}>
                 <User>
                     <h3>COMPLETA TUS DATOS</h3>
+                    {error && <h4>{error}</h4>}
                     <LabelInputContainer>
                         <label>Nombre de usuario</label>
                         <input {...register('username')} type="text" />

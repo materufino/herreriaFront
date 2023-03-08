@@ -19,11 +19,15 @@ import HerreroTareasFinalizadas from './components/herrero/HerreroTareasFinaliza
 import Home from './components/Home';
 import HerreroNavBar from './components/herrero/HerreroNavBar';
 import PedidoFabricacion from './components/admin/PedidoFabricacion'
-import PedidoReparacion from './components/admin/PedidoReparacion'
+import PedidoReparacion from './components/admin/PedidoReparacion';
+import LoginGuard from './guards/LoginGuard';
+import RoleGuard from './guards/RoleGuard';
+import LoggedProvider from './components/providers/LoggedProvider';
 
 
 function App() {
   return (
+<<<<<<< HEAD
     <BrowserRouter>
       <div className="App">
         <Routes>
@@ -51,6 +55,60 @@ function App() {
         </Routes>
       </div>
     </BrowserRouter>
+=======
+    <LoggedProvider>
+      <BrowserRouter>
+        <div className="App">
+          <Routes>
+            {/* forms */}
+            <Route path='/' element={<Navigate to={'/home'} replace />} />
+            <Route path='home' element={<Home />} />
+            <Route path='register/admin' element={<AdminRegistro />} />
+            <Route path='herreros/registro' element={<HerreroRegistro />} />
+            <Route path='pedidos/nuevo' element={<NuevoPedido />} />
+            <Route path='pedidos/nuevo/fabricacion' element={<PedidoFabricacion />} />
+            <Route path='pedidos/nuevo/reparacion' element={<PedidoReparacion />} />
+            {/* menues main */}
+            <Route path='menu/admin' element={<AdminMenu />} />
+            <Route path='menu/herrero' element={<HerreroMenu />} />
+            {/* menues del Admin */}
+            <Route path='herreros/listado' element={
+              <LoginGuard><RoleGuard roles={['Admin']}>
+                <ListadoHerreros />
+              </RoleGuard></LoginGuard>} />
+            <Route path='pedidos/creado' element={
+              <LoginGuard><RoleGuard roles={['Admin']}>
+                <PedidoCreado /></RoleGuard></LoginGuard>} />
+            <Route path='pedidos/en_curso' element={
+              <LoginGuard><RoleGuard roles={['Admin']}>
+                <PedidosEnCurso />
+              </RoleGuard></LoginGuard>} />
+            <Route path='pedidos/terminados' element={
+              <LoginGuard><RoleGuard roles={['Admin']}>
+                <PedidosTerminados />
+              </RoleGuard></LoginGuard>} />
+            <Route path='clientes' element={
+              <LoginGuard><RoleGuard roles={['Admin']}>
+                <Clientes />
+              </RoleGuard></LoginGuard>} />
+            <Route path='herreros' element={
+              <LoginGuard><RoleGuard roles={'Admin'}>
+                <Herreros />
+              </RoleGuard></LoginGuard>} />
+            {/* menues de los Herreros */}
+            <Route path='herreros/tareas/pendientes' element={
+              <LoginGuard><RoleGuard roles={['Oficial', 'Maestre', 'Aprendiz']}>
+                <HerreroTareasPendientes />
+              </RoleGuard></LoginGuard>} />
+            <Route path='herreros/tareas/modificar' element={
+              <LoginGuard><RoleGuard roles={['Oficial', 'Maestre', 'Aprendiz']}>
+                <HerreroModificarTareas />
+              </RoleGuard></LoginGuard>} />
+          </Routes>
+        </div>
+      </BrowserRouter>
+    </LoggedProvider >
+>>>>>>> e4010be (se crean los guards y se configura el login)
   );
 }
 

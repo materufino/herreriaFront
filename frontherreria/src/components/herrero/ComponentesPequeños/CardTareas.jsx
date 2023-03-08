@@ -6,13 +6,14 @@ import { useDebounce } from "react-use"
 
 const Contenedor = styled.div`
 text-align: center;
-background-color: #f9f6e8;
+background-color: #ffeda4;
 color: #3a1603;
 border: 1px solid #847f56;
-min-height: 470px;
+width: 400px;
 border-radius: 5px;
 margin: auto;
 margin-top: 10px;
+margin-bottom: 40px;
 h3 {
     font-family: 'Rakkas', cursive;
     font-size: 24px;
@@ -25,10 +26,17 @@ label{
 span{
     text-transform: capitalize;
 }
+h5{
+        width:100%;
+        margin-bottom: 10px;
+        text-align: center;
+        font-size: 1.1rem;
+        text-transform:uppercase;
+        font-family: 'Rakkas', cursive;
+
+    }
+
 `
-
-
-
 
 
 const Trabajos = styled.div`
@@ -39,7 +47,7 @@ const Trabajos = styled.div`
     gap: 15px;
     h4{
         width: 100%;
-        text-align: center;
+        text-align: left;
         font-family: 'Rakkas', cursive;
         font-size:1.2rem;
     }
@@ -57,6 +65,7 @@ const Trabajos = styled.div`
         width: 60%;
         text-align: left;
         font-size: 1.1rem;
+        text-transform:capitalize;
     }
 `
 const ContenedorTextArea = styled.div`
@@ -91,23 +100,27 @@ const CardTareas = ({ pedidos, setPedidos, id, task, product_type, product_subty
 
 
 
-    // Cambiar estado global del pedido PENDIENTE O FINALIZADO
+    // Cambiar estado global del pedido En proceso O FINALIZADO
 
     const [order, setOrder] = useState([])
+
+    const [globalActual, setGlobalActual] = useState(order_status)
+
+    const [estadoActual, setEstadoActual] = useState((globalActual === 'En proceso') ? 'Finalizado' : 'En proceso')
+
 
     useEffect(() => {
         const fetchData = async () => {
             const res = await axios.get(`http://localhost:3000/api/orders/${id}`)
+            console.log(res.data)
             setOrder(res.data)
         }
         fetchData();
-    }, [])
+    }, [globalActual])
 
 
-    const [globalActual, setGlobalActual] = useState(order_status)
 
-    const [estadoActual, setEstadoActual] = useState((globalActual === 'Pendiente') ? 'Finalizado' : 'Pendiente')
-
+    // Pasar las funciones desde el componente padre
 
     const onCambiarEstado = async () => {
 
@@ -123,7 +136,6 @@ const CardTareas = ({ pedidos, setPedidos, id, task, product_type, product_subty
         }
 
         setGlobalActual(estadoActual)
-
 
     }
 
@@ -179,6 +191,7 @@ const CardTareas = ({ pedidos, setPedidos, id, task, product_type, product_subty
     }
 
     const handleEstado3 = async (event) => {
+
         setSubTaskEstado3(event.target.value)
         const res = await axios.put(`http://localhost:3000/api/orders/${id}`, {
             ...order,
@@ -209,16 +222,16 @@ const CardTareas = ({ pedidos, setPedidos, id, task, product_type, product_subty
     useDebounce(async () => {
 
         console.log(mensaje)
-        /*  const res = await axios.put(`http://localhost:3000/api/orders/${id}`, {
-             ...order,
-             obs: mensaje
-         })
-         if (res.data.fatal) {
-             alert('Error en el server');
-         } else {
-             alert('Observacion modificada con exito')
-         }
-  */
+        const res = await axios.put(`http://localhost:3000/api/orders/${id}`, {
+            ...order,
+            obs: mensaje
+        })
+        if (res.data.fatal) {
+            /* alert('Error en el server'); */
+        } else {
+            /*   alert('Observacion modificada con exito') */
+        }
+
     }, 1000, [mensaje])
 
 
@@ -231,12 +244,14 @@ const CardTareas = ({ pedidos, setPedidos, id, task, product_type, product_subty
 
 
         <Contenedor>
-            <h3> {product_type}: <span>{product_subtype}</span> </h3>
+            <h3> {product_type.toUpperCase()}: <span>{product_subtype.toUpperCase()}</span></h3>
+            <h5>ID orden: {id}</h5>
+
             <Trabajos>
 
-                {task === 'reparacion' &&
+                {task === 'Reparación' &&
                     <>
-                        <h5>{id}</h5>
+
                         <h4>Trabajos a realizar:</h4>
                         <h5> {sub_task1}</h5>
 
@@ -266,14 +281,14 @@ const CardTareas = ({ pedidos, setPedidos, id, task, product_type, product_subty
                     </>
                 }
 
-                {task === 'fabricacion' &&
-                    <h4>Trabajo a realizar: Fabricar </h4>}
+                {task === 'Fabricación' &&
+                    <h4>Trabajo a realizar : Fabricar </h4>}
 
             </Trabajos>
             <ContenedorTextArea>
                 <h4>Observaciones</h4>
                 <textarea defaultValue={obs} cols="30" rows="10" disabled={readOnly} onChange={(e) => setMensaje(e.target.value)} ></textarea>
-                <button type="submit" onClick={() => onCambiarEstado(id)}>{textoBoton}</button>
+                <button type="submit" className="sheen" onClick={() => onCambiarEstado(id)}>{textoBoton}</button>
             </ContenedorTextArea>
         </Contenedor>
 

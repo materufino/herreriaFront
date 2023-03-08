@@ -5,9 +5,8 @@ const RoleGuard = ({ children, roles }) => {
 
     const [token] = useLocalStorage('token');
     const { user_rango } = jwtDecode(token);
-
     if (!roles.includes(user_rango)) {
-        return <h1>PRIVADO: Espacio solo para administradores</h1>;
+        return alert("PRIVADO: Espacio solo para administradores");
     }
 
     return children;

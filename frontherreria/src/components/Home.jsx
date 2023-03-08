@@ -103,7 +103,7 @@ const Home = () => {
             setRole(jwtDecode(res.data.token)['user_rango']);
             setIsLogged(true);
             navigate('/menu/admin');
-            console.log(res.data.token);
+
         }
     }
 

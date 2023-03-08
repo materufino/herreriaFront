@@ -8,6 +8,7 @@ import ClientesImg from '../../Assets/clientes.png'
 import HerrerosImg from '../../Assets/herreros.png'
 import MenuOptionBackground from "../../Assets/menu-option-background.png"
 import MenuOptionBackgroundHover from "../../Assets/menu-option-background-hover.png"
+import jwtDecode from "jwt-decode";
 
 
 
@@ -83,13 +84,18 @@ h3 {
 
 const AdminMenu = () => {
 
+    const token = localStorage.getItem("token")
+    const { user_name } = jwtDecode(token);
+
     return (
+
+
 
         <div>
             <AdminNavBar />
             <Container>
                 <Encabezado>
-                    ¡BIENVENIDO, ADMINISTRADOR!
+                    ¡BIENVENIDO, {user_name.toUpperCase()}!
                 </Encabezado>
                 <OptionsContainer>
                     <Link to={'../pedidos/nuevo'}>

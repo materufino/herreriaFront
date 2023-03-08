@@ -65,8 +65,8 @@ function App() {
             <Route path='herreros' element={
               <LoginGuard><RoleGuard roles={['Admin']}><Herreros /></RoleGuard></LoginGuard>} />
             {/* menues de los Herreros */}
-            < Route path='herreros/tareas/pendientes' element={
-              <LoginGuard><RoleGuard roles={['Oficial', 'Maestre', 'Aprendiz']}>
+            < Route path='herrero/tareas/pendientes' element={
+              <LoginGuard><RoleGuard roles={['Oficial', 'Maestro', 'Aprendiz']}>
                 <HerreroTareasPendientes />
               </RoleGuard></LoginGuard>} />
 

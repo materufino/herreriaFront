@@ -12,6 +12,7 @@ import { useLocalStorage } from 'react-use';
 
 
 const Container = styled.div`
+
 display: flex;
 flex-direction: column;
 align-items: center;
@@ -20,14 +21,56 @@ height: 100vh;
 background-image: url(${HomeBackground});
 background-size: cover;
 opacity: 0.9;
-`
+@media (min-width: 300px) { 
+    flex-wrap: wrap;
+     }
+    @media (max-width: 1200px) { 
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+       
+    }
+    @media (min-width: 1850px) { 
+    flex-wrap: nowrap;
+    }`
 
 const Encabezado = styled.h1`
-font-size: 50px;
+
+font-size:50px;
 font-family: 'Rakkas', cursive;
-margin: 100px;
 color: white;
-text-shadow: 0 0 0.2em #fbdd1a, 0 0 0.2em #fbdd1a,0 0 0.2em #fbdd1a;
+width:95%;
+    text-align:center;
+    margin-bottom:20px;
+animation-name: shadow;
+            animation-duration: 4s;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+            @keyframes shadow {
+            0% {
+                text-shadow:none;}
+                50%{
+                    text-shadow: 0 0 0.2em #fbdd1a, 0 0 0.2em #fbdd1a,0 0 0.2em #fbdd1a;
+                }
+            
+            100% {text-shadow:none;
+               
+            }
+        }
+
+@media (min-width: 300px) { 
+   
+    font-size:18px;
+    
+ }
+ @media (min-width: 600px) { 
+   font-size:25px;
+    
+ }
+ @media(min-width:1200px){
+  margin-top:50px;
+  font-size:40px;
+ }
 `
 
 const LoginForm = styled.form`
@@ -111,10 +154,12 @@ const Home = () => {
 
     return (
         <Container>
+
             <Encabezado>¡BIENVENIDO, GUARDIÁN DE LA CHISPA!</Encabezado>
             <LoginForm onSubmit={handleSubmit(login)}>
                 <User>
                     <h3>COMPLETA TUS DATOS</h3>
+
                     {error && <h4>{error}</h4>}
                     <LabelInputContainer>
                         <label>Nombre de usuario</label>

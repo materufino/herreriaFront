@@ -17,12 +17,18 @@ const AdminNavBar = () => {
     height: 70px;
     align-items: center;
     padding-right: 20px;
+    
+    @media (min-width: 425px) { 
+    flex-wrap: wrap;
+ }
     @media (max-width: 1200px) { 
         flex-direction: column;
         justify-content: flex-start;
         align-items: flex-end;
     }
-    `
+    @media (min-width: 1850px) { 
+    flex-wrap: nowrap;
+    }`
 
     /*     const UlMenu = styled.ul`
         width: auto;

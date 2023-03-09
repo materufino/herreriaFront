@@ -132,7 +132,9 @@ table {
 
 a {
   text-decoration: none;
+
 }
+
 
 /* RESET ENDS */
 
@@ -209,10 +211,6 @@ button:active {
   transform: translate(0, 2px);
   color: #FFC491;
   background-color: #EDE358;
-}
-
-button:focus {
-  outline: 0;
 }
 
 

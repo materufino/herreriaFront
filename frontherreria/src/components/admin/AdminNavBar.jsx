@@ -51,6 +51,8 @@ const AdminNavBar = () => {
     padding: 15px 15px;
     transition: 0.25s;
     color: #f6ede6;
+   
+ 
     :hover {
         text-shadow: 0 0 0.2em #fbdd1a, 0 0 0.2em #fbdd1a,0 0 0.2em #fbdd1a;
         cursor: pointer;
@@ -62,6 +64,7 @@ const AdminNavBar = () => {
             :hover {
                 
             }
+            
             
  }
     `
@@ -100,6 +103,7 @@ const CustomLink = ({ to, children, ...props }) => {
 
     const resolvedPath = useResolvedPath(to)
     const isActive = useMatch({ path: resolvedPath.pathname, end: false })
+
     return (
 
         <Link className={isActive ? "active" : ""} to={to} {...props} >

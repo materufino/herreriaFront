@@ -84,11 +84,13 @@ const DivCreaCuenta = styled.div`
 
 
 const Home = () => {
+    localStorage.removeItem('token');
     const [error, setError] = useState('');
     const [token, setToken] = useLocalStorage('token')
 
     const setRole = useSetRoleContext();
     const setIsLogged = useSetLoggedContext();
+    setIsLogged(false);
     const { register, handleSubmit } = useForm();
     const navigate = useNavigate();
 

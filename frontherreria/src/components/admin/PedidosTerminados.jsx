@@ -486,7 +486,6 @@ const PedidosTerminados = () => {
                 <Encabezado>
                     TRABAJOS TERMINADOS ({arrOrdenes.length})
                 </Encabezado>
-
                 <ArtefactoForm>
                     {arrOrdenes.map(orden =>
                         <CardHerrero key={orden.id}>

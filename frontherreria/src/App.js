@@ -23,6 +23,7 @@ import PedidoReparacion from './components/admin/PedidoReparacion';
 import LoginGuard from './guards/LoginGuard';
 import RoleGuard from './guards/RoleGuard';
 import LoggedProvider from './components/providers/LoggedProvider';
+import TablonAnuncio from './components/herrero/TablonAnuncio';
 
 
 function App() {
@@ -92,7 +93,10 @@ function App() {
               <LoginGuard><RoleGuard roles={['Admin']}><Herreros /></RoleGuard></LoginGuard>} />
 
             {/* menues de los Herreros */}
-
+            < Route path='herrero/tablon_anuncios' element={
+              <LoginGuard><RoleGuard roles={['Oficial', 'Maestro', 'Aprendiz']}>
+                <TablonAnuncio />
+              </RoleGuard></LoginGuard>} />
             < Route path='herrero/tareas/pendientes' element={
               <LoginGuard><RoleGuard roles={['Oficial', 'Maestro', 'Aprendiz']}>
                 <HerreroTareasPendientes />

@@ -6,6 +6,10 @@ import { useEffect, useState } from "react";
 import MenuOptionBackground from "../../Assets/menu-option-background.png"
 import MenuOptionBackgroundHover from "../../Assets/menu-option-background-hover.png"
 import jwtDecode from "jwt-decode";
+import NuevasTecnologiasImg from '../../Assets/nuevas-tecnologias.png'
+import TablonAnunciosImg from '../../Assets/tablon-anuncios.png'
+
+import PedidosEnCursoImg from '../../Assets/pedidos-en-curso.png'
 
 
 const Container = styled.div`
@@ -122,26 +126,28 @@ const HerreroMenu = () => {
                 <SubTitulo> Novedades </SubTitulo>
                 <OptionsContainer>
 
-                    <OptionCard>
-                        <CardImg src="" alt="" />
-                        <h3>Grandes noticias</h3>
-                        <CardDiv>Las ventas de este mes ya superan en un 45% las del mes pasado!</CardDiv>
-                    </OptionCard>
+                    <Link to='/herrero/tablon_anuncios'>
+                        <OptionCard>
+                            <CardImg src={TablonAnunciosImg} alt="" />
+                            <h3>Tablón de anuncios</h3>
+                            <CardDiv>Aquí podrás ver las más recientes novedades de la herrería</CardDiv>
+                        </OptionCard>
+                    </Link>
 
 
                     <Link to='/herrero/tareas/pendientes'>
                         <OptionCard>
-                            <CardImg src="" alt="" />
-                            <h3>Tienes pedidos nuevos</h3>
+                            <CardImg style={{ marginLeft: '20px' }} src={PedidosEnCursoImg} alt="" />
+                            <h3>Tus tareas</h3>
                             <CardDiv>Presiona aqui para ver todos tus pedidos pendientes</CardDiv>
                         </OptionCard>
                     </Link>
 
 
                     <OptionCard>
-                        <CardImg src="" alt="" />
-                        <h3>Tecnología</h3>
-                        <CardDiv>El nuevo material esta aún siendo testeado pero tenemos grandes expectativas</CardDiv>
+                        <CardImg style={{ marginLeft: '20px' }} src={NuevasTecnologiasImg} alt="" />
+                        <h3>Investigación</h3>
+                        <CardDiv>Detalles de los últimos avances en nuevos materiales</CardDiv>
                     </OptionCard>
 
                 </OptionsContainer>

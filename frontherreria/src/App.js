@@ -65,17 +65,10 @@ function App() {
             <Route path='herreros' element={
               <LoginGuard><RoleGuard roles={['Admin']}><Herreros /></RoleGuard></LoginGuard>} />
             {/* menues de los Herreros */}
-<<<<<<< HEAD
             < Route path='herrero/tareas/pendientes' element={
               <LoginGuard><RoleGuard roles={['Oficial', 'Maestro', 'Aprendiz']}>
                 <HerreroTareasPendientes />
               </RoleGuard></LoginGuard>} />
-=======
-            < Route path='herreros/tareas/pendientes' element={
-
-              <HerreroTareasPendientes />} />
-
->>>>>>> cb0a08d (Se añaden datos al token y se extraen desde home.jsx)
 
           </Routes>
         </div>

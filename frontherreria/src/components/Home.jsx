@@ -103,10 +103,6 @@ const Home = () => {
             user_rango === 'Admin' ? navigate('../menu/admin') : navigate('../menu/herrero')
             const userData = (jwtDecode(res.data.token));
             console.log(userData);
-<<<<<<< HEAD
-=======
-
->>>>>>> cb0a08d (Se añaden datos al token y se extraen desde home.jsx)
         }
         else {
             setError(res.data.fatal);

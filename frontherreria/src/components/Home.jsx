@@ -155,10 +155,9 @@ const Home = () => {
         else {
             const userData = (jwtDecode(res.data.token));
             console.log(userData);
-
-        } else {
             setError(res.data.fatal);
-        };
+
+        }
     }
 
 

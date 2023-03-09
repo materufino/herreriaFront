@@ -173,13 +173,6 @@ const HerreroTareasFinalizadas = () => {
         }
     }
 
-
-
-
-
-
-
-
     return (
         <div>
 

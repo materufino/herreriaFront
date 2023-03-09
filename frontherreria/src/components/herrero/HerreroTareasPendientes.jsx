@@ -343,7 +343,7 @@ const HerreroTareasPendientes = () => {
                 (<ContainerPedidos>
 
                     {arrayPedidosFiltrados.map((pedido) => (
-                        <CardTareas key={pedido.id} {...pedido} textoBoton='Finalizar pedido' onCambiarEstado={onCambiarEstado} />)
+                        <CardTareas key={pedido.id} {...pedido} textoBoton='Finalizar pedido' onCambiarEstado={onCambiarEstado} handleTextArea={handleTextArea} />)
                     )
                     }
 

@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import jwtDecode from "jwt-decode";
-import { useLocalStorage } from "./localStorage.jsx";
+import { useLocalStorage } from 'react-use';
 
 const LoggedContext = createContext(null);
 const SetLoggedContext = createContext(null);

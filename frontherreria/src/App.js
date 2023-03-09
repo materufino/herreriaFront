@@ -34,15 +34,41 @@ function App() {
             {/* forms */}
             <Route path='/' element={<Navigate to={'/home'} replace />} />
             <Route path='home' element={<Home />} />
-            <Route path='register/admin' element={<AdminRegistro />} />
-            <Route path='herreros/registro' element={<HerreroRegistro />} />
-            <Route path='pedidos/nuevo' element={<NuevoPedido />} />
-            <Route path='pedidos/nuevo/fabricacion' element={<PedidoFabricacion />} />
-            <Route path='pedidos/nuevo/reparacion' element={<PedidoReparacion />} />
+
+            <Route path='register/admin' element={
+              <LoginGuard><RoleGuard roles={['Admin']}>
+                <AdminRegistro />
+              </RoleGuard></LoginGuard>} />
+            <Route path='herreros/registro' element={
+              <LoginGuard><RoleGuard roles={['Admin']}>
+                <HerreroRegistro />
+              </RoleGuard></LoginGuard>} />
+            <Route path='pedidos/nuevo' element={
+              <LoginGuard><RoleGuard roles={['Admin']}>
+                <NuevoPedido />
+              </RoleGuard></LoginGuard>} />
+            <Route path='pedidos/nuevo/fabricacion' element={
+              <LoginGuard><RoleGuard roles={['Admin']}>
+                <PedidoFabricacion />
+              </RoleGuard></LoginGuard>} />
+            <Route path='pedidos/nuevo/reparacion' element={
+              <LoginGuard><RoleGuard roles={['Admin']}>
+                <PedidoReparacion />
+              </RoleGuard></LoginGuard>} />
+
             {/* menues main */}
-            <Route path='menu/admin' element={<AdminMenu />} />
-            <Route path='menu/herrero' element={<HerreroMenu />} />
+
+            <Route path='menu/admin' element={
+              <LoginGuard><RoleGuard roles={['Admin']}>
+                <AdminMenu />
+              </RoleGuard></LoginGuard>} />
+            <Route path='menu/herrero' element={
+              <LoginGuard><RoleGuard roles={['Oficial', 'Maestro', 'Aprendiz']}>
+                <HerreroMenu />
+              </RoleGuard></LoginGuard>} />
+
             {/* menues del Admin */}
+
             <Route path='herreros/listado' element={
               <LoginGuard><RoleGuard roles={['Admin']}>
                 <ListadoHerreros />
@@ -64,11 +90,15 @@ function App() {
               </RoleGuard></LoginGuard>} />
             <Route path='herreros' element={
               <LoginGuard><RoleGuard roles={['Admin']}><Herreros /></RoleGuard></LoginGuard>} />
+
             {/* menues de los Herreros */}
+
             < Route path='herrero/tareas/pendientes' element={
               <LoginGuard><RoleGuard roles={['Oficial', 'Maestro', 'Aprendiz']}>
                 <HerreroTareasPendientes />
               </RoleGuard></LoginGuard>} />
+
+            <Route path='*' element={<Navigate to={'/home'} replace />} />
 
           </Routes>
         </div>

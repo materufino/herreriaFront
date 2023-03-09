@@ -103,8 +103,6 @@ const Home = () => {
             setIsLogged(true);
             const { user_rango } = jwtDecode(res.data.token);
             user_rango === 'Admin' ? navigate('../menu/admin') : navigate('../menu/herrero')
-            const userData = (jwtDecode(res.data.token));
-            console.log(userData);
         }
         else {
             setError(res.data.fatal);

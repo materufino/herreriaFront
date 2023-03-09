@@ -97,6 +97,10 @@ function App() {
               <LoginGuard><RoleGuard roles={['Oficial', 'Maestro', 'Aprendiz']}>
                 <HerreroTareasPendientes />
               </RoleGuard></LoginGuard>} />
+            < Route path='herrero/tareas/finalizadas' element={
+              <LoginGuard><RoleGuard roles={['Oficial', 'Maestro', 'Aprendiz']}>
+                <HerreroTareasFinalizadas />
+              </RoleGuard></LoginGuard>} />
 
             <Route path='*' element={<Navigate to={'/home'} replace />} />
 

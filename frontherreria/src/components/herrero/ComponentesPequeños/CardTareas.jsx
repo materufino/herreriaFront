@@ -96,157 +96,70 @@ const ContenedorTextArea = styled.div`
 
 
 
-const CardTareas = ({ pedidos, setPedidos, id, task, product_type, product_subtype, order_status, start_date, end_date, obs, sub_task1, sub_task2, sub_task3, sub_task1_status, sub_task2_status, sub_task3_status, textoBoton, readOnly, index }) => {
-
-
+const CardTareas = ({ client_id, end_date, price, start_date, product_id, user_id, id, order_status, product_type, product_subtype, task, sub_task1, sub_task1_status, sub_task2, sub_task2_status, sub_task3, sub_task3_status, obs, readOnly, textoBoton, onCambiarEstado, onHandleEstado1, onHandleEstado2, onHandleEstado3, handleTextArea }) => {
     const navigate = useNavigate();
 
-    // Cambiar estado global del pedido En proceso O FINALIZADO
+    // Cambiar estado global del En proceso O FINALIZADO
 
-    const [order, setOrder] = useState([])
-    const [globalActual, setGlobalActual] = useState(order_status)
-    const [estadoActual, setEstadoActual] = useState((globalActual === 'En proceso') ? 'Finalizado' : 'En proceso')
+
+    const [global, setGlobal] = useState(order_status)
+    const [nuevoEstado, setNuevoEstado] = useState((global === 'En proceso') ? 'Finalizado' : 'En proceso')
     const [seccion, setSeccion] = useState((order_status === 'En proceso') ? 'finalizadas' : 'pendientes')
+    const [nuevoSubTaskEstado, setNuevoSubTaskEstado] = useState()
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const res = await axios.get(`http://localhost:3000/api/orders/${id}`)
-            console.log(res.data)
-            setOrder(res.data)
-        }
-        fetchData();
-    }, [globalActual])
+    const cambiarEstado = (id) => {
 
-
-
-    // Pasar las funciones desde el componente padre
-
-    const onCambiarEstado = async () => {
-
-
-        const res = await axios.put(`http://localhost:3000/api/orders/${id}`, {
-            ...order,
-            order_status: estadoActual
-        })
-        if (res.data.fatal) {
-            alert('Error en el server');
-        } else {
-            alert('Estado global modificado con exito')
-            navigate(`/herrero/tareas/${seccion}`)
-            console.log(seccion)
-        }
-
-        setGlobalActual(estadoActual)
-
+        console.log(nuevoEstado)
+        onCambiarEstado(client_id, end_date, price, start_date, product_id, user_id, id, order_status, product_type, product_subtype, task, sub_task1, sub_task1_status, sub_task2, sub_task2_status, sub_task3, sub_task3_status, obs, nuevoEstado);
+        setGlobal(nuevoEstado)
     }
 
-    const [subTaskEstado1, setSubTaskEstado1] = useState(sub_task1_status)
-
-    const [subTaskEstado2, setSubTaskEstado2] = useState(sub_task2_status)
-
-    const [subTaskEstado3, setSubTaskEstado3] = useState(sub_task3_status)
-
-
-
     // Cambiar estado de la tarea  con el select En espera - En proceso - Finalizado
+    const [subTaskEstadoActual1, setSubTaskEstadoActual1] = useState(sub_task1_status)
+    const [subTaskEstadoActual2, setSubTaskEstadoActual2] = useState(sub_task2_status)
+    const [subTaskEstadoActual3, setSubTaskEstadoActual3] = useState(sub_task3_status)
+
+    useEffect(() => {
+        console.log(subTaskEstadoActual1)
+    }, [subTaskEstadoActual1])
 
     const handleEstado1 = async (event) => {
-
-        setSubTaskEstado1(event.target.value)
-
-        const res = await axios.put(`http://localhost:3000/api/orders/${id}`, {
-            ...order,
-            sub_task1_status: event.target.value,
-            sub_task2_status: subTaskEstado2,
-            sub_task3_status: subTaskEstado3
-        })
-
-        if (res.data.fatal) {
-            alert('Error en el server');
-        } else {
-            alert('Estado subtask 1 modificado con exito')
-        }
-
-
+        const nuevoEstado = event.target.value
+        onHandleEstado1(client_id, end_date, price, start_date, product_id, user_id, id, order_status, product_type, product_subtype, task, sub_task1, sub_task1_status, sub_task2, sub_task2_status, sub_task3, sub_task3_status, obs, nuevoEstado)
+        setSubTaskEstadoActual1(nuevoEstado)
 
     }
 
     const handleEstado2 = async (event) => {
-
-        setSubTaskEstado2(event.target.value)
-
-        const res = await axios.put(`http://localhost:3000/api/orders/${id}`, {
-            ...order,
-            sub_task1_status: subTaskEstado1,
-            sub_task2_status: event.target.value,
-            sub_task3_status: subTaskEstado3
-        })
-
-        if (res.data.fatal) {
-            alert('Error en el server');
-        } else {
-            alert('Estado subtask 2 modificado con exito')
-        }
-
-
+        const nuevoEstado2 = event.target.value
+        onHandleEstado2(client_id, end_date, price, start_date, product_id, user_id, id, order_status, product_type, product_subtype, task, sub_task1, sub_task1_status, sub_task2, sub_task2_status, sub_task3, sub_task3_status, obs, nuevoEstado2)
+        setSubTaskEstadoActual2(nuevoEstado2)
     }
 
     const handleEstado3 = async (event) => {
-
-        setSubTaskEstado3(event.target.value)
-        const res = await axios.put(`http://localhost:3000/api/orders/${id}`, {
-            ...order,
-            sub_task1_status: subTaskEstado1,
-            sub_task2_status: subTaskEstado2,
-            sub_task3_status: event.target.value
-        })
-
-        if (res.data.fatal) {
-            alert('Error en el server');
-        } else {
-            alert('Estado subtask 3 modificado con exito')
-        }
-
+        const nuevoEstado3 = event.target.value
+        onHandleEstado3(client_id, end_date, price, start_date, product_id, user_id, id, order_status, product_type, product_subtype, task, sub_task1, sub_task1_status, sub_task2, sub_task2_status, sub_task3, sub_task3_status, obs, nuevoEstado3)
+        setSubTaskEstadoActual3(nuevoEstado3)
     }
-
-
-
 
 
     //TextArea
 
-    const [mensaje, setMensaje] = useState('')
+    const [mensaje, setMensaje] = useState()
+    useDebounce(async (client_id, end_date, price, start_date, product_id, user_id, id, order_status, product_type, product_subtype, task, sub_task1, sub_task1_status, sub_task2, sub_task2_status, sub_task3, sub_task3_status, obs) => {
+        handleTextArea(client_id, end_date, price, start_date, product_id, user_id, id, order_status, product_type, product_subtype, task, sub_task1, sub_task1_status, sub_task2, sub_task2_status, sub_task3, sub_task3_status, obs, mensaje)
 
 
-
-
-    useDebounce(async () => {
-
-        console.log(mensaje)
-        const res = await axios.put(`http://localhost:3000/api/orders/${id}`, {
-            ...order,
-            obs: mensaje
-        })
-        if (res.data.fatal) {
-            /* alert('Error en el server'); */
-        } else {
-            /*   alert('Observacion modificada con exito') */
-        }
-
-    }, 1000, [mensaje])
-
-
-
-
-
-
+    }, 500, [mensaje])
 
     return (
 
 
         <Contenedor>
-            <h3> {product_type.toUpperCase()}: <span>{product_subtype.toUpperCase()}</span></h3>
-            <h5>ID orden: {id}</h5>
+
+            <h3> {product_type}: <span>{product_subtype}</span></h3>
+            <h5>ID : {id}</h5>
+
 
             <Trabajos>
 
@@ -256,7 +169,7 @@ const CardTareas = ({ pedidos, setPedidos, id, task, product_type, product_subty
                         <h4>Trabajos a realizar:</h4>
                         <h5> {sub_task1}</h5>
 
-                        <select name="estado" id="estado" value={subTaskEstado1} disabled={readOnly} onChange={(event) => handleEstado1(event)}>
+                        <select name="estado" id="estado" value={subTaskEstadoActual1} disabled={readOnly} onChange={(event) => handleEstado1(event)}>
                             <option value="En espera">En espera</option>
                             <option value="En proceso">En proceso</option>
                             <option value="Finalizado">Finalizado</option>
@@ -264,7 +177,7 @@ const CardTareas = ({ pedidos, setPedidos, id, task, product_type, product_subty
 
                         {(sub_task2) &&
                             <><h5> {sub_task2}</h5>
-                                <select name="estado" id="estado" value={subTaskEstado2} disabled={readOnly} onChange={(event) => handleEstado2(event)}>
+                                <select name="estado" id="estado" value={subTaskEstadoActual2} disabled={readOnly} onChange={(event) => handleEstado2(event)}>
                                     <option value="En espera">En espera</option>
                                     <option value="En proceso">En proceso</option>
                                     <option value="Finalizado">Finalizado</option>
@@ -273,7 +186,7 @@ const CardTareas = ({ pedidos, setPedidos, id, task, product_type, product_subty
                         }
                         {(sub_task3) &&
                             <><h5> {sub_task3}</h5>
-                                <select name="estado" id="estado" value={subTaskEstado3} disabled={readOnly} onChange={(event) => handleEstado3(event)}>
+                                <select name="estado" id="estado" value={subTaskEstadoActual3} disabled={readOnly} onChange={(event) => handleEstado3(event)}>
                                     <option value="En espera">En espera</option>
                                     <option value="En proceso">En proceso</option>
                                     <option value="Finalizado">Finalizado</option>
@@ -283,14 +196,19 @@ const CardTareas = ({ pedidos, setPedidos, id, task, product_type, product_subty
                 }
 
                 {task === 'Fabricación' &&
-                    <h4>Trabajo a realizar : Fabricar </h4>}
+                    <h4>Trabajo a realizar : <span> Fabricar </span> </h4>}
 
             </Trabajos>
             <ContenedorTextArea>
+
                 <h4>Observaciones</h4>
-                <textarea defaultValue={obs} cols="30" rows="10" disabled={readOnly} onChange={(e) => setMensaje(e.target.value)} ></textarea>
-                <button type="submit" className="sheen" onClick={() => onCambiarEstado(id)}>{textoBoton}</button>
+                <textarea defaultValue={obs} cols="30" rows="10" disabled={readOnly} onChange={(event) => setMensaje(event.target.value)}  ></textarea>
+
+                <button type="submit" className="sheen" onClick={() => cambiarEstado(id)}>{textoBoton}</button>
+
             </ContenedorTextArea>
+
+
         </Contenedor>
 
     )

@@ -6,6 +6,8 @@ import React from "react";
 import axios from "axios";
 import MenuOptionBackground from "../../Assets/navbar-option-background.jpg"
 import MenuOptionBackgroundHover from "../../Assets/navbar-option-background.jpg"
+import jwtDecode from "jwt-decode";
+import { useDebounce } from "react-use";
 
 
 const ContainerPedidos = styled.div`
@@ -85,13 +87,15 @@ width: 100%;
 
 
 const HerreroTareasPendientes = () => {
-
-
+    const token = localStorage.getItem("token")
+    const { user_id } = jwtDecode(token);
     const [pedidos, setPedidos] = useState();
+    const [arrayPedidosFiltrados, setArrayPedidosFiltrados] = useState([])
+    const [seleccionUsuario, setSeleccionUsuario] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {
-            const res = await axios.get("http://localhost:3000/api/orders/user/1")
+            const res = await axios.get(`http://localhost:3000/api/orders/user/${user_id}`)
             setPedidos(res.data)
         }
         fetchData();
@@ -100,32 +104,188 @@ const HerreroTareasPendientes = () => {
 
 
 
-    const textoBoton = 'Finalizar Pedido'
 
-    const [arrayPedidosFiltrados, setArrayPedidosFiltrados] = useState([])
-    const [seleccionUsuario, setSeleccionUsuario] = useState(null);
 
 
     useEffect(() => {
-        console.log(pedidos);
+        console.log('pedidos:', pedidos);
     }, [pedidos]);
 
     useEffect(() => {
-        console.log(arrayPedidosFiltrados)
+        console.log('arrayPedidosFiltrados:', arrayPedidosFiltrados)
     }, [arrayPedidosFiltrados]);
 
 
     function handleFabricaciones() {
         setSeleccionUsuario('Fabricaciones');
-        setArrayPedidosFiltrados(pedidos.filter(pedido => pedido.task === 'Fabricación'))
+        setArrayPedidosFiltrados(pedidos.filter(pedido => pedido.task === 'Fabricación').filter((pedido) => pedido.order_status === "En proceso"))
+
 
     }
 
     function handleReparaciones() {
         setSeleccionUsuario('Reparaciones');
-        setArrayPedidosFiltrados(pedidos.filter(pedido => pedido.task === 'Reparación'))
+        setArrayPedidosFiltrados(pedidos.filter(pedido => pedido.task === 'Reparación').filter((pedido) => pedido.order_status === "En proceso"))
+        console.log(pedidos)
 
     }
+
+
+
+
+    const onCambiarEstado = async (client_id, end_date, price, start_date, product_id, user_id, id, order_status, product_type, product_subtype, task, sub_task1, sub_task1_status, sub_task2, sub_task2_status, sub_task3, sub_task3_status, obs, nuevoEstado) => {
+
+        const res = await axios.put(`http://localhost:3000/api/orders/${id}`, {
+            id: id,
+            task: task,
+            product_type: product_type,
+            product_subtype: product_subtype,
+            order_status: nuevoEstado,
+            client_id: client_id,
+            obs: obs,
+            price: price,
+            start_date: start_date,
+            end_date: end_date,
+            product_id: product_id,
+            user_id: user_id,
+            sub_task1: sub_task1,
+            sub_task1_status: sub_task1_status,
+            sub_task2: sub_task2,
+            sub_task2_status: sub_task2_status,
+            sub_task3: sub_task3,
+            sub_task3_status: sub_task3_status
+        })
+        if (res.data.fatal) {
+            alert('Error en el server');
+        } else {
+            alert('Estado global modificado con exito')
+            console.log(res.data)
+        }
+    }
+
+    const onHandleEstado1 = async (client_id, end_date, price, start_date, product_id, user_id, id, order_status, product_type, product_subtype, task, sub_task1, sub_task1_status, sub_task2, sub_task2_status, sub_task3, sub_task3_status, obs, nuevoSubTaskEstado) => {
+
+        const res = await axios.put(`http://localhost:3000/api/orders/${id}`, {
+            id: id,
+            task: task,
+            product_type: product_type,
+            product_subtype: product_subtype,
+            order_status: order_status,
+            client_id: client_id,
+            obs: obs,
+            price: price,
+            start_date: start_date,
+            end_date: end_date,
+            product_id: product_id,
+            user_id: user_id,
+            sub_task1: sub_task1,
+            sub_task1_status: nuevoSubTaskEstado,
+            sub_task2: sub_task2,
+            sub_task2_status: sub_task2_status,
+            sub_task3: sub_task3,
+            sub_task3_status: sub_task3_status
+        })
+        if (res.data.fatal) {
+            alert('Error en el server');
+        } else {
+            alert('Estado subtask1 modificado con exito')
+            console.log(res.data)
+        }
+
+    }
+
+
+    const onHandleEstado2 = async (client_id, end_date, price, start_date, product_id, user_id, id, order_status, product_type, product_subtype, task, sub_task1, sub_task1_status, sub_task2, sub_task2_status, sub_task3, sub_task3_status, obs, subTaskEstadoActual1, nuevoSubTaskEstado2) => {
+        const res = await axios.put(`http://localhost:3000/api/orders/${id}`, {
+            id: id,
+            task: task,
+            product_type: product_type,
+            product_subtype: product_subtype,
+            order_status: order_status,
+            client_id: client_id,
+            obs: obs,
+            price: price,
+            start_date: start_date,
+            end_date: end_date,
+            product_id: product_id,
+            user_id: user_id,
+            sub_task1: sub_task1,
+            sub_task1_status: sub_task1_status,
+            sub_task2: sub_task2,
+            sub_task2_status: nuevoSubTaskEstado2,
+            sub_task3: sub_task3,
+            sub_task3_status: sub_task3_status
+        })
+        if (res.data.fatal) {
+            alert('Error en el server');
+        } else {
+            alert('Estado subtask2 modificado con exito')
+            console.log(res.data)
+        }
+
+    }
+
+    const onHandleEstado3 = async (client_id, end_date, price, start_date, product_id, user_id, id, order_status, product_type, product_subtype, task, sub_task1, sub_task1_status, sub_task2, sub_task2_status, sub_task3, sub_task3_status, obs, subTaskEstadoActual1, subTaskEstadoActual2, nuevoSubTaskEstado3) => {
+        const res = await axios.put(`http://localhost:3000/api/orders/${id}`, {
+            id: id,
+            task: task,
+            product_type: product_type,
+            product_subtype: product_subtype,
+            order_status: order_status,
+            client_id: client_id,
+            obs: obs,
+            price: price,
+            start_date: start_date,
+            end_date: end_date,
+            product_id: product_id,
+            user_id: user_id,
+            sub_task1: sub_task1,
+            sub_task1_status: sub_task1_status,
+            sub_task2: sub_task2,
+            sub_task2_status: sub_task2_status,
+            sub_task3: sub_task3,
+            sub_task3_status: nuevoSubTaskEstado3
+        })
+        if (res.data.fatal) {
+            alert('Error en el server');
+        } else {
+            alert('Estado subtask2 modificado con exito')
+            console.log(res.data)
+        }
+
+    }
+
+
+    const handleTextArea = async (client_id, end_date, price, start_date, product_id, user_id, id, order_status, product_type, product_subtype, task, sub_task1, sub_task1_status, sub_task2, sub_task2_status, sub_task3, sub_task3_status, obs, mensaje) => {
+        const res = await axios.put(`http://localhost:3000/api/orders/${id}`, {
+            id: id,
+            task: task,
+            product_type: product_type,
+            product_subtype: product_subtype,
+            order_status: order_status,
+            client_id: client_id,
+            obs: mensaje,
+            price: price,
+            start_date: start_date,
+            end_date: end_date,
+            product_id: product_id,
+            user_id: user_id,
+            sub_task1: sub_task1,
+            sub_task1_status: sub_task1_status,
+            sub_task2: sub_task2,
+            sub_task2_status: sub_task2_status,
+            sub_task3: sub_task3,
+            sub_task3_status: sub_task3_status
+        })
+        if (res.data.fatal) {
+            /* alert('La observacion se modifico con exito') */
+        } else {
+
+        }
+
+    }
+
+
 
 
     return (
@@ -140,7 +300,6 @@ const HerreroTareasPendientes = () => {
                     <Button onClick={handleReparaciones}>Reparaciones</Button>
                 </OptionCard>
 
-
                 <OptionCard>
                     <Button onClick={handleFabricaciones}>Fabricaciones</Button>
                 </OptionCard>
@@ -149,21 +308,15 @@ const HerreroTareasPendientes = () => {
             </OptionsContainer>
 
 
-
-
-
             {seleccionUsuario === 'Reparaciones' && (
 
                 <ContainerPedidos>
 
-                    {arrayPedidosFiltrados.filter((pedido) => pedido.order_status === "En proceso").map((pedido) =>
-
-                        <CardTareas key={pedido.id} pedidos={pedidos} setPedidos={setPedidos} {...pedido} textoBoton={textoBoton} index readOnly={false} />
-
+                    {arrayPedidosFiltrados.map((pedido) => (
+                        <CardTareas key={pedido.id} {...pedido} textoBoton='Finalizar pedido' onCambiarEstado={onCambiarEstado} onHandleEstado1={onHandleEstado1}
+                            onHandleEstado2={onHandleEstado2} onHandleEstado3={onHandleEstado3} handleTextArea={handleTextArea} />)
                     )
-
                     }
-
 
                 </ContainerPedidos>
 
@@ -174,11 +327,9 @@ const HerreroTareasPendientes = () => {
 
                 (<ContainerPedidos>
 
-                    {arrayPedidosFiltrados.filter((pedido) => pedido.order_status === "En proceso").map((pedido) =>
-
-                        <CardTareas key={pedido.id} {...pedido} textoBoton={textoBoton} index readOnly={false} />
+                    {arrayPedidosFiltrados.map((pedido) => (
+                        <CardTareas key={pedido.id} {...pedido} textoBoton='Finalizar pedido' onCambiarEstado={onCambiarEstado} />)
                     )
-
                     }
 
                 </ContainerPedidos>)

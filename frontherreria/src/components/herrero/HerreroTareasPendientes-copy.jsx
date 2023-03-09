@@ -4,13 +4,9 @@ import CardTareas from "./ComponentesPequeños/CardTareas";
 import HerreroNavBar from "./HerreroNavBar";
 import React from "react";
 import axios from "axios";
-
 import MenuOptionBackground from "../../Assets/navbar-option-background.jpg"
 import MenuOptionBackgroundHover from "../../Assets/navbar-option-background.jpg"
 import jwtDecode from "jwt-decode";
-
-
-
 
 
 const ContainerPedidos = styled.div`
@@ -26,15 +22,6 @@ margin: 30px;
 text-align: center;
 color: #3a1603;
 text-transform: uppercase;
-`
-
-const ContenedorBotones = styled.div`
-width: 100%;
-display: flex;
-flex-wrap: nowrap;
-justify-content: center;
-margin: 1rem;
-gap: 50px;
 
 `
 const OptionsContainer = styled.div`
@@ -45,6 +32,7 @@ margin-bottom: 40px;
 display: flex;
 justify-content: center;
 gap: 50px;
+
  @media (min-width: 425px) { 
     flex-wrap: wrap ;
  }
@@ -52,6 +40,8 @@ gap: 50px;
     margin-bottom: 0px;
  }
 `
+
+
 const OptionCard = styled.div`
 background-image: url(${MenuOptionBackground});
 background-size: cover;
@@ -64,7 +54,6 @@ display: flex;
 flex-direction: column;
 align-items: center;
 justify-content: center;
-margin-bottom: 40px;
 :hover{
     background-image: url(${MenuOptionBackgroundHover});
     background-size: cover;
@@ -78,31 +67,28 @@ h3 {
     margin: 20px 0px;
 };
 `
-
 const Button = styled.button`
 background-color: transparent;
 border: none;
 font-family: 'Rakkas', cursive;
-font-size:25px;
+font-size: 25px;
 height: 100%;
 width: 100%;
 :hover{
-    text-shadow: 0 0 0.2em #101010, 0 0 0.2em #050504, 0 0 0.2em #0e0d0d;
+    text-shadow: 0 0 0.2em #101010, 0 0 0.2em #050504,0 0 0.2em #0e0d0d;
     cursor: pointer;
     color: #ffeda4;
 }
 `
 
 
-//Componente HerreroTareasFinalizadas
-const HerreroTareasFinalizadas = () => {
 
 
+
+const HerreroTareasPendientes = () => {
     const token = localStorage.getItem("token")
     const { user_id } = jwtDecode(token);
 
-
-    //Pedido de todas las tareas
     const [pedidos, setPedidos] = useState();
 
     useEffect(() => {
@@ -111,7 +97,9 @@ const HerreroTareasFinalizadas = () => {
             setPedidos(res.data)
         }
         fetchData();
+
     }, [])
+    const textoBoton = 'Finalizar Pedido'
 
 
 
@@ -122,70 +110,31 @@ const HerreroTareasFinalizadas = () => {
     useEffect(() => {
         console.log(pedidos);
     }, [pedidos]);
+
     useEffect(() => {
         console.log(arrayPedidosFiltrados)
     }, [arrayPedidosFiltrados]);
 
 
-
-
     function handleFabricaciones() {
         setSeleccionUsuario('Fabricaciones');
-        setArrayPedidosFiltrados(pedidos.filter(pedido => pedido.task === 'Fabricación').filter((pedido) => pedido.order_status === "Finalizado"))
-
+        setArrayPedidosFiltrados(pedidos.filter(pedido => pedido.task === 'Fabricación'))
 
     }
 
     function handleReparaciones() {
         setSeleccionUsuario('Reparaciones');
-        setArrayPedidosFiltrados(pedidos.filter(pedido => pedido.task === 'Reparación').filter((pedido) => pedido.order_status === "Finalizado"))
-        console.log(pedidos)
+        setArrayPedidosFiltrados(pedidos.filter(pedido => pedido.task === 'Reparación'))
 
     }
-
-    const onCambiarEstado = async (client_id, end_date, price, start_date, product_id, user_id, id, order_status, product_type, product_subtype, task, sub_task1, sub_task1_status, sub_task2, sub_task2_status, sub_task3, sub_task3_status, obs, nuevoEstado) => {
-
-        const res = await axios.put(`http://localhost:3000/api/orders/${id}`, {
-            id: id,
-            task: task,
-            product_type: product_type,
-            product_subtype: product_subtype,
-            order_status: nuevoEstado,
-            client_id: client_id,
-            obs: obs,
-            price: price,
-            start_date: start_date,
-            end_date: end_date,
-            product_id: product_id,
-            user_id: user_id,
-            sub_task1: sub_task1,
-            sub_task1_status: sub_task1_status,
-            sub_task2: sub_task2,
-            sub_task2_status: sub_task2_status,
-            sub_task3: sub_task3,
-            sub_task3_status: sub_task3_status
-        })
-        if (res.data.fatal) {
-            alert('Error en el server');
-        } else {
-            alert('Estado global modificado con exito')
-            console.log(res.data)
-        }
-    }
-
-
-
-
-
-
 
 
     return (
-        <div>
 
+        <div>
             <HerreroNavBar />
 
-            <Encabezado>Finalizados</Encabezado>
+            <Encabezado>Pendientes</Encabezado>
             <OptionsContainer>
 
                 <OptionCard>
@@ -208,9 +157,10 @@ const HerreroTareasFinalizadas = () => {
 
                 <ContainerPedidos>
 
-                    {arrayPedidosFiltrados.map((pedido) =>
+                    {arrayPedidosFiltrados.filter((pedido) => pedido.order_status === "En proceso").map((pedido) =>
 
-                        <CardTareas key={pedido.id}  {...pedido} readOnly={true} textoBoton='Modificar pedido' onCambiarEstado={onCambiarEstado} />
+                        <CardTareas key={pedido.id} pedidos={pedidos} setPedidos={setPedidos} {...pedido} textoBoton={textoBoton} index readOnly={false} />
+
                     )
 
                     }
@@ -222,19 +172,23 @@ const HerreroTareasFinalizadas = () => {
             )}
 
             {seleccionUsuario === 'Fabricaciones' &&
+
                 (<ContainerPedidos>
-                    {arrayPedidosFiltrados.map((pedido) =>
-                        <CardTareas key={pedido.id} {...pedido} readOnly={true} textoBoton='Modificar pedido' onCambiarEstado={onCambiarEstado} />
+
+                    {arrayPedidosFiltrados.filter((pedido) => pedido.order_status === "En proceso").map((pedido) =>
+
+                        <CardTareas key={pedido.id} {...pedido} textoBoton={textoBoton} index readOnly={false} />
                     )
+
                     }
+
                 </ContainerPedidos>)
             }
 
+        </div >
 
-
-        </div>
     );
 
 }
 
-export default HerreroTareasFinalizadas;
+export default HerreroTareasPendientes;

@@ -126,6 +126,8 @@ const DivCreaCuenta = styled.div`
 `
 
 
+
+
 const Home = () => {
     localStorage.removeItem('token');
     const [error, setError] = useState('');
@@ -136,6 +138,9 @@ const Home = () => {
     setIsLogged(false);
     const { register, handleSubmit } = useForm();
     const navigate = useNavigate();
+
+
+
 
     const login = async (values) => {
         const res = await axios.post('http://localhost:3000/api/users/login', values);
@@ -148,9 +153,17 @@ const Home = () => {
             user_rango === 'Admin' ? navigate('../menu/admin') : navigate('../menu/herrero')
         }
         else {
+            const userData = (jwtDecode(res.data.token));
+            console.log(userData);
+
+        } else {
             setError(res.data.fatal);
         };
     }
+
+
+
+
 
     return (
         <Container>
@@ -170,6 +183,11 @@ const Home = () => {
                         <input {...register('password')} type="password" />
                     </LabelInputContainer>
                     <LoginButton className="sheen" type="submit">INGRESAR</LoginButton>
+                    <Link to={'../menu/admin'}>
+                        <DivCreaCuenta>
+                            ¿Aún no tienes cuenta? Pulsa aquí.
+                        </DivCreaCuenta>
+                    </Link>
                 </User>
             </LoginForm>
         </Container>

@@ -5,6 +5,7 @@ import HerreroNavBar from "./HerreroNavBar";
 import { useEffect, useState } from "react";
 import MenuOptionBackground from "../../Assets/menu-option-background.png"
 import MenuOptionBackgroundHover from "../../Assets/menu-option-background-hover.png"
+import jwtDecode from "jwt-decode";
 
 
 const Container = styled.div`
@@ -102,6 +103,10 @@ h3 {
 
 const HerreroMenu = () => {
 
+    const token = localStorage.getItem("token")
+    console.log(jwtDecode(token))
+    const { user_name } = jwtDecode(token);
+
 
 
 
@@ -111,7 +116,7 @@ const HerreroMenu = () => {
             <HerreroNavBar />
             <Container>
                 <Encabezado>
-                    ¡BIENVENIDO, user.id.localStorage!
+                    ¡BIENVENIDO, {user_name.toUpperCase()}!
                 </Encabezado>
 
                 <SubTitulo> Novedades </SubTitulo>

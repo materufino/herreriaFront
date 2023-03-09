@@ -14,6 +14,9 @@ const ContainerPedidos = styled.div`
     width: 100%;
     display: flex;
     flex-wrap: wrap;
+    margin-top: 40px;
+    justify-content: center;
+    gap: 50px;
 `
 
 const Encabezado = styled.h1`
@@ -87,6 +90,7 @@ width: 100%;
 
 
 const HerreroTareasPendientes = () => {
+
     const token = localStorage.getItem("token")
     const { user_id } = jwtDecode(token);
     const [pedidos, setPedidos] = useState();
@@ -109,6 +113,11 @@ const HerreroTareasPendientes = () => {
 
     useEffect(() => {
         console.log('pedidos:', pedidos);
+        if (seleccionUsuario === 'Fabricaciones') {
+            setArrayPedidosFiltrados(pedidos.filter(pedido => pedido.task === 'Fabricación').filter((pedido) => pedido.order_status === "En proceso"))
+        } else if (seleccionUsuario === 'Reparaciones') {
+            setArrayPedidosFiltrados(pedidos.filter(pedido => pedido.task === 'Reparación').filter((pedido) => pedido.order_status === "En proceso"))
+        }
     }, [pedidos]);
 
     useEffect(() => {
@@ -119,15 +128,11 @@ const HerreroTareasPendientes = () => {
     function handleFabricaciones() {
         setSeleccionUsuario('Fabricaciones');
         setArrayPedidosFiltrados(pedidos.filter(pedido => pedido.task === 'Fabricación').filter((pedido) => pedido.order_status === "En proceso"))
-
-
     }
 
     function handleReparaciones() {
         setSeleccionUsuario('Reparaciones');
         setArrayPedidosFiltrados(pedidos.filter(pedido => pedido.task === 'Reparación').filter((pedido) => pedido.order_status === "En proceso"))
-        console.log(pedidos)
-
     }
 
 
@@ -158,13 +163,14 @@ const HerreroTareasPendientes = () => {
         if (res.data.fatal) {
             alert('Error en el server');
         } else {
-            alert('Estado global modificado con exito')
-            console.log(res.data)
+
+            const res = await axios.get(`http://localhost:3000/api/orders/user/${user_id}`)
+            setPedidos(res.data)
         }
     }
 
     const onHandleEstado1 = async (client_id, end_date, price, start_date, product_id, user_id, id, order_status, product_type, product_subtype, task, sub_task1, sub_task1_status, sub_task2, sub_task2_status, sub_task3, sub_task3_status, obs, nuevoSubTaskEstado) => {
-
+        console.log(nuevoSubTaskEstado)
         const res = await axios.put(`http://localhost:3000/api/orders/${id}`, {
             id: id,
             task: task,
@@ -188,14 +194,17 @@ const HerreroTareasPendientes = () => {
         if (res.data.fatal) {
             alert('Error en el server');
         } else {
-            alert('Estado subtask1 modificado con exito')
-            console.log(res.data)
+            console.log('Hola que tal')
+            const res = await axios.get(`http://localhost:3000/api/orders/user/${user_id}`)
+            setPedidos(res.data)
         }
 
     }
 
 
-    const onHandleEstado2 = async (client_id, end_date, price, start_date, product_id, user_id, id, order_status, product_type, product_subtype, task, sub_task1, sub_task1_status, sub_task2, sub_task2_status, sub_task3, sub_task3_status, obs, subTaskEstadoActual1, nuevoSubTaskEstado2) => {
+    const onHandleEstado2 = async (client_id, end_date, price, start_date, product_id, user_id, id, order_status, product_type, product_subtype, task, sub_task1, sub_task1_status, sub_task2, sub_task2_status, sub_task3, sub_task3_status, obs, nuevoSubTaskEstado2) => {
+        console.log(nuevoSubTaskEstado2)
+
         const res = await axios.put(`http://localhost:3000/api/orders/${id}`, {
             id: id,
             task: task,
@@ -219,8 +228,8 @@ const HerreroTareasPendientes = () => {
         if (res.data.fatal) {
             alert('Error en el server');
         } else {
-            alert('Estado subtask2 modificado con exito')
-            console.log(res.data)
+            const res = await axios.get(`http://localhost:3000/api/orders/user/${user_id}`)
+            setPedidos(res.data)
         }
 
     }
@@ -249,14 +258,16 @@ const HerreroTareasPendientes = () => {
         if (res.data.fatal) {
             alert('Error en el server');
         } else {
-            alert('Estado subtask2 modificado con exito')
-            console.log(res.data)
+            const res = await axios.get(`http://localhost:3000/api/orders/user/${user_id}`)
+            setPedidos(res.data)
         }
 
     }
 
 
     const handleTextArea = async (client_id, end_date, price, start_date, product_id, user_id, id, order_status, product_type, product_subtype, task, sub_task1, sub_task1_status, sub_task2, sub_task2_status, sub_task3, sub_task3_status, obs, mensaje) => {
+
+
         const res = await axios.put(`http://localhost:3000/api/orders/${id}`, {
             id: id,
             task: task,
@@ -278,8 +289,11 @@ const HerreroTareasPendientes = () => {
             sub_task3_status: sub_task3_status
         })
         if (res.data.fatal) {
-            /* alert('La observacion se modifico con exito') */
+            console.log(res.data.fatal)
+
         } else {
+            const res = await axios.get(`http://localhost:3000/api/orders/user/${user_id}`)
+            setPedidos(res.data)
 
         }
 
@@ -292,6 +306,7 @@ const HerreroTareasPendientes = () => {
 
         <div>
             <HerreroNavBar />
+
 
             <Encabezado>Pendientes</Encabezado>
             <OptionsContainer>

@@ -17,6 +17,9 @@ const ContainerPedidos = styled.div`
     width: 100%;
     display: flex;
     flex-wrap: wrap;
+    gap: 50px;
+    margin-top: 40px;
+    justify-content: center;
 `
 
 const Encabezado = styled.h1`
@@ -139,7 +142,6 @@ const HerreroTareasFinalizadas = () => {
     function handleReparaciones() {
         setSeleccionUsuario('Reparaciones');
         setArrayPedidosFiltrados(pedidos.filter(pedido => pedido.task === 'Reparación').filter((pedido) => pedido.order_status === "Finalizado"))
-        console.log(pedidos)
 
     }
 
@@ -168,8 +170,8 @@ const HerreroTareasFinalizadas = () => {
         if (res.data.fatal) {
             alert('Error en el server');
         } else {
-            alert('Estado global modificado con exito')
-            console.log(res.data)
+            const res = await axios.get(`http://localhost:3000/api/orders/user/${user_id}`)
+            setPedidos(res.data)
         }
     }
 

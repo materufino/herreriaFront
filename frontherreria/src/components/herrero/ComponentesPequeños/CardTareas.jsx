@@ -1,9 +1,6 @@
-import axios from "axios";
+
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useDebounce } from "react-use"
-import { useNavigate } from "react-router-dom";
-
 
 const Contenedor = styled.div`
 text-align: center;
@@ -11,8 +8,10 @@ background-color: #ffeda4;
 color: #3a1603;
 border: 1px solid #847f56;
 width: 400px;
+position: relative;
+height: 530px;
 border-radius: 5px;
-margin: auto;
+/* margin: auto; */
 margin-top: 10px;
 margin-bottom: 40px;
 h3 {
@@ -20,6 +19,10 @@ h3 {
     font-size: 24px;
     margin: 20px 0px;
 };
+h4{
+    margin-bottom: 10px;
+    font-family: 'Rakkas', cursive;
+}
 
 label{
     margin: 10px;
@@ -33,8 +36,6 @@ h5{
         text-align: center;
         font-size: 1.1rem;
         text-transform:uppercase;
-        font-family: 'Rakkas', cursive;
-
     }
 
 `
@@ -70,6 +71,8 @@ const Trabajos = styled.div`
     }
 `
 const ContenedorTextArea = styled.div`
+    position: absolute;
+    bottom: 70px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -82,22 +85,34 @@ const ContenedorTextArea = styled.div`
         
     }
     textarea{
-    width: 90%;
+    width: 75%;
     justify-content: center;
     margin: 10px;
     resize: none; 
     }
     button{
-        margin: 10px;
+        height: 25px;
+        align-items: center;
+        justify-content: center;
+        vertical-align: middle;
     }
     
 
+`
+const Boton = styled.button`
+    text-decoration: none;
+    margin-top:75px ;
+    display: flex;
+    padding: 15px 10px ;
+    margin-right: -7px;
+    margin-left: 7px;
+   
 `
 
 
 
 const CardTareas = ({ client_id, end_date, price, start_date, product_id, user_id, id, order_status, product_type, product_subtype, task, sub_task1, sub_task1_status, sub_task2, sub_task2_status, sub_task3, sub_task3_status, obs, readOnly, textoBoton, onCambiarEstado, onHandleEstado1, onHandleEstado2, onHandleEstado3, handleTextArea }) => {
-    const navigate = useNavigate();
+
 
     // Cambiar estado global del En proceso O FINALIZADO
 
@@ -120,7 +135,7 @@ const CardTareas = ({ client_id, end_date, price, start_date, product_id, user_i
     const [subTaskEstadoActual3, setSubTaskEstadoActual3] = useState(sub_task3_status)
 
     useEffect(() => {
-        console.log(subTaskEstadoActual1)
+
     }, [subTaskEstadoActual1])
 
     const handleEstado1 = async (event) => {
@@ -146,19 +161,20 @@ const CardTareas = ({ client_id, end_date, price, start_date, product_id, user_i
     //TextArea
 
     const [mensaje, setMensaje] = useState()
-    useDebounce(async (client_id, end_date, price, start_date, product_id, user_id, id, order_status, product_type, product_subtype, task, sub_task1, sub_task1_status, sub_task2, sub_task2_status, sub_task3, sub_task3_status, obs) => {
-        handleTextArea(client_id, end_date, price, start_date, product_id, user_id, id, order_status, product_type, product_subtype, task, sub_task1, sub_task1_status, sub_task2, sub_task2_status, sub_task3, sub_task3_status, obs, mensaje)
 
-
-    }, 500, [mensaje])
 
     return (
 
 
         <Contenedor>
 
+
+
+
+
+
             <h3> {product_type}: <span>{product_subtype}</span></h3>
-            <h5>ID : {id}</h5>
+            <h4>ID : {id}</h4>
 
 
             <Trabajos>
@@ -202,12 +218,21 @@ const CardTareas = ({ client_id, end_date, price, start_date, product_id, user_i
             <ContenedorTextArea>
 
                 <h4>Observaciones</h4>
-                <textarea defaultValue={obs} cols="30" rows="10" disabled={readOnly} onChange={(event) => setMensaje(event.target.value)}  ></textarea>
 
-                <button type="submit" className="sheen" onClick={() => cambiarEstado(id)}>{textoBoton}</button>
+                <textarea defaultValue={obs} cols="30" rows="10" disabled={readOnly} onBlur={e => setMensaje(e.target.value)} ></textarea>
+
+                <Boton onClick={() => handleTextArea(client_id, end_date, price, start_date, product_id, user_id, id, order_status, product_type, product_subtype, task, sub_task1, sub_task1_status, sub_task2, sub_task2_status, sub_task3, sub_task3_status, obs, mensaje)}><i class="fa-solid fa-feather"></i></Boton>
+
+
+
 
             </ContenedorTextArea>
 
+            <button style={{
+                marginBottom: "10px",
+                position: "absolute",
+                bottom: "10px"
+            }} type="submit" className="sheen" onClick={() => cambiarEstado(id)}>{textoBoton}</button>
 
         </Contenedor>
 

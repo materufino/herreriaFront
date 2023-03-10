@@ -8,7 +8,6 @@ import NavBarOptionBackground from '../../Assets/navbar-option-background.jpg'
 
 const HerreroNavBar = () => {
 
-
     const StyledNavBar = styled.nav`
     width: 100%;
     display: flex;
@@ -19,7 +18,6 @@ const HerreroNavBar = () => {
     height: 70px;
     align-items: center;
     padding-right: 20px;
-
     `
     const UlMenu = styled.ul`
     width: auto;
@@ -41,11 +39,7 @@ const HerreroNavBar = () => {
         font-size: 15px;
         
     }
- 
     `
-
-
-
     const [items, setItems] = useState([
         /* { label: 'Clientes', path: '/'} */
         { label: 'Inicio', path: '/menu/herrero' },
@@ -53,8 +47,6 @@ const HerreroNavBar = () => {
         { label: 'Pedidos finalizados', path: '/herrero/tareas/finalizadas' },
         { label: 'Cerrar sesión', path: '/home' }
     ]);
-
-
 
     return (
         <StyledNavBar>
@@ -76,11 +68,7 @@ const CustomLink = ({ to, children, ...props }) => {
         <Link className={isActive ? "active" : ""} to={to} {...props} >
             {children}
         </Link>
-
     );
 }
-
-
-
 
 export default HerreroNavBar;

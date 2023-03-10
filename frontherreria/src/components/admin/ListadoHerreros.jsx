@@ -1,9 +1,6 @@
 import AdminNavBar from "./AdminNavBar";
-import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
-
 import MenuOptionBackground from "../../Assets/navbar-option-background.jpg"
 import MenuOptionBackgroundHover from "../../Assets/navbar-option-background.jpg"
 import { useEffect, useState } from "react";
@@ -21,7 +18,6 @@ margin-bottom: 30px;
 flex-direction: column;
 align-items: center;
 width: 100%;
-/* height: 100vh; */
 `
 
 const ArtefactoForm = styled.form`
@@ -92,7 +88,9 @@ const ListadoHerreros = () => {
     useEffect(() => {
         const fetchData = async () => {
             const res = await axios.get("http://localhost:3000/api/users")
-            setArrHerreros(res.data)
+            setArrHerreros(res.data.filter(herrero => {
+                return herrero.rango !== "Admin"
+            }))
         }
         fetchData();
     }, [])

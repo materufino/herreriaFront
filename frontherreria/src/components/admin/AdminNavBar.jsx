@@ -4,7 +4,6 @@ import NavBarBackground from '../../Assets/navbar-background.jpeg'
 import NavBarOptionBackground from '../../Assets/navbar-option-background.jpg'
 import { useState } from "react";
 
-
 const AdminNavBar = () => {
 
     const StyledNavBar = styled.nav`
@@ -30,29 +29,12 @@ const AdminNavBar = () => {
     flex-wrap: nowrap;
     }`
 
-    /*     const UlMenu = styled.ul`
-        width: auto;
-        display: flex;
-        flex-direction: row;
-        justify-content: start;
-            @media (max-width: 1200px) { 
-                flex-direction: column;
-                display: ${navBarDisplay};
-                background-image: url(${NavBarBackground});
-                color: #f6ede6;
-                    :hover {
-                        
-                    }
-     }
-        ` */
-
     const LiMenu = styled.li`
     list-style: none;
     padding: 15px 15px;
     transition: 0.25s;
     color: #f6ede6;
    
- 
     :hover {
         text-shadow: 0 0 0.2em #fbdd1a, 0 0 0.2em #fbdd1a,0 0 0.2em #fbdd1a;
         cursor: pointer;
@@ -63,11 +45,9 @@ const AdminNavBar = () => {
             background-image: url(${NavBarBackground});
             :hover {
                 
-            }
-            
-            
- }
-    `
+            }           
+}
+`
 
     return (
         <StyledNavBar>

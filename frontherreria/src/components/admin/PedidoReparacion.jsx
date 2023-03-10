@@ -770,12 +770,10 @@ const PedidoReparacion = () => {
     return (
         <div>
             <AdminNavBar />
-
             <FormContainer>
                 <Encabezado>
                     REPARAR UN ARTEFACTO
                 </Encabezado>
-
                 <ArtefactoForm onSubmit={handleSubmit(registraCliente)}>
                     <FormTitle style={{ width: "100%", backgroundColor: "#ffd770", fontSize: "18px" }} >
                         CLIENTE
@@ -794,7 +792,6 @@ const PedidoReparacion = () => {
                     </ArtefactoRenglon>
                     <button style={{ marginLeft: "210px" }} className="submit sheen" type="submit">Registrar cliente</button>
                 </ArtefactoForm>
-
                 <ArtefactoForm onSubmit={handleSubmit(creaOrden)}>
                     <FormTitle style={{ width: "100%", backgroundColor: "#ffd770", fontSize: "18px" }} >
                         ARTEFACTO
@@ -927,7 +924,6 @@ const PedidoReparacion = () => {
                     <button style={{ marginLeft: "200px" }} className="submit sheen" type="submit">Agregar encargo</button>
                 </ArtefactoForm>
             </FormContainer>
-
         </div >
     );
 }

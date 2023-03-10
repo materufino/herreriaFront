@@ -1,11 +1,6 @@
 import AdminNavBar from "./AdminNavBar";
-import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
-
-import MenuOptionBackground from "../../Assets/menu-option-background2.png"
-import MenuOptionBackgroundHover from "../../Assets/menu-option-background-hover2.png"
 import { useEffect, useState } from "react";
 
 const Encabezado = styled.h1`
@@ -21,7 +16,6 @@ margin-bottom: 30px;
 flex-direction: column;
 align-items: center;
 width: 100%;
-/* height: 100vh; */
 `
 
 const ArtefactoForm = styled.form`
@@ -115,7 +109,6 @@ const Clientes = () => {
         const listadoTrabajosDeUnCliente = trabajosDeUnCliente.map(trabajo => trabajo.price)
         let total = listadoTrabajosDeUnCliente.reduce((a, b) => a + b, 0);
         return total
-
     }
 
     function compareNombre(a, b) {

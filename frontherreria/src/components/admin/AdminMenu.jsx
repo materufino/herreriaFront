@@ -10,8 +10,6 @@ import MenuOptionBackground from "../../Assets/menu-option-background.png"
 import MenuOptionBackgroundHover from "../../Assets/menu-option-background-hover.png"
 import jwtDecode from "jwt-decode";
 
-
-
 const Container = styled.div`
 display: flex;
 flex-direction: column;
@@ -88,9 +86,6 @@ const AdminMenu = () => {
     const { user_name } = jwtDecode(token);
 
     return (
-
-
-
         <div>
             <AdminNavBar />
             <Container>
@@ -105,7 +100,6 @@ const AdminMenu = () => {
                             <CardDiv>Accede a un menú para la gestión de reparaciones y fabricaciones</CardDiv>
                         </OptionCard>
                     </Link>
-
                     <Link to={'../pedidos/en_curso'}>
                         <OptionCard>
                             <CardImg style={{ marginLeft: '10px' }} src={PedidosEnCursoImg} />
@@ -113,7 +107,6 @@ const AdminMenu = () => {
                             <CardDiv style={{ marginLeft: '30px' }}>Muestra un listado de pedidos en curso y sus respectivos estados</CardDiv>
                         </OptionCard>
                     </Link>
-
                     <Link to={'../pedidos/terminados'}>
                         <OptionCard>
                             <CardImg style={{ marginLeft: '20px' }} src={PedidosTerminadosImg} />
@@ -121,7 +114,6 @@ const AdminMenu = () => {
                             <CardDiv>Muestra un listado de los pedidos que ya han sido terminados</CardDiv>
                         </OptionCard>
                     </Link>
-
                     <Link to={'../clientes'}>
                         <OptionCard>
                             <CardImg style={{ marginLeft: '20px' }} src={ClientesImg} />
@@ -129,7 +121,6 @@ const AdminMenu = () => {
                             <CardDiv>Muestra un listado de los clientes registrados hasta el momento</CardDiv>
                         </OptionCard>
                     </Link>
-
                     <Link to={'../herreros/'}>
                         <OptionCard>
                             <CardImg style={{ marginLeft: '20px' }} src={HerrerosImg} />
@@ -137,10 +128,10 @@ const AdminMenu = () => {
                             <CardDiv>Accede a un menú para la gestión de los Herreros</CardDiv>
                         </OptionCard>
                     </Link>
-
                 </OptionsContainer>
             </Container>
         </div>
     )
 }
+
 export default AdminMenu;

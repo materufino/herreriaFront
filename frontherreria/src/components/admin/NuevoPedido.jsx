@@ -1,14 +1,8 @@
-import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import AdminNavBar from "./AdminNavBar";
-import axios from "axios";
-
 import MenuOptionBackground from "../../Assets/navbar-option-background.jpg"
 import MenuOptionBackgroundHover from "../../Assets/navbar-option-background.jpg"
-
-
 
 const OptionsContainer = styled.div`
 width: 90%;
@@ -58,7 +52,6 @@ display: flex;
 flex-direction: column;
 align-items: center;
 width: 100%;
-/* height: 100vh; */
 `
 
 const EncabezadoH1 = styled.h1`
@@ -69,8 +62,6 @@ color: #3a1603;
 `
 
 const NuevoPedido = () => {
-
-
 
     return (
         <div>
@@ -94,11 +85,8 @@ const NuevoPedido = () => {
                     </Link>
                 </OptionsContainer>
             </FormContainer>
-
-
         </div>
     );
-
 }
 
 export default NuevoPedido;

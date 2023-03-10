@@ -1,9 +1,6 @@
 import AdminNavBar from "./AdminNavBar";
-import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
-
 import MenuOptionBackground from "../../Assets/menu-option-background.png"
 import MenuOptionBackgroundHover from "../../Assets/menu-option-background-hover.png"
 import { useEffect, useState } from "react";
@@ -21,7 +18,6 @@ margin-bottom: 30px;
 flex-direction: column;
 align-items: center;
 width: 100%;
-/* height: 100vh; */
 `
 
 const Select = styled.select`
@@ -65,7 +61,6 @@ padding-left: 150px;
     background-image: url(${MenuOptionBackgroundHover});
     background-size: cover;
     text-shadow: 0 0 0.2em #101010, 0 0 0.2em #050504,0 0 0.2em #0e0d0d;
-/*     cursor: pointer; */
     color: #ffeda4;
 }
 `
@@ -86,42 +81,14 @@ justify-content: start;
 gap: 10px;
 `
 
-const DivComentario = styled.div`
-width: 370px;
-margin-left: -50px;
-background-color: #948578;
-border-radius: 10px;
-height: auto;
-position: absolute;
-bottom: 110px;
-z-index: 3;
-font-size: 20px;
-padding: 20px;
-display: flex;
-flex-direction: column;
-gap: 20px;
-:last-child{
-    align-items: flex-end;
-}
-`
-
-const CruzButton = styled.button`
-position:absolute;
-right: 10px;
-top: 10px;
-background-color: #e07f3a;
-`
 const Icon = styled.i`
 font-size: 35px;
 `
-
-
 
 const PedidoEnCurso = () => {
 
     const [arrClientes, setArrClientes] = useState([]);
     const [arrHerreros, setArrHerreros] = useState([]);
-    const [comentarios, setComentarios] = useState('');
     const [arrOrdenes, setArrOrdenes] = useState([]);
 
     //GET CLIENTES
@@ -150,7 +117,6 @@ const PedidoEnCurso = () => {
         }
         fetchData();
     }, [])
-
 
     const asignaImagen = (subtype) => {
         return require(`../../Assets/${subtype.toLowerCase()}.jpg`)
@@ -216,12 +182,10 @@ const PedidoEnCurso = () => {
     return (
         <div>
             <AdminNavBar />
-
             <FormContainer>
                 <Encabezado>
                     PEDIDOS EN CURSO ({arrOrdenes.length})
                 </Encabezado>
-
                 <ArtefactoForm>
                     {arrOrdenes.map(orden =>
                         <CardHerrero key={orden.id}>
@@ -279,7 +243,6 @@ const PedidoEnCurso = () => {
             </FormContainer>
         </div>
     );
-
 }
 
 export default PedidoEnCurso;

@@ -1,4 +1,3 @@
-import { BrowserRouter, Link } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 import HerreroNavBar from "./HerreroNavBar";
@@ -46,7 +45,6 @@ width: 60%;
 margin-left: 10px;
 `
 
-
 const OptionCard = styled.div`
 background-image: url(${MenuOptionBackground});
 background-size: cover;
@@ -84,14 +82,10 @@ const Negrita = styled.span`
     font-weight: 900;
 `
 
-
-
 const TablonAnuncio = () => {
 
     const token = localStorage.getItem("token")
-    /*     console.log(jwtDecode(token)) */
     const { user_name } = jwtDecode(token);
-
     const [arrHerreros, setArrHerreros] = useState([]);
     const [arrOrdenes, setArrOrdenes] = useState([]);
 
@@ -122,13 +116,11 @@ const TablonAnuncio = () => {
     const ordenesReparacion = (arrOrdenes.filter(order => order.task == "Reparación")).length
     const totalOrdenes = arrOrdenes.length
 
-
     const dineroInvertido = () => {
         const preciosDeEncargos = arrOrdenes.map(trabajo => trabajo.price)
         let total = preciosDeEncargos.reduce((a, b) => a + b, 0);
         return total
     }
-
 
     function earningsByBlacksmith(order) {
         let earnings = order.reduce((acc, line) => {
@@ -171,21 +163,17 @@ const TablonAnuncio = () => {
 
     return (
         <div>
-
             <HerreroNavBar />
             <Container>
                 <Encabezado>
                     TABLÓN DE ANUNCIOS
                 </Encabezado>
-
                 <OptionsContainer>
-
                     <OptionCard>
                         <h3 style={{ marginTop: "40px" }}>Ingresos</h3>
                         <CardDiv>El trabajo honesto y la transparencia de nuestro esfuerzo debe comenzar por nosotros mismos. Por eso es que queremos compartir con ustedes, el corazón de nuestra fragua, los ingresos que lleva la herrería.  </CardDiv>
                         <CardDiv>Gracias a vosotros, la herrería ha recaudado un total de <Negrita> {dineroInvertido()} monedas de oro.</Negrita></CardDiv>
                     </OptionCard>
-
                     <OptionCard>
                         <h3 style={{ marginTop: "40px" }}>Resumen de encargos</h3>
                         <CardDiv>
@@ -211,26 +199,20 @@ const TablonAnuncio = () => {
                             Herramientas: <Negrita>{ordenesHerramientas} </Negrita>
                         </CardDiv>
                     </OptionCard>
-
                     <OptionCard>
                         <h3 style={{ marginTop: "40px" }} >El recaudador</h3>
                         <CardDiv>El verdadero Guardián de la Chispa y máximo recaudador de la forja hasta el momento es el <Negrita>  {winner && mostrarNombreHerrero(winner.user_id)} </Negrita> con <Negrita> {winner && winner.total} </Negrita> monedas de oro aportadas a nuestras arcas.</CardDiv>
                         <CardDiv>¡Felicitemos al <Negrita> {winner && mostrarNombreHerrero(winner.user_id)} </Negrita> por su incansable esfuerzo!</CardDiv>
                     </OptionCard>
-
                     <OptionCard>
                         <h3 style={{ marginTop: "40px" }}>Encargos completados</h3>
                         <CardDiv>Gracias al esfuerzo de todos vosotros, podemos decir orgullosamente que somos la herrería más grande de todo el Reino Visigodo debido a que <Negrita> hemos realizado  {ordenesFinalizadas}  encargos y contamos con {ordenesEnProceso} más en proceso.</Negrita></CardDiv>
                         <CardDiv>¡El Rey Teodorico nos ha dado su bendición reduciendo a la mitad nuestros impuestos!</CardDiv>
                     </OptionCard>
-
                 </OptionsContainer>
-
             </Container>
-
         </div>
     );
-
 }
 
 export default TablonAnuncio;

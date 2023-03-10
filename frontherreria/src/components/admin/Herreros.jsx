@@ -1,8 +1,6 @@
 import AdminNavBar from "./AdminNavBar";
 import styled from "styled-components";
-import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-
 import MenuOptionBackground from "../../Assets/menu-option-background2.png"
 import MenuOptionBackgroundHover from "../../Assets/menu-option-background-hover2.png"
 

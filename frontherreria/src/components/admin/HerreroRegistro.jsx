@@ -10,7 +10,6 @@ margin-bottom: 30px;
 flex-direction: column;
 align-items: center;
 width: 100%;
-/* height: 100vh; */
 `
 
 const Select = styled.select`
@@ -111,7 +110,6 @@ const HerreroRegistro = () => {
                             <option value="Maestro">Maestro</option>
                         </Select>
                     </ArtefactoRenglon>
-
                     <button className="submit sheen" type="submit">Registrar Herrero</button>
                 </ArtefactoForm>
             </FormContainer>

@@ -8,9 +8,7 @@ import MenuOptionBackgroundHover from "../../Assets/menu-option-background-hover
 import jwtDecode from "jwt-decode";
 import NuevasTecnologiasImg from '../../Assets/nuevas-tecnologias.png'
 import TablonAnunciosImg from '../../Assets/tablon-anuncios.png'
-
 import PedidosEnCursoImg from '../../Assets/pedidos-en-curso.png'
-
 
 const Container = styled.div`
 display: flex;
@@ -27,7 +25,6 @@ margin-top: 40px;
 margin-bottom: 40px;
 color: #3a1603;
 text-align: center;
-
 `
 
 const SubTitulo = styled.h3`
@@ -40,10 +37,7 @@ color: #3a1603;
 margin-top: 40px;
 margin-bottom: 40px;
 text-transform: uppercase;
-
 `
-
-
 
 const OptionsContainer = styled.div`
 width: 90%;
@@ -67,7 +61,6 @@ const CardDiv = styled.div`
 width: 60%;
 margin-left: 10px;
 `
-
 
 const OptionCard = styled.div`
 background-image: url(${MenuOptionBackground});
@@ -102,30 +95,21 @@ h3 {
  }
 `
 
-
-
-
 const HerreroMenu = () => {
 
     const token = localStorage.getItem("token")
     console.log(jwtDecode(token))
     const { user_name } = jwtDecode(token);
 
-
-
-
     return (
         <div>
-
             <HerreroNavBar />
             <Container>
                 <Encabezado>
                     ¡BIENVENIDO, {user_name.toUpperCase()}!
                 </Encabezado>
-
                 <SubTitulo> Novedades </SubTitulo>
                 <OptionsContainer>
-
                     <Link to='/herrero/tablon_anuncios'>
                         <OptionCard>
                             <CardImg src={TablonAnunciosImg} alt="" />
@@ -133,8 +117,6 @@ const HerreroMenu = () => {
                             <CardDiv>Aquí podrás ver las más recientes novedades de la herrería</CardDiv>
                         </OptionCard>
                     </Link>
-
-
                     <Link to='/herrero/tareas/pendientes'>
                         <OptionCard>
                             <CardImg style={{ marginLeft: '20px' }} src={PedidosEnCursoImg} alt="" />
@@ -142,21 +124,17 @@ const HerreroMenu = () => {
                             <CardDiv>Presiona aqui para ver todos tus pedidos pendientes</CardDiv>
                         </OptionCard>
                     </Link>
-
-
-                    <OptionCard>
-                        <CardImg style={{ marginLeft: '20px' }} src={NuevasTecnologiasImg} alt="" />
-                        <h3>Investigación</h3>
-                        <CardDiv>Detalles de los últimos avances en nuevos materiales</CardDiv>
-                    </OptionCard>
-
+                    <Link to='/herrero/investigacion'>
+                        <OptionCard>
+                            <CardImg style={{ marginLeft: '20px' }} src={NuevasTecnologiasImg} alt="" />
+                            <h3>Investigación</h3>
+                            <CardDiv>Detalles de los últimos avances en nuevos materiales</CardDiv>
+                        </OptionCard>
+                    </Link>
                 </OptionsContainer>
-
             </Container>
-
         </div>
     );
-
 }
 
 export default HerreroMenu;

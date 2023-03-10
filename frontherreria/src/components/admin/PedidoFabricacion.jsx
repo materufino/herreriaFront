@@ -617,8 +617,6 @@ const PedidoFabricacion = () => {
         setNombreCliente(nombreCliente)
     }
 
-
-
     const modificaDemora = (e) => {
         const index = todosLosHerrerosPorId.indexOf(parseInt(e.target.value))
         const rango = arrHerreros[index].rango
@@ -635,7 +633,6 @@ const PedidoFabricacion = () => {
         setFechaEntrega(dayjs().add(demoraTotal, "hour").format("DD/MM/YYYY - hh:mm A", 'es'))
     }
 
-
     const cambiaTipoDeObjeto = (e) => {
         switch (e.target.value) {
             case 'Armas': setTipoDeObjeto([...armas])
@@ -650,7 +647,6 @@ const PedidoFabricacion = () => {
             default:
         }
     }
-
 
     const demora = (e) => {
         if (e) {
@@ -674,7 +670,6 @@ const PedidoFabricacion = () => {
         setHorasTrabajo(demora(e))
         setPrecioArtefacto(precio(e))
     }
-
 
     const { register, handleSubmit, reset } = useForm();
     const navigate = useNavigate();
@@ -715,12 +710,10 @@ const PedidoFabricacion = () => {
     return (
         <div>
             <AdminNavBar />
-
             <FormContainer>
                 <Encabezado>
                     FABRICAR UN ARTEFACTO
                 </Encabezado>
-
                 <ArtefactoForm onSubmit={handleSubmit(registraCliente)}>
                     <FormTitle style={{ width: "100%", backgroundColor: "#ffd770", fontSize: "18px" }} >
                         CLIENTE
@@ -739,7 +732,6 @@ const PedidoFabricacion = () => {
                     </ArtefactoRenglon>
                     <button style={{ marginLeft: "210px" }} className="submit sheen" type="submit">Registrar cliente</button>
                 </ArtefactoForm>
-
                 <ArtefactoForm onSubmit={handleSubmit(creaOrden)}>
                     <FormTitle style={{ width: "100%", backgroundColor: "#ffd770", fontSize: "18px" }} >
                         ARTEFACTO
@@ -779,43 +771,6 @@ const PedidoFabricacion = () => {
                             )};
                         </Select>
                     </ArtefactoRenglon>
-                    {/*  <ArtefactoRenglon>
-                        <label>Trabajo 1</label>
-                        <Select {...register('sub_task1')} onChange={(e) => agregarBoton1(e)} id="trabajo1">
-                            <option hidden defaultValue>Selecciona trabajos a realizar</option>
-                            {trabajos.map(trabajo =>
-                                <option key={trabajo} value={trabajo}> {trabajo}
-                                </option>)};
-                        </Select>
-                    </ArtefactoRenglon>
-                    {trabajosSeleccionados[0] !== null && (
-                        <ArtefactoRenglon>
-                            <label>Trabajo 2</label>
-                            <Select {...register('sub_task2')} onChange={(e) => { agregarBoton2(e) }} id="trabajo2">
-                                <option hidden defaultValue></option>
-                                {trabajos.filter(t => {
-                                    return t !== trabajosSeleccionados[0]
-                                }
-                                ).map(trabajo =>
-                                    <option key={trabajo} value={trabajo}> {trabajo}
-                                    </option>)};
-                            </Select>
-                        </ArtefactoRenglon>
-                    )}
-                    {trabajosSeleccionados[1] !== null && (
-                        <ArtefactoRenglon>
-                            <label>Trabajo 3</label>
-                            <Select {...register('sub_task3')} onChange={(e) => { agregarBoton3(e) }} id="trabajo3">
-                                <option hidden defaultValue></option>
-                                {trabajos.filter(t => {
-                                    return t !== trabajosSeleccionados[0] && t !== trabajosSeleccionados[1]
-                                }
-                                ).map(trabajo =>
-                                    <option key={trabajo} value={trabajo}> {trabajo}
-                                    </option>)};
-                            </Select>
-                        </ArtefactoRenglon>
-                    )} */}
                     <ArtefactoRenglon>
                         <label>Herrero asignado</label>
                         <Select  {...register('user_id')} onChange={(e) => { modificaDemora(e) }} id="herrero_asignado">
@@ -838,7 +793,6 @@ const PedidoFabricacion = () => {
                         <Input type="number" style={{ width: "30px", marginLeft: "115px" }} value={precioArtefacto} disabled />
                         <p>monedas de oro</p>
                     </ArtefactoRenglon>
-
                     <DivNoMostrar>
                         <ArtefactoRenglon>
                             <label>Tarea</label>
@@ -872,7 +826,6 @@ const PedidoFabricacion = () => {
                     <button style={{ marginLeft: "200px" }} className="submit sheen" type="submit">Agregar encargo</button>
                 </ArtefactoForm>
             </FormContainer>
-
         </div >
     );
 }

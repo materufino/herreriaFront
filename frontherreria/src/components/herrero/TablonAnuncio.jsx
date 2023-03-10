@@ -8,13 +8,14 @@ import jwtDecode from "jwt-decode";
 import NavBarBackground from '../../Assets/navbar-background.jpeg'
 
 const Container = styled.div`
+background-image: url(${NavBarBackground});
+    background-size:contain;
+    background-repeat:repeat-y;
 display: flex;
 flex-direction: column;
 align-items: center;
-    background-image: url(${NavBarBackground});
-    background-size: contain;
-width: 100%;
-height: 100vh;
+    width: 100%;
+height: auto;
 `
 
 const Encabezado = styled.h1`

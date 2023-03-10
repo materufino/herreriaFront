@@ -7,46 +7,47 @@ import { useState } from "react";
 const AdminNavBar = () => {
 
     const StyledNavBar = styled.nav`
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: end;
-    background-image: url(${NavBarBackground});
-    font-size: 26px;
-    height: 70px;
-    align-items: center;
-    padding-right: 20px;
-    
-    @media (min-width: 425px) { 
-    flex-wrap: wrap;
- }
-    @media (max-width: 1200px) { 
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: flex-end;
-    }
-    @media (min-width: 1850px) { 
-    flex-wrap: nowrap;
-    }`
+       background-image: url(${NavBarBackground}); 
+   @media (max-width:600px){
+    display:grid;
+    grid-template-columns:repeat(3, 33.3%);
+ 
+  text-align:left;
+  font-size:18px;
+    } 
+  @media (min-width:600px)and (max-width:800px){
+    display:grid;
+    grid-template-columns:repeat(4, 25%);
+  
+       font-size:18px;
+    text-align:left;
+           } 
+  @media (min-width:800px){
+    display:grid;
+    grid-template-columns:repeat(7, 1fr);
+          font-size:15px;
+    text-align:left;
+    font-size:20px;
+  }
+     @media (min-width: 1850px) { 
+    font-size:24px;
+    } `
 
     const LiMenu = styled.li`
     list-style: none;
     padding: 15px 15px;
     transition: 0.25s;
     color: #f6ede6;
-   
+      
     :hover {
         text-shadow: 0 0 0.2em #fbdd1a, 0 0 0.2em #fbdd1a,0 0 0.2em #fbdd1a;
         cursor: pointer;
     }
-        @media (max-width: 1200px) { 
-    color: #f6ede6;
-            width: 100px;
-            background-image: url(${NavBarBackground});
-            :hover {
-                
-            }           
-}
+        @media (max-width: 800px) { 
+               width: 150px;
+             
+                        
+} 
 `
 
     return (

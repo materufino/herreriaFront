@@ -9,36 +9,22 @@ import NavBarOptionBackground from '../../Assets/navbar-option-background.jpg'
 const HerreroNavBar = () => {
 
     const StyledNavBar = styled.nav`
-    background-image: url(${NavBarBackground}); 
-   
-    @media (max-width:600px){
-    display:grid;
-    grid-template-columns:repeat(2, 1fr);
-   text-align:center;
-  font-size:18px;
-    } 
-    @media (min-width:600px)and (max-width:800px){
-    display:grid;
-    grid-template-columns:repeat(4, 1fr);
-    font-size:18px;
-    text-align:center;
-           } 
-           @media (min-width:800px){
-    display:grid;
-    grid-template-columns:repeat(4, 1fr);
-      text-align:center;
-    font-size:20px;
-  }
-  @media (min-width: 1850px) { 
-     font-size:24px;
-    }
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    background-image: url(${NavBarBackground});
+    font-size: 26px;
+    height: 70px;
+    align-items: center;
+    padding-right: 20px;
     `
     const UlMenu = styled.ul`
-      width: auto;
-      display: flex;
-      flex-direction: row;
-      justify-content: start;
-      `
+    width: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    `
 
     const LiMenu = styled.li`
     list-style: none;

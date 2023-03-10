@@ -9,13 +9,12 @@ import NavBarBackground from '../../Assets/navbar-background.jpeg'
 
 const Container = styled.div`
 background-image: url(${NavBarBackground});
-    background-size:contain;
-    background-repeat:repeat;
+    background-size:cover;
 display: flex;
 flex-direction: column;
 align-items: center;
     width: 100%;
-height: auto;
+height: 100vh;
 `
 
 const Encabezado = styled.h1`

@@ -69,8 +69,8 @@ animation-name: shadow;
     
  }
  @media(min-width:1200px){
-  margin-top:50px;
-  font-size:40px;
+  margin-top:170px;
+  font-size:60px;
  }
 `
 

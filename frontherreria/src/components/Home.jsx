@@ -153,8 +153,6 @@ const Home = () => {
             user_rango === 'Admin' ? navigate('../menu/admin') : navigate('../menu/herrero')
         }
         else {
-            const userData = (jwtDecode(res.data.token));
-            console.log(userData);
             setError(res.data.fatal);
 
         }
@@ -182,11 +180,6 @@ const Home = () => {
                         <input {...register('password')} type="password" />
                     </LabelInputContainer>
                     <LoginButton className="sheen" type="submit">INGRESAR</LoginButton>
-                    <Link to={'../menu/admin'}>
-                        <DivCreaCuenta>
-                            ¿Aún no tienes cuenta? Pulsa aquí.
-                        </DivCreaCuenta>
-                    </Link>
                 </User>
             </LoginForm>
         </Container>

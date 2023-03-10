@@ -10,7 +10,7 @@ import NavBarBackground from '../../Assets/navbar-background.jpeg'
 const Container = styled.div`
 background-image: url(${NavBarBackground});
     background-size:contain;
-    background-repeat:repeat-y;
+    background-repeat:repeat;
 display: flex;
 flex-direction: column;
 align-items: center;
